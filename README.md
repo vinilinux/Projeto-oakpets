@@ -29,6 +29,7 @@ Para rodar o repositório é necessário clonar o mesmo, dar o seguinte comando 
         </sub>
       </a>
     </td>
+
     <td align="center">
       <a href="https://github.com/Vinidsg">
         <img src="https://avatars.githubusercontent.com/u/61765755?v=4" width="100px;" alt="Foto de Vinicius Garcia no GitHub"/><br>
@@ -37,7 +38,6 @@ Para rodar o repositório é necessário clonar o mesmo, dar o seguinte comando 
         </sub>
       </a>
     </td>
-
   </tr>
 </table>
 
