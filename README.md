@@ -22,18 +22,42 @@ Para rodar o repositório é necessário clonar o mesmo, dar o seguinte comando 
 <table>
   <tr>
     <td align="center">
-      <a href=""https://github.com/vinilinux>
-        <img src="https://avatars.githubusercontent.com/vinilinux.png" width="100px;" alt="Foto de Vinicius Lima no GitHub"/><br>
+      <a href="https://github.com/vinilinux">
+        <img src="https://avatars.githubusercontent.com/u/61031520?v=4" width="100px;" alt="Foto de Vinicius Lima no GitHub"/><br>
         <sub>
           <b>vinilinux</b>
         </sub>
       </a>
     </td>
     <td align="center">
-      <a href="http://github.com/tatialveso">
-        <img src="https://avatars.githubusercontent.com/u/56259137?v=4" width="100px;" alt="Foto de Tati Alves no GitHub"/><br>
+      <a href="https://github.com/Pidgeott">
+        <img src="https://avatars.githubusercontent.com/u/37540388?v=4" width="100px;" alt="Foto de Matheus Lima no GitHub"/><br>
         <sub>
-          <b>tatialveso</b>
+          <b>Pidgeott</b>
+        </sub>
+      </a>
+    </td>
+    <td align="center">
+      <a href="https://github.com/wrqcode">
+        <img src="https://avatars.githubusercontent.com/u/67549417?v=4" width="100px;" alt="Foto de William Ribeiro no GitHub"/><br>
+        <sub>
+          <b>wrqcode</b>
+        </sub>
+      </a>
+    </td>
+    <td align="center">
+      <a href="https://github.com/Vinidsg">
+        <img src="https://avatars.githubusercontent.com/u/61765755?v=4" width="100px;" alt="Foto de Vinicius Garcia no GitHub"/><br>
+        <sub>
+          <b>Vinidsg</b>
+        </sub>
+      </a>
+    </td>
+    <td align="center">
+      <a href="https://github.com/Ciuverlania">
+        <img src="https://avatars.githubusercontent.com/u/101847643?v=4" width="100px;" alt="Foto de Ciuverlania Andrade no GitHub"/><br>
+        <sub>
+          <b>Ciuverlania</b>
         </sub>
       </a>
     </td>
