@@ -15,10 +15,17 @@ public class ProductController {
 
     @Autowired
     private ProductRepository repository;
-    @GetMapping
+
+    /*@GetMapping
     public List<Product> findAll() {
         List<Product> result = repository.findAll();
         return result;
-    }
+    }*/
 
+    //Faz o select e trás somente a imagem Default para a lista
+    @GetMapping
+    public List<Product> findAllWithMainImages() {
+        List<Product> result = repository.findAllWithMainImages();
+        return result;
+    }
 }

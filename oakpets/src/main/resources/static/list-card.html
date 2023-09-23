@@ -1,21 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="card.css">
-    <title>Card - Exemplo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.4/font/bootstrap-icons.css">
+    <link rel="stylesheet" type="text/css" href="CSS/card.css">
+    <script src="JS/list-card.js" defer></script>
+    <title>OakPets - Produtos</title>
 </head>
+
 <body>
 
-<div class="product-card">
-    <img src="./img/lain.jpg" alt="Imagem do Produto">
-    <div class="product-content">
-        <h2 class="product-title">Nome do Produto</h2>
-        <p class="product-price">Preço</p>
-        <a href="#" class="details-button">Detalhes</a>
-    </div>
-</div>
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <img class="logo" src="./Images/LogoSemFundo.png" alt="Logo">
+            </a>
 
+            <div class="">
+                <a class="navbar-brand" href="#">
+                    <i class="bi bi-cart me-3"></i>
+                </a>
+                <a class="navbar-brand" href="#">
+                    <i class="bi bi-person-circle"></i>
+                    Entre ou cadastre-se
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div id="product-list">
+
+        </div>
+    </div>
 </body>
+
 </html>
