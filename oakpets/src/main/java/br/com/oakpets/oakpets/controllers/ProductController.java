@@ -28,6 +28,7 @@ public class ProductController {
     @GetMapping("/{id}/details")
     public ResponseEntity FindByID(@PathVariable Long id) {
         Optional<Product> product = service.searchProduct(id);
+        System.out.println(product.get().getRate());
 
         if (product.isPresent()) {
             return ResponseEntity.ok(product);
