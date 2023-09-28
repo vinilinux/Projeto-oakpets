@@ -1,29 +1,17 @@
 async function fetchProducts() {
     try {
-        const response = await fetch('/products');
-        const products = await response.json();
+        const response = await fetch('/products/${id}/details');
+        const products_detais = await response.json();
 
         const productList = document.getElementById('product-list');
         productList.innerHTML = '';
 
-        let currentRow;
-        let productCount = 0;
-
-        products.forEach((product, index) => {
-            if (productCount % 3 === 0) {
-
-                currentRow = document.createElement('div');
-                currentRow.classList.add('row');
-                productList.appendChild(currentRow);
-            }
-
-            const productCard = document.createElement('div');
-            productCard.classList.add('product-card', 'col-md-4');
-
-            const productImage = document.createElement('img');
+            /*const productImage = document.createElement('img');
             productImage.src = product.images[0].image_path;
             productImage.alt = 'Imagem do Produto';
             productImage.classList.add('img-fluid');
+
+             */
 
             const productContent = document.createElement('div');
             productContent.classList.add('product-content');
