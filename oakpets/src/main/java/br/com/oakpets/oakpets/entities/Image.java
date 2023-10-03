@@ -14,16 +14,16 @@ public class Image {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "IMAGE_ID")
-    private String id_image;
+    private String idImage;
 
     @Column(name = "IMAGE_PRODUCT_PATH")
-    private String image_path;
+    private String imagePath;
 
     @Column(name = "IMAGE_DEFAULT")
-    private String image_default;
+    private String imageDefault;
 
     @ManyToOne
     @JoinColumn(name = "ID_PRODUCT")
     @JsonIgnore
-    private Product id_product;
+    private Product idProduct;
 }

@@ -16,7 +16,7 @@ public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID_PRODUCT")
-    private Long id_product;
+    private Long id;
 
     @Column(name = "NAME_PRODUCT")
     private String name;
@@ -36,6 +36,6 @@ public class Product {
     @Column(name = "AMOUNT_PRODUCT")
     private int amount;
 
-    @OneToMany(mappedBy = "id_product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "idProduct", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Image> images = new ArrayList<>();
 }
