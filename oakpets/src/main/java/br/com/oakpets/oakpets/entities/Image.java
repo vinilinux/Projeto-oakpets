@@ -2,12 +2,11 @@ package br.com.oakpets.oakpets.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
-@Getter @Setter @NoArgsConstructor @AllArgsConstructor
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "TBL_PRODUCT_IMAGE")
 public class Image {
@@ -15,16 +14,16 @@ public class Image {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "IMAGE_ID")
-    private String id_image;
+    private String idImage;
 
     @Column(name = "IMAGE_PRODUCT_PATH")
-    private String image_path;
+    private String imagePath;
 
     @Column(name = "IMAGE_DEFAULT")
-    private String image_default;
+    private String imageDefault;
 
     @ManyToOne
     @JoinColumn(name = "ID_PRODUCT")
     @JsonIgnore
-    private Product id_product;
+    private Product idProduct;
 }

@@ -38,7 +38,7 @@ async function fetchProducts() {
 
             const detailsButton = document.createElement('a');
             detailsButton.classList.add('details-button', 'btn', 'btn-primary');
-            detailsButton.href = 'visualizarProduto.html';
+            detailsButton.href = `visualizarProduto.html?id=${product.id_product}`;
             detailsButton.textContent = 'Detalhes';
 
             productContent.appendChild(productTitle);

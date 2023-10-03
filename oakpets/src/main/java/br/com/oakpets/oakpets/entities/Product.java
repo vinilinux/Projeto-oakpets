@@ -1,15 +1,14 @@
 package br.com.oakpets.oakpets.entities;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Getter @Setter @NoArgsConstructor @AllArgsConstructor
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "TBL_PRODUCT")
 public class Product {
@@ -17,7 +16,7 @@ public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID_PRODUCT")
-    private String id_product;
+    private Long id;
 
     @Column(name = "NAME_PRODUCT")
     private String name;
@@ -37,6 +36,6 @@ public class Product {
     @Column(name = "AMOUNT_PRODUCT")
     private int amount;
 
-    @OneToMany(mappedBy = "id_product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "idProduct", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Image> images = new ArrayList<>();
 }

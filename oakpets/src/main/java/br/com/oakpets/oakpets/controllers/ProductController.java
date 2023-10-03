@@ -2,12 +2,14 @@ package br.com.oakpets.oakpets.controllers;
 
 import br.com.oakpets.oakpets.entities.Product;
 import br.com.oakpets.oakpets.repositories.ProductRepository;
+import br.com.oakpets.oakpets.services.ProductService;
+import br.com.oakpets.oakpets.services.impl.ProductserviceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping(value = "/products")
@@ -15,17 +17,23 @@ public class ProductController {
 
     @Autowired
     private ProductRepository repository;
+    @Autowired
+    private ProductService service;
 
-    /*@GetMapping
-    public List<Product> findAll() {
-        List<Product> result = repository.findAll();
-        return result;
-    }*/
-
-    //Faz o select e trás somente a imagem Default para a lista
     @GetMapping
     public List<Product> findAllWithMainImages() {
         List<Product> result = repository.findAllWithMainImages();
         return result;
+    }
+    @GetMapping("/{id}/details")
+    public ResponseEntity FindByID(@PathVariable Long id) {
+        Optional<Product> product = service.searchProduct(id);
+
+        if (product.isPresent()) {
+            return ResponseEntity.ok(product);
+        } else {
+            return ResponseEntity.badRequest().body("Produto não encontrado");
+        }
+
     }
 }
