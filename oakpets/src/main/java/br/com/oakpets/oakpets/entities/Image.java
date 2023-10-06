@@ -14,7 +14,7 @@ public class Image {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "IMAGE_ID")
-    private String idImage;
+    private Long idImage;
 
     @Column(name = "IMAGE_PRODUCT_PATH")
     private String imagePath;

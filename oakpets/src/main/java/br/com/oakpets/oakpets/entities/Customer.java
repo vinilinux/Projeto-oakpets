@@ -36,7 +36,7 @@ public class Customer {
     @Column(name = "PASSWORD")
     private String password;
 
-    @Column(name = "GENEDER")
+    @Column(name = "GENDER")
     private String gender;
 
     @OneToMany(mappedBy = "idCustomer", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
