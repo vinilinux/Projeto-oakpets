@@ -34,7 +34,7 @@ public class ProductRepositoryTest {
         Optional<Product> product = repository.findById(1L);
         if (product.isPresent()) {
             Product produtoEncontrado = product.get();
-            System.out.println("ID do Produto: " + produtoEncontrado.getId_product());
+            System.out.println("ID do Produto: " + produtoEncontrado.getId());
             System.out.println("Nome do Produto: " + produtoEncontrado.getName());
             System.out.println("Descrição do Produto: " + produtoEncontrado.getDescription());
             System.out.println("Status do Produto: " + produtoEncontrado.getStatus());
@@ -45,8 +45,8 @@ public class ProductRepositoryTest {
             List<Image> images = produtoEncontrado.getImages();
             if (images != null) {
                 for (Image image : images) {
-                    System.out.println("ID da Imagem: " + image.getImage_path());
-                    System.out.println("Image Default " + image.getImage_default());
+                    System.out.println("ID da Imagem: " + image.getImagePath());
+                    System.out.println("Image Default " + image.getImageDefault());
                 }
             } else {
                 System.out.println("Nenhuma imagem associada a este produto.");

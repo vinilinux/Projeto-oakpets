@@ -57,4 +57,33 @@ async function fetchProducts() {
     }
 }
 
+
+
+
+function updateUIBasedOnLoginStatus() {
+    const userName = localStorage.getItem("userName");
+    const userStatusElement = document.getElementById('userStatus');
+    const logoutLink = document.getElementById('logoutLink');
+
+    if (userName) {
+        userStatusElement.innerHTML = `<i class="bi bi-person-circle"></i> ${userName}`;
+        logoutLink.style.display = 'inline';
+    } else {
+        userStatusElement.innerHTML = `<a href="./login-customer.html"><i class="bi bi-person-circle"></i> Entre ou cadastre-se</a>`;
+        logoutLink.style.display = 'none';
+    }
+}
+
+
+function handleLogout() {
+    const confirmation = confirm("Deseja realmente sair?");
+    if (confirmation) {
+        localStorage.removeItem("userName");
+        updateUIBasedOnLoginStatus();
+        window.location.href = "./login-customer.html";
+    }
+}
+
+
 fetchProducts();
+updateUIBasedOnLoginStatus();
