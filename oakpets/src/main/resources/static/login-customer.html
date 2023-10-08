@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulário de Login - Oakpets</title>
+    <link rel="stylesheet" type="text/css" href="./CSS/login-customer.css">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body>
+
+
+<div class="login-card">
+    <form action="/api/login" method="post">
+        <span id="loginError" style="color: red; display: none; font-size: 15px;
+          margin-top: -10px; margin-bottom: 5px;"></span>
+
+        <input type="email" name="email" placeholder="E-mail" class="login-input" required>
+        <input type="password" name="password" placeholder="Senha" class="login-input" required>
+        <button type="submit" class="login-button">Entrar</button>
+        <div class="register-link">
+            Não é cadastrado? <a href="/path_to_registration">Clique aqui para se registrar</a>
+        </div>
+    </form>
+
+</div>
+<script src="./JS/login-customer.js"></script>
+</body>
+</html>
