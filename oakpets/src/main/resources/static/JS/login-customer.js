@@ -4,6 +4,7 @@ document.querySelector(".login-card form").addEventListener("submit", function(e
 
     const email = document.querySelector("input[name='email']").value;
     const password = document.querySelector("input[name='password']").value;
+    const loginError = document.getElementById('loginError');
 
     axios.post('/api/login', {
         email: email,
@@ -16,9 +17,11 @@ document.querySelector(".login-card form").addEventListener("submit", function(e
             }
         })
         .catch(function (error) {
-            alert("Falha no login. Por favor, tente novamente.");
+            loginError.textContent = "Falha no login. Por favor, tente novamente.";
+            loginError.style.display = "block";
         });
 });
+
 
 function login(email, password) {
     axios.post('/api/login', {
@@ -32,7 +35,6 @@ function login(email, password) {
             }
         })
         .catch(function (error) {
-            // Trate erros de login aqui
             console.error("Erro no login:", error);
         });
 }

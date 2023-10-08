@@ -12,6 +12,9 @@
 
 <div class="login-card">
     <form action="/api/login" method="post">
+        <span id="loginError" style="color: red; display: none; font-size: 15px;
+          margin-top: -10px; margin-bottom: 5px;"></span>
+
         <input type="email" name="email" placeholder="E-mail" class="login-input" required>
         <input type="password" name="password" placeholder="Senha" class="login-input" required>
         <button type="submit" class="login-button">Entrar</button>
