@@ -22,8 +22,7 @@ public class ProductController {
 
     @GetMapping
     public List<Product> findAllWithMainImages() {
-        List<Product> result = repository.findAllWithMainImages();
-        return result;
+        return service.findAllWithMainImages();
     }
     @GetMapping("/{id}/details")
     public ResponseEntity FindByID(@PathVariable Long id) {
