@@ -8,12 +8,12 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "TBL_PRODUCT_IMAGE")
+@Table(name = "tbl_product_image")
 public class Image {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "IMAGE_ID")
+    @Column(name = "ID_IMAGE")
     private String idImage;
 
     @Column(name = "IMAGE_PRODUCT_PATH")
