@@ -1,9 +1,8 @@
-package br.com.oakpets.oakpets.entities;
+package br.com.oakpets.oakpets.usuario.entities;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -35,7 +34,7 @@ public class User implements UserDetails {
     @Column(name = "EMAIL")
     @Email(message = "{email.not.valid}")
     @NotBlank(message = "{email.not.blank}")
-    private String email;
+    private String login;
 
     @Column(name = "PASSWORD")
     @NotBlank(message = "{senha.not.blank}")
@@ -50,8 +49,17 @@ public class User implements UserDetails {
     private String status;
 
     @Column(name = "ROLE")
-    @NotBlank
+    @Enumerated(EnumType.STRING)
     private UserRole role;
+
+    public User(String name, String login, String password, String cpf, String status, UserRole role) {
+        this.name = name;
+        this.login = login;
+        this.password = password;
+        this.cpf = cpf;
+        this.status = status;
+        this.role = role;
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -61,8 +69,13 @@ public class User implements UserDetails {
     }
 
     @Override
+    public String getPassword() {
+        return password;
+    }
+
+    @Override
     public String getUsername() {
-        return email;
+        return login;
     }
 
     @Override
@@ -82,6 +95,9 @@ public class User implements UserDetails {
 
     @Override
     public boolean isEnabled() {
+
+        if(this.status.equals("inativo")) return false;
+
         return true;
     }
 }

@@ -1,4 +1,4 @@
-package br.com.oakpets.oakpets.entities;
+package br.com.oakpets.oakpets.produto.entities;
 
 import jakarta.persistence.*;
 import lombok.*;

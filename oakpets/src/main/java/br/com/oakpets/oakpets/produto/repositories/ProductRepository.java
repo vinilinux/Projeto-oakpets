@@ -1,6 +1,6 @@
-package br.com.oakpets.oakpets.repositories;
+package br.com.oakpets.oakpets.produto.repositories;
 
-import br.com.oakpets.oakpets.entities.Product;
+import br.com.oakpets.oakpets.produto.entities.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

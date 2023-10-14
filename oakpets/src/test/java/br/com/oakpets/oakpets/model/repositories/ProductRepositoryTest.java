@@ -1,16 +1,13 @@
 package br.com.oakpets.oakpets.model.repositories;
 
-import br.com.oakpets.oakpets.entities.Image;
-import br.com.oakpets.oakpets.entities.Product;
-import br.com.oakpets.oakpets.repositories.ProductRepository;
+import br.com.oakpets.oakpets.produto.entities.Image;
+import br.com.oakpets.oakpets.produto.entities.Product;
+import br.com.oakpets.oakpets.produto.repositories.ProductRepository;
 import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
@@ -34,7 +31,7 @@ public class ProductRepositoryTest {
         Optional<Product> product = repository.findById(1L);
         if (product.isPresent()) {
             Product produtoEncontrado = product.get();
-            System.out.println("ID do Produto: " + produtoEncontrado.getId_product());
+            System.out.println("ID do Produto: " + produtoEncontrado.getIdProduct());
             System.out.println("Nome do Produto: " + produtoEncontrado.getName());
             System.out.println("Descrição do Produto: " + produtoEncontrado.getDescription());
             System.out.println("Status do Produto: " + produtoEncontrado.getStatus());
@@ -45,8 +42,8 @@ public class ProductRepositoryTest {
             List<Image> images = produtoEncontrado.getImages();
             if (images != null) {
                 for (Image image : images) {
-                    System.out.println("ID da Imagem: " + image.getImage_path());
-                    System.out.println("Image Default " + image.getImage_default());
+                    System.out.println("ID da Imagem: " + image.getIdImage());
+                    System.out.println("Image Default " + image.getImageDefault());
                 }
             } else {
                 System.out.println("Nenhuma imagem associada a este produto.");

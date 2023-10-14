@@ -1,8 +1,8 @@
-package br.com.oakpets.oakpets.entities;
+package br.com.oakpets.oakpets.usuario.entities;
 
 public enum UserRole {
     ADMIN("admin"),
-    ESTOQUE("estoque");
+    USER("user");
 
     private String role;
 

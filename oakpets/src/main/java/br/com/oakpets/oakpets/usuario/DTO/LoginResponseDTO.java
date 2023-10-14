@@ -1,2 +1,4 @@
-package br.com.oakpets.oakpets.usuario.DTO;public record LoginResponseDTO() {
+package br.com.oakpets.oakpets.usuario.DTO;
+
+public record LoginResponseDTO(String token) {
 }

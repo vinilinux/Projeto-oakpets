@@ -1,9 +1,9 @@
-package br.com.oakpets.oakpets.services.impl;
+package br.com.oakpets.oakpets.usuario.service;
 
-import br.com.oakpets.oakpets.entities.User;
-import br.com.oakpets.oakpets.repositories.UserRepository;
-import br.com.oakpets.oakpets.services.UserService;
+import br.com.oakpets.oakpets.usuario.entities.User;
+import br.com.oakpets.oakpets.usuario.repository.UserRepository;
 import jakarta.transaction.Transactional;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -14,50 +14,22 @@ import java.util.List;
 import java.util.Optional;
 @Service
 public class UserServiceImpl implements UserService, UserDetailsService {
+    @Autowired
     private  UserRepository repository;
-    private final PasswordEncoder encoder;
+    @Autowired
+    private PasswordEncoder encoder;
 
-    public UserServiceImpl (UserRepository repository, PasswordEncoder encoder) {
-        this.repository = repository;
-        this.encoder = encoder;
-    }
     @Override
     @Transactional
     public User createUser(User user) {
-        validateEmail(user.getEmail());
-        user.setPassword(encoder.encode(user.getPassword()));
-        user.setStatus("ativo");
         return repository.save(user);
     }
 
     @Override
-    public void validateEmail(String email) {
-         boolean existe = repository.existsByEmail(email);
+    public boolean validateEmail(String login) {
 
-         if (existe) {
-             throw new RuntimeException("Já existe usuário cadastrado com este email");
-         }
+       return repository.existsByLogin(login);
     }
-
-    /*
-    @Override
-    public User authenticate(String email, String senha) {
-        Optional<User> byEmail = repository.findByEmail(email);
-
-        if (!byEmail.isPresent()) {
-            throw new RuntimeException("Usuário não encontrado");
-        }
-        if (!encoder.matches(senha, byEmail.get().getPassword())) {
-            throw new RuntimeException("Senha inválida.");
-        }
-        if (byEmail.get().getStatus().equals("inativo")) {
-            throw new RuntimeException("Usuário inativo");
-        }
-
-        return byEmail.get();
-    }
-
-     */
 
 
     @Override
@@ -85,6 +57,12 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return repository.findByEmail(username);
+
+        UserDetails userDetails = repository.findByLogin(username);
+
+       // if (!userDetails.isEnabled()) return userDetails = null;
+
+        return userDetails;
+
     }
 }
