@@ -1,9 +1,8 @@
-package br.com.oakpets.oakpets.controllers;
+package br.com.oakpets.oakpets.produto.controllers;
 
-import br.com.oakpets.oakpets.entities.Product;
-import br.com.oakpets.oakpets.repositories.ProductRepository;
-import br.com.oakpets.oakpets.services.ProductService;
-import br.com.oakpets.oakpets.services.impl.ProductserviceImpl;
+import br.com.oakpets.oakpets.produto.entities.Product;
+import br.com.oakpets.oakpets.produto.repositories.ProductRepository;
+import br.com.oakpets.oakpets.produto.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

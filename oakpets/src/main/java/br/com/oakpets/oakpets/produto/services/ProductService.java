@@ -1,6 +1,6 @@
-package br.com.oakpets.oakpets.services;
+package br.com.oakpets.oakpets.produto.services;
 
-import br.com.oakpets.oakpets.entities.Product;
+import br.com.oakpets.oakpets.produto.entities.Product;
 
 import java.util.List;
 import java.util.Optional;

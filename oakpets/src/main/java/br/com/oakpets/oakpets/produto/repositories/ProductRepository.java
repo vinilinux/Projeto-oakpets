@@ -1,6 +1,6 @@
-package br.com.oakpets.oakpets.repositories;
+package br.com.oakpets.oakpets.produto.repositories;
 
-import br.com.oakpets.oakpets.entities.Product;
+import br.com.oakpets.oakpets.produto.entities.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -14,8 +14,8 @@ public interface ProductRepository extends JpaRepository  <Product, Long>{
     List<Product> findAllWithMainImages();
 
 
-        @Query("SELECT p FROM Product p LEFT JOIN FETCH p.images WHERE p.id = :productId")
-        Optional<Product> findProductWithImagesById(@Param("productId") Long productId);
+    @Query("SELECT p FROM Product p LEFT JOIN FETCH p.images WHERE p.idProduct = :productId")
+    Optional<Product> findProductWithImagesById(@Param("productId") Long productId);
 
 
 

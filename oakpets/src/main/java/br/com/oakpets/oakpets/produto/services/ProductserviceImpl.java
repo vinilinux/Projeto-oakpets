@@ -1,8 +1,8 @@
-package br.com.oakpets.oakpets.services.impl;
+package br.com.oakpets.oakpets.produto.services;
 
-import br.com.oakpets.oakpets.entities.Product;
-import br.com.oakpets.oakpets.repositories.ProductRepository;
-import br.com.oakpets.oakpets.services.ProductService;
+import br.com.oakpets.oakpets.produto.entities.Product;
+import br.com.oakpets.oakpets.produto.repositories.ProductRepository;
+import br.com.oakpets.oakpets.produto.services.ProductService;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

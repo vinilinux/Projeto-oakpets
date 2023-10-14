@@ -1,4 +1,4 @@
-package br.com.oakpets.oakpets.entities;
+package br.com.oakpets.oakpets.customer.entities;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -13,8 +13,8 @@ import lombok.NoArgsConstructor;
 public class Address {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID_ADDRESS")
-    private Long id;
+    @Column(name = "ID")
+    private Long idAddress;
     @Column(name = "ADDRES_KIND")
     private String addressKind;
     @Column(name = "STREET")

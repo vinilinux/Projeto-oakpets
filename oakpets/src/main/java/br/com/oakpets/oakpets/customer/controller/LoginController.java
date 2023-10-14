@@ -1,9 +1,9 @@
-package br.com.oakpets.oakpets.controllers;
+package br.com.oakpets.oakpets.customer.controller;
 
 
 
-import br.com.oakpets.oakpets.entities.Customer;
-import br.com.oakpets.oakpets.services.CustomerService;
+import br.com.oakpets.oakpets.customer.entities.Customer;
+import br.com.oakpets.oakpets.customer.services.CustomerService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

@@ -1,8 +1,8 @@
-package br.com.oakpets.oakpets.services.impl;
+package br.com.oakpets.oakpets.customer.services;
 
-import br.com.oakpets.oakpets.entities.Customer;
-import br.com.oakpets.oakpets.repositories.CustomerRepository;
-import br.com.oakpets.oakpets.services.CustomerService;
+import br.com.oakpets.oakpets.customer.entities.Customer;
+import br.com.oakpets.oakpets.customer.repository.CustomerRepository;
+import br.com.oakpets.oakpets.customer.services.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

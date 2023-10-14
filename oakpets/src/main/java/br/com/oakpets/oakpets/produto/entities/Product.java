@@ -1,4 +1,4 @@
-package br.com.oakpets.oakpets.entities;
+package br.com.oakpets.oakpets.produto.entities;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -10,13 +10,13 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "TBL_PRODUCT")
+@Table(name = "tbl_product")
 public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID_PRODUCT")
-    private Long id;
+    private Long idProduct;
 
     @Column(name = "NAME_PRODUCT")
     private String name;

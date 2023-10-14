@@ -1,4 +1,4 @@
-package br.com.oakpets.oakpets.entities;
+package br.com.oakpets.oakpets.customer.entities;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -19,7 +19,7 @@ public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
-    private Long id;
+    private Long idCustomer;
 
     @Column(name = "NAME")
     private String name;
@@ -36,7 +36,7 @@ public class Customer {
     @Column(name = "PASSWORD")
     private String password;
 
-    @Column(name = "GENDER")
+    @Column(name = "GENEDER")
     private String gender;
 
     @OneToMany(mappedBy = "idCustomer", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
