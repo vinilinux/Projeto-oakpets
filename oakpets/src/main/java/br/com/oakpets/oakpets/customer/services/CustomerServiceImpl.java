@@ -6,6 +6,8 @@ import br.com.oakpets.oakpets.customer.services.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class CustomerServiceImpl implements CustomerService {
 
@@ -23,5 +25,26 @@ public class CustomerServiceImpl implements CustomerService {
         }
 
         return null;
+    }
+
+    public List<Customer> findAllCustomersWithAddresses() {
+        return customerRepository.findAllCustomersWithAddresses();
+    }
+    @Override
+    public Customer update(Integer id, Customer obj) {
+        Customer newObj = findById(id);
+
+        newObj.setName(obj.getName());
+        newObj.setBDay(obj.getBDay());
+        newObj.setCpf(obj.getCpf());
+        newObj.setEmail(obj.getEmail());
+        newObj.setPassword(obj.getPassword());
+        newObj.setGender(obj.getGender());
+
+        return customerRepository.save(newObj);
+    }
+
+    public Customer findById(Integer id) {
+        return customerRepository.findById(id);
     }
 }

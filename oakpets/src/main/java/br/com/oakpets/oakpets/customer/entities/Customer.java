@@ -1,5 +1,6 @@
 package br.com.oakpets.oakpets.customer.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -19,12 +20,12 @@ public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
-    private Long idCustomer;
+    private Long id;
 
     @Column(name = "NAME")
     private String name;
 
-    @Column(name = "BITH_DATE")
+    @Column(name = "BIRTH_DATE")
     private Date bDay;
 
     @Column(name = "CPF")
@@ -36,7 +37,7 @@ public class Customer {
     @Column(name = "PASSWORD")
     private String password;
 
-    @Column(name = "GENEDER")
+    @Column(name = "GENDER")
     private String gender;
 
     @OneToMany(mappedBy = "idCustomer", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
