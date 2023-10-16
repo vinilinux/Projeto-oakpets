@@ -41,6 +41,9 @@ public class Address {
     @Column(name = "ZIP_CODE")
     private String zipCode;
 
+    @Column(name = "ENABLED")
+    private Boolean enabled;
+
     @ManyToOne
     @JoinColumn(name = "ID_Customer")
     @JsonIgnore
