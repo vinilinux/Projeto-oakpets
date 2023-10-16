@@ -9,4 +9,6 @@ public interface AddressService {
     List<Address> findAll();
 
     Address update(Integer id, Address obj);
+
+    void disabled(Long id);
 }

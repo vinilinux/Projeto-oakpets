@@ -40,4 +40,9 @@ public class CustomerController {
         Address newObj = addressService.update(id, obj);
         return ResponseEntity.ok().body(newObj);
     }
+
+    @DeleteMapping(value = "/address/{id}")
+    public void updateAddress(@PathVariable Long id) {
+        addressService.disabled(id);
+    }
 }

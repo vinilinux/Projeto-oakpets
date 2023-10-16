@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
+
 @Service
 public class AddressServiceImpl implements AddressService {
 
@@ -21,18 +23,19 @@ public class AddressServiceImpl implements AddressService {
     }
 
     @Override
+    public void disabled(Long id) {
+        Optional<Address> optAddress =  addressRepository.findById(id);
+        Address address = optAddress.get();
+        address.setEnabled(false);
+        addressRepository.save(address);
+    }
+
+    @Override
     public Address update(Integer id, Address obj) {
         Address newObj = findById(id);
 
-        newObj.setAddressKind(obj.getAddressKind());
-        newObj.setStreet(obj.getStreet());
-        newObj.setNumber(obj.getNumber());
-        newObj.setComplement(obj.getComplement());
-        newObj.setNeighborhood(obj.getNeighborhood());
-        newObj.setCity(obj.getCity());
-        newObj.setState(obj.getState());
-        newObj.setZipCode(obj.getZipCode());
+        obj.setId(newObj.getId());
 
-        return addressRepository.save(newObj);
+        return addressRepository.save(obj);
     }
 }
