@@ -8,13 +8,14 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@Builder
 @Table(name = "tbl_product_image")
 public class Image {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID_IMAGE")
-    private String idImage;
+    private Long idImage;
 
     @Column(name = "IMAGE_PRODUCT_PATH")
     private String imagePath;

@@ -3,21 +3,34 @@ package br.com.oakpets.oakpets.usuario.service;
 import br.com.oakpets.oakpets.usuario.entities.User;
 import br.com.oakpets.oakpets.usuario.repository.UserRepository;
 import jakarta.transaction.Transactional;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
+import java.util.UUID;
+
 @Service
 public class UserServiceImpl implements UserService, UserDetailsService {
-    @Autowired
-    private  UserRepository repository;
-    @Autowired
-    private PasswordEncoder encoder;
+    private final UserRepository repository;
+    private final PasswordEncoder encoder;
+    public UserServiceImpl(UserRepository repository, PasswordEncoder encoder) {
+        this.repository = repository;
+        this.encoder = encoder;
+    }
+
 
     @Override
     @Transactional
@@ -50,7 +63,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    @Transactional
     public Optional<User> getById(Long id) {
         return repository.findById(id);
     }
@@ -60,9 +72,8 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
         UserDetails userDetails = repository.findByLogin(username);
 
-       // if (!userDetails.isEnabled()) return userDetails = null;
-
         return userDetails;
 
     }
+
 }
