@@ -66,7 +66,7 @@ function updateUIBasedOnLoginStatus() {
     const logoutLink = document.getElementById('logoutLink');
 
     if (userName) {
-        userStatusElement.innerHTML = `<i class="bi bi-person-circle"></i> ${userName}`;
+        userStatusElement.innerHTML = `<i class="bi bi-person-circle"></i> <a href="perfil-cliente.html">${userName}</a>`;
         logoutLink.style.display = 'inline';
     } else {
         userStatusElement.innerHTML = `<a href="./login-customer.html"><i class="bi bi-person-circle"></i> Entre ou cadastre-se</a>`;
