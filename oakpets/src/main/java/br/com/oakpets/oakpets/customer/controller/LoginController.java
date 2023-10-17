@@ -35,12 +35,17 @@ public class LoginController {
 
 
     @GetMapping("/userinfo")
-    public ResponseEntity<?> getUserInfo() {
+    public ResponseEntity<?> getUserInfo(HttpSession session) {
+        Customer currentUser = (Customer) session.getAttribute("currentUser"); // Obtenha o cliente autenticado da sessão
 
-        Customer currentUser = new Customer();
-        currentUser.setName("Nome do Usuário");
+        if (currentUser != null) {
+            // Chame o método para obter o cliente com endereços
+            currentUser = customerService.findByIdWithAddresses(Math.toIntExact(currentUser.getId_customer()));
 
-        return new ResponseEntity<>(currentUser.getName(), HttpStatus.OK);
+            return new ResponseEntity<>(currentUser, HttpStatus.OK); // Retorne os dados do cliente, incluindo o ID
+        } else {
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
     }
 
 

@@ -1,13 +1,12 @@
 package br.com.oakpets.oakpets.customer.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -19,14 +18,14 @@ public class Customer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID")
-    private Long id;
+    @Column(name = "ID_Customer")
+    private Integer id_customer;
 
     @Column(name = "NAME")
     private String name;
 
     @Column(name = "BIRTH_DATE")
-    private Date bDay;
+    private LocalDate bDay;
 
     @Column(name = "CPF")
     private String cpf;

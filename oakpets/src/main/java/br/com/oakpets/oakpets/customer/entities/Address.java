@@ -14,8 +14,8 @@ import lombok.NoArgsConstructor;
 public class Address {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID")
-    private Long id;
+    @Column(name = "ID_address")
+    private Integer id;
 
     @Column(name = "ADDRESS_KIND")
     private String addressKind;

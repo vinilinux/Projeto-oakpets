@@ -1,6 +1,5 @@
 package br.com.oakpets.oakpets.customer.controller;
 
-import br.com.oakpets.oakpets.customer.entities.Address;
 import br.com.oakpets.oakpets.customer.entities.Customer;
 import br.com.oakpets.oakpets.customer.services.AddressService;
 import br.com.oakpets.oakpets.customer.services.CustomerService;
@@ -24,21 +23,20 @@ public class CustomerController {
     public List<Customer> listCustomer() {
         return customerService.findAllCustomersWithAddresses();
     }
-    @GetMapping(value = "/address")
-    public List<Address> listAddress() {
-        return addressService.findAll();
+
+    @GetMapping(value = "/{id}")
+    public ResponseEntity<Customer> getCustomerById(@PathVariable Integer id) {
+        Customer customer = customerService.findById(id);
+        if(customer != null)
+            return ResponseEntity.ok().body(customer);
+        else
+            return ResponseEntity.notFound().build();
     }
 
     @PutMapping(value = "/{id}")
     public ResponseEntity<Customer> updateCustomer(@PathVariable Integer id, @RequestBody Customer obj) {
-        Customer newObj = customerService.update(id, obj);
-        return ResponseEntity.ok().body(newObj);
-    }
-
-    @PutMapping(value = "/address/{id}")
-    public ResponseEntity<Address> updateAddress(@PathVariable Integer id, @RequestBody Address obj) {
-        Address newObj = addressService.update(id, obj);
-        return ResponseEntity.ok().body(newObj);
+        Customer updatedCustomer = customerService.updateCustomerAndAddresses(id, obj);
+        return ResponseEntity.ok().body(updatedCustomer);
     }
 
     @DeleteMapping(value = "/address/{id}")
