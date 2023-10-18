@@ -14,8 +14,9 @@ public class AddressServiceImpl implements AddressService {
     @Autowired
     private AddressRepository addressRepository;
 
-    public Address findById(Integer id) {
-        return addressRepository.findById(id);
+    public Address findById(long id) {
+        Optional<Address> opt = addressRepository.findById(id);
+        return opt.orElse(null);
     }
 
     public List<Address> findAll() {

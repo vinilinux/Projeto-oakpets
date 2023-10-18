@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CustomerServiceImpl implements CustomerService {
@@ -61,8 +62,8 @@ public class CustomerServiceImpl implements CustomerService {
             existingCustomer.setGender(customer.getGender());
 
             for (Address address : customer.getAddresses()) {
-                Address existingAddress = addressRepository.findById(address.getId());
-
+                Optional<Address> optExistingAddress = addressRepository.findById(address.getId());
+                Address existingAddress = optExistingAddress.orElse(null);
                 if (existingAddress != null) {
                     existingAddress.setAddressKind(address.getAddressKind());
                     existingAddress.setStreet(address.getStreet());
