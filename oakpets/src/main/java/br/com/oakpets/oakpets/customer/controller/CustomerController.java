@@ -1,5 +1,6 @@
 package br.com.oakpets.oakpets.customer.controller;
 
+import br.com.oakpets.oakpets.customer.entities.Address;
 import br.com.oakpets.oakpets.customer.entities.Customer;
 import br.com.oakpets.oakpets.customer.services.AddressService;
 import br.com.oakpets.oakpets.customer.services.CustomerService;
@@ -43,4 +44,16 @@ public class CustomerController {
     public void updateAddress(@PathVariable Long id) {
         addressService.disabled(id);
     }
+
+    @GetMapping("/address")
+    public ResponseEntity findAll() {
+        return ResponseEntity.ok(addressService.findAll());
+    }
+
+    @GetMapping("/addressEnabled")
+    public List <Address> findAllActive (){
+        return addressService.findByEnabled(true);
+    }
+
+
 }

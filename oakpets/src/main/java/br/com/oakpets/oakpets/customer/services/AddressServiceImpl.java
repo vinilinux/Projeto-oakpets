@@ -32,6 +32,11 @@ public class AddressServiceImpl implements AddressService {
     }
 
     @Override
+    public List<Address> findByEnabled(boolean enabled) {
+        return addressRepository.findByEnabled(enabled);
+    }
+
+    @Override
     public Address update(Integer id, Address obj) {
         Address newObj = findById(id);
 

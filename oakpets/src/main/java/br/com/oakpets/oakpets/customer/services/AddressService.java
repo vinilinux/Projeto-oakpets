@@ -8,7 +8,10 @@ public interface AddressService {
 
     List<Address> findAll();
 
+    List<Address> findByEnabled(boolean enabled);
+
     Address update(Integer id, Address obj);
 
     void disabled(Long id);
+
 }

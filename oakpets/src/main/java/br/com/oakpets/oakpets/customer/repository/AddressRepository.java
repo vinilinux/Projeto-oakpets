@@ -8,6 +8,8 @@ import java.util.Optional;
 
 public interface AddressRepository extends JpaRepository<Address, Long> {
 
+    List<Address> findByEnabled(boolean enabled);
+
 //    Address findById(Integer id);
 //
 //    Optional<Address> findById(Long id);
