@@ -62,9 +62,8 @@ public class CustomerServiceImpl implements CustomerService {
             existingCustomer.setGender(customer.getGender());
 
             for (Address address : customer.getAddresses()) {
-                Optional<Address> optExistingAddress;
-                optExistingAddress = addressRepository.findById(address.getId());
-                Address existingAddress = optExistingAddress.orElse(null);
+                Address existingAddress = addressRepository.findById(address.getId());
+
                 if (existingAddress != null) {
                     existingAddress.setAddressKind(address.getAddressKind());
                     existingAddress.setStreet(address.getStreet());
