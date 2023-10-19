@@ -1,5 +1,6 @@
 package br.com.oakpets.oakpets.customer.entities;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -24,8 +25,9 @@ public class Customer {
     @Column(name = "NAME")
     private String name;
 
+    @JsonFormat(pattern = "yyyy-MM-dd", shape = JsonFormat.Shape.STRING)
     @Column(name = "BIRTH_DATE")
-    private LocalDate bDay;
+    private String bDay;
 
     @Column(name = "CPF")
     private String cpf;

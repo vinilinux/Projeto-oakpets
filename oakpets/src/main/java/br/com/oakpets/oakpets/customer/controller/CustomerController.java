@@ -7,7 +7,9 @@ import br.com.oakpets.oakpets.customer.services.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -54,6 +56,4 @@ public class CustomerController {
     public List <Address> findAllActive (){
         return addressService.findByEnabled(true);
     }
-
-
 }

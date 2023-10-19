@@ -83,7 +83,6 @@ public class CustomerServiceImpl implements CustomerService {
             return null;
         }
     }
-
     public Customer findById(Integer id) {
         return customerRepository.findByIdWithAddresses(id);
     }
