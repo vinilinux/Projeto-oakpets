@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", function() {
         })
         .then(data => {
             const editarPerfilLink = document.getElementById("editarPerfil");
-            editarPerfilLink.href = `/formulario-cliente.html?id=${data.id}`;
+            editarPerfilLink.href = `/formulario-cliente.html?id=${data.id_customer}`;
         })
         .catch(error => {
             console.error("Erro ao obter informações do cliente: " + error);

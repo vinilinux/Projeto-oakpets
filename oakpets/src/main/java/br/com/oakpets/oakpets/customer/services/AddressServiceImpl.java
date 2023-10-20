@@ -14,8 +14,9 @@ public class AddressServiceImpl implements AddressService {
     @Autowired
     private AddressRepository addressRepository;
 
-    public Address findById(Integer id) {
-        return addressRepository.findById(id);
+    public Address findById(long id) {
+        Optional<Address> opt = addressRepository.findById(id);
+        return opt.orElse(null);
     }
 
     public List<Address> findAll() {
@@ -28,6 +29,11 @@ public class AddressServiceImpl implements AddressService {
         Address address = optAddress.get();
         address.setEnabled(false);
         addressRepository.save(address);
+    }
+
+    @Override
+    public List<Address> findByEnabled(boolean enabled) {
+        return addressRepository.findByEnabled(enabled);
     }
 
     @Override

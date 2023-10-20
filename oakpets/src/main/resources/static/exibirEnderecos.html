@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gerenciamento de Endereços</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    .container {
+      margin-top: 30px;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <button class="btn btn-primary">Editar Perfil</button>
+  <h1>Endereços Cadastrados</h1>
+  <table class="table">
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>Tipo de endereço</th>
+      <th>Endereço</th>
+      <th>Numero</th>
+      <th>Complemento</th>
+      <th>Bairro</th>
+      <th>Cidade</th>
+      <th>Estado</th>
+      <th>CEP</th>
+      <th>Ações</th>
+    </tr>
+    </thead>
+    <tbody>
+    <!-- Aqui você deve preencher a tabela com os endereços cadastrados a partir do seu servidor back-end -->
+    <!-- Por exemplo, você pode usar PHP, Node.js, Python, etc., para buscar os dados e preencher a tabela -->
+    <tr>
+      <td>1</td>
+      <td>Cobrança</td>
+      <td>Rua Teste</td>
+      <td>989</td>
+      <td>Casa 2</td>
+      <td>Jardim</td>
+      <td>São Paulo</td>
+      <td>SP</td>
+      <td>01234-032</td>
+      <td>
+        <button class="btn btn-danger">Excluir</button>
+      </td>
+    </tr>
+    <!-- Repita esse bloco para cada endereço -->
+    </tbody>
+  </table>
+  <h2>Cadastrar Novo Endereço</h2>
+  <form>
+    <div class="form-group">
+      <label for="TipoEndereco">Tipo de endereço:</label>
+      <input type="text" class="form-control" id="TipoEndereco" name="TipoEndereco">
+    </div>
+    <div class="form-group">
+      <label for="endereco">Endereço:</label>
+      <input type="text" class="form-control" id="endereco" name="endereco">
+    </div>
+    <div class="form-group">
+      <label for="numero">Numero:</label>
+      <input type="text" class="form-control" id="numero" name="numero">
+    </div>
+    <div class="form-group">
+      <label for="complemento">Complemento:</label>
+      <input type="text" class="form-control" id="complemento" name="complemento">
+    </div>
+    <div class="form-group">
+      <label for="bairro">Bairro:</label>
+      <input type="text" class="form-control" id="bairro" name="bairro">
+    </div>
+    <div class="form-group">
+      <label for="cidade">Cidade:</label>
+      <input type="text" class="form-control" id="cidade" name="cidade">
+    </div>
+    <div class="form-group">
+      <label for="estado">Estado:</label>
+      <input type="text" class="form-control" id="estado" name="estado">
+    </div>
+    <div class="form-group">
+      <label for="cep">CEP:</label>
+      <input type="text" class="form-control" id="CEP" name="cep">
+    </div>
+    <button type="submit" class="btn btn-success">Cadastrar</button>
+  </form>
+</div>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

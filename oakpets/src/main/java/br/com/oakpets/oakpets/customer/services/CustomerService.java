@@ -19,4 +19,5 @@ public interface CustomerService {
     Customer findByIdWithAddresses(Integer id);
 
     Customer updateCustomerAndAddresses(Integer id, Customer obj);
+
 }

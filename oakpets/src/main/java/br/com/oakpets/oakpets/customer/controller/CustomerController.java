@@ -1,12 +1,15 @@
 package br.com.oakpets.oakpets.customer.controller;
 
+import br.com.oakpets.oakpets.customer.entities.Address;
 import br.com.oakpets.oakpets.customer.entities.Customer;
 import br.com.oakpets.oakpets.customer.services.AddressService;
 import br.com.oakpets.oakpets.customer.services.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -42,5 +45,15 @@ public class CustomerController {
     @DeleteMapping(value = "/address/{id}")
     public void updateAddress(@PathVariable Long id) {
         addressService.disabled(id);
+    }
+
+    @GetMapping("/address")
+    public ResponseEntity findAll() {
+        return ResponseEntity.ok(addressService.findAll());
+    }
+
+    @GetMapping("/addressEnabled")
+    public List <Address> findAllActive (){
+        return addressService.findByEnabled(true);
     }
 }
