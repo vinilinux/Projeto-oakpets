@@ -19,6 +19,6 @@ public interface ProductService {
 
     List<Product> findAllWithMainImages();
 
-    List<Image> salvarArquivo(MultipartFile file[]);
+    List<Image> salvarArquivo(List<MultipartFile> file);
 
 }

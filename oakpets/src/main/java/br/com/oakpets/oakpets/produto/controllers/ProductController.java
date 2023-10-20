@@ -1,12 +1,9 @@
 package br.com.oakpets.oakpets.produto.controllers;
 
 import br.com.oakpets.oakpets.produto.DTO.ProductDTO;
-import br.com.oakpets.oakpets.produto.entities.Image;
 import br.com.oakpets.oakpets.produto.entities.Product;
-import br.com.oakpets.oakpets.produto.repositories.ProductRepository;
 import br.com.oakpets.oakpets.produto.services.ProductService;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -41,15 +38,16 @@ public class ProductController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity createProduct(@RequestBody @Valid ProductDTO data, @RequestPart MultipartFile file[]) {
-
+    @ResponseBody
+    public ResponseEntity createProduct(@RequestBody ProductDTO data, @RequestParam("file") List<MultipartFile> files) {
         Product product = Product.builder()
                 .name(data.name())
                 .status("ativo")
-                .amount(data.amount())
-                .price(data.price())
+                .amount(Integer.parseInt(data.amount()))
+                .price(Double.parseDouble(data.price()))
                 .description(data.description())
-                .rate( data.rate())
+                .rate(Double.parseDouble(data.rate()))
+                .images(service.salvarArquivo(files))
                 .build();
 
         try {
@@ -60,11 +58,5 @@ public class ProductController {
         }
 
     }
-
-    @PostMapping("/upload")
-    public List<Image> upload(@RequestParam("file") MultipartFile file[]) {
-        return service.salvarArquivo(file);
-    }
-
 
 }

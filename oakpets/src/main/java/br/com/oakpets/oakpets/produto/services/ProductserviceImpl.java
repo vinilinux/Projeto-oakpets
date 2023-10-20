@@ -3,19 +3,14 @@ package br.com.oakpets.oakpets.produto.services;
 import br.com.oakpets.oakpets.produto.entities.Image;
 import br.com.oakpets.oakpets.produto.entities.Product;
 import br.com.oakpets.oakpets.produto.repositories.ProductRepository;
-import br.com.oakpets.oakpets.produto.services.ProductService;
 import jakarta.transaction.Transactional;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.codec.multipart.Part;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.*;
 
@@ -55,7 +50,7 @@ public class ProductserviceImpl implements ProductService {
         return repository.findAllWithMainImages();
     }
 
-    public List<Image> salvarArquivo(MultipartFile file[]) {
+    public List<Image> salvarArquivo(List<MultipartFile> file) {
 
         List<Image> imageList = new ArrayList<>();
 
@@ -77,10 +72,5 @@ public class ProductserviceImpl implements ProductService {
         } catch (IOException e) {
             throw new RuntimeException(e + " Falha no upload");
         }
-    }
-
-    private String extrairExtensao(String nomeArquivo) {
-        int i = nomeArquivo.lastIndexOf(".");
-        return nomeArquivo.substring(i + 1);
     }
 }
