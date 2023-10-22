@@ -1,6 +1,7 @@
 package br.com.oakpets.oakpets.customer.services;
 
 import br.com.oakpets.oakpets.customer.entities.Address;
+import br.com.oakpets.oakpets.customer.entities.Customer;
 import br.com.oakpets.oakpets.customer.repository.AddressRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,6 +32,11 @@ public class AddressServiceImpl implements AddressService {
         addressRepository.save(address);
     }
 
+    @Override
+    public Address create(Address obj) {
+        obj.setId(null);
+        return addressRepository.save(obj);
+    }
     @Override
     public List<Address> findByEnabled(boolean enabled) {
         return addressRepository.findByEnabled(enabled);

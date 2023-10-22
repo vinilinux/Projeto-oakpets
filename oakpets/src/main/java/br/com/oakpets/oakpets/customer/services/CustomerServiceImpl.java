@@ -83,6 +83,12 @@ public class CustomerServiceImpl implements CustomerService {
             return null;
         }
     }
+
+    @Override
+    public Customer create(Customer obj) {
+        return customerRepository.save(obj);
+    }
+
     public Customer findById(Integer id) {
         return customerRepository.findByIdWithAddresses(id);
     }

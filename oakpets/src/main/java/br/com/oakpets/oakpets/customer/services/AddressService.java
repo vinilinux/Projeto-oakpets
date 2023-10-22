@@ -14,4 +14,5 @@ public interface AddressService {
 
     void disabled(Long id);
 
+    Address create(Address obj);
 }

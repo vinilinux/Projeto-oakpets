@@ -20,4 +20,5 @@ public interface CustomerService {
 
     Customer updateCustomerAndAddresses(Integer id, Customer obj);
 
+    Customer create(Customer obj);
 }
