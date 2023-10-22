@@ -8,6 +8,7 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,13 +22,18 @@ public class LoginController {
     @Autowired
     private CustomerService customerService;
 
+
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
+
     @PostMapping("/login")
     public ResponseEntity<?> loginUser(@RequestBody Customer customer, HttpSession session) {
-        Customer authenticatedUser = customerService.authenticate(customer.getEmail(), customer.getPassword());
-        if (authenticatedUser != null) {
-            session.setAttribute("currentUser", authenticatedUser);
+        Customer storedCustomer = customerService.findCustomerByEmail(customer.getEmail());
 
-            return new ResponseEntity<>(authenticatedUser.getName(), HttpStatus.OK);
+        if (storedCustomer != null && passwordEncoder.matches(customer.getPassword(), storedCustomer.getPassword())) {
+            session.setAttribute("currentUser", storedCustomer);
+
+            return new ResponseEntity<>(storedCustomer.getName(), HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
@@ -36,13 +42,12 @@ public class LoginController {
 
     @GetMapping("/userinfo")
     public ResponseEntity<?> getUserInfo(HttpSession session) {
-        Customer currentUser = (Customer) session.getAttribute("currentUser"); // Obtenha o cliente autenticado da sessão
+        Customer currentUser = (Customer) session.getAttribute("currentUser");
 
         if (currentUser != null) {
-            // Chame o método para obter o cliente com endereços
             currentUser = customerService.findByIdWithAddresses(Math.toIntExact(currentUser.getId_customer()));
 
-            return new ResponseEntity<>(currentUser, HttpStatus.OK); // Retorne os dados do cliente, incluindo o ID
+            return new ResponseEntity<>(currentUser, HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }

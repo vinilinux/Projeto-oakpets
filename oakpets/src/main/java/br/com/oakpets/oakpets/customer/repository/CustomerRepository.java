@@ -9,10 +9,18 @@ import java.util.List;
 
 public interface CustomerRepository extends JpaRepository<Customer, Long> {
     Customer findByEmail(String email);
+    
 
     @Query("SELECT c FROM Customer c LEFT JOIN FETCH c.addresses a")
     List<Customer> findAllCustomersWithAddresses();
 
     @Query("SELECT c FROM Customer c LEFT JOIN FETCH c.addresses WHERE c.id_customer = :customerId")
     Customer findByIdWithAddresses(@Param("customerId") Integer customerId);
+
+    Boolean existsByEmail(String email);
+
+    Boolean existsByCpf(String cpf);
+
+
+
 }

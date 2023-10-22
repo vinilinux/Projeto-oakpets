@@ -9,12 +9,15 @@ import br.com.oakpets.oakpets.customer.services.AddressService;
 import br.com.oakpets.oakpets.customer.services.CustomerService;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 import java.util.List;
+
+
 
 @RestController
 @RequestMapping(value = "/customers")
@@ -84,6 +87,13 @@ public class CustomerController {
         return ResponseEntity.created(uri).build();
     }
 
+    @GetMapping(value = "/check-email")
+    public ResponseEntity<Boolean> checkEmailExistence(@RequestParam String email) {
+        Boolean exists = customerService.doesEmailExist(email);
+        return ResponseEntity.ok(exists);
+    }
+
+
     @PutMapping(value = "/{id}")
     public ResponseEntity<Customer> updateCustomer(@PathVariable Integer id, @RequestBody Customer obj) {
         Customer updatedCustomer = customerService.updateCustomerAndAddresses(id, obj);
@@ -104,4 +114,11 @@ public class CustomerController {
     public List <Address> findAllActive (){
         return addressService.findByEnabled(true);
     }
+
+
+    @ExceptionHandler(RuntimeException.class)
+    public ResponseEntity<String> handleRuntimeException(RuntimeException ex) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
+    }
+
 }

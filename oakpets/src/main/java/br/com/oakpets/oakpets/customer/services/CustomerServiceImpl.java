@@ -6,10 +6,12 @@ import br.com.oakpets.oakpets.customer.repository.AddressRepository;
 import br.com.oakpets.oakpets.customer.repository.CustomerRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class CustomerServiceImpl implements CustomerService {
@@ -19,6 +21,9 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Autowired
     private AddressRepository addressRepository;
+
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
 
     @Override
     public Customer authenticate(String email, String password) {
@@ -86,8 +91,22 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public Customer create(Customer obj) {
+        if (!isValidName(obj.getName())) {
+            throw new RuntimeException("O nome do cliente deve ter 2 palavras e no mínimo 3 letras em cada palavra.");
+        }
+        if (doesEmailExist(obj.getEmail())) {
+            throw new RuntimeException("E-mail já cadastrado!");
+        }
+        if (existsByCpf(obj.getCpf())) {
+            throw new RuntimeException("CPF inválido!");
+        }
+
+        String encryptedPassword = passwordEncoder.encode(obj.getPassword());
+        obj.setPassword(encryptedPassword);
+
         return customerRepository.save(obj);
     }
+
 
     public Customer findById(Integer id) {
         return customerRepository.findByIdWithAddresses(id);
@@ -97,4 +116,37 @@ public class CustomerServiceImpl implements CustomerService {
     public Customer findByIdWithAddresses(Integer id) {
         return customerRepository.findByIdWithAddresses(id);
     }
+
+    @Override
+    public Customer findCustomerByEmail(String email) {
+        return customerRepository.findByEmail(email);
+    }
+
+
+    @Override
+    public Boolean doesEmailExist(String email) {
+        return customerRepository.existsByEmail(email);
+    }
+
+    @Override
+    public Boolean existsByCpf(String cpf) {
+        return customerRepository.existsByCpf(cpf);
+    }
+
+    public boolean isValidName(String name) {
+        if (name == null) {
+            return false;
+        }
+        String[] parts = name.trim().split("\\s+");
+        if (parts.length != 2) {
+            return false;
+        }
+        for (String part : parts) {
+            if (part.length() < 3) {
+                return false;
+            }
+        }
+        return true;
+    }
+
 }
