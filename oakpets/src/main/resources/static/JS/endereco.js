@@ -16,10 +16,8 @@ document.addEventListener("DOMContentLoaded", function () {
         fetch(`/customers/${clienteId}`)
             .then((response) => response.json())
             .then((data) => {
-
                 if (data.addresses && data.addresses.length > 0) {
                     const enderecoContainer = document.getElementById("endereco-container");
-
                     enderecoContainer.innerHTML = "";
 
                     data.addresses.forEach(address => {
@@ -64,41 +62,43 @@ document.addEventListener("DOMContentLoaded", function () {
             });
     }
 
-    function desativarEndereco(enderecoId) {
-        fetch(`/customers/address/${enderecoId}`, {
-            method: "DELETE"
-        })
-            .then(response => {
-                if (response.status === 204) {
-                    console.log(`Endereço ${enderecoId} desativado com sucesso.`);
-                } else {
-                    console.error(`Falha ao desativar o endereço ${enderecoId}.`);
-                }
-            })
-            .catch(error => {
-                console.error(`Erro ao desativar o endereço ${enderecoId}:`, error);
-            });
-    }
-});
-
-// Função para obter o ID do cliente da URL
-function obterClienteIdDaURL() {
-    const urlParams = new URLSearchParams(window.location.search);
-    return urlParams.get("id");
-}
-
-// Botão "Adicionar Endereço"
-const adicionarEnderecoButton = document.getElementById("adicionarEnderecoButton");
+    const adicionarEnderecoButton = document.getElementById("adicionarEnderecoButton");
 
 // Adicione um ouvinte de evento de clique ao botão
-adicionarEnderecoButton.addEventListener("click", function() {
-    // Obtenha o ID do cliente da URL
-    const clienteId = obterClienteIdDaURL();
-
-    if (clienteId) {
-        // Redirecione para a página "formularioEnderecoCliente.html" com o ID do cliente na URL
-        window.location.href = `/formularioEnderecoCliente.html?id=${clienteId}`;
-    } else {
-        console.error("ID do cliente não encontrado na URL.");
-    }
+    adicionarEnderecoButton.addEventListener("click", function() {
+        const clienteId = obterClienteIdDaURL();
+        if (clienteId) {
+            // Redirecione para a página "formularioEnderecoCliente.html" com o ID do cliente na URL
+            window.location.href = `/formularioEnderecoCliente.html?id=${clienteId}`;
+        } else {
+            console.error("ID do cliente não encontrado na URL.");
+        }
+    });
 });
+
+function desativarEndereco(enderecoId) {
+    fetch(`/customers/address/${enderecoId}`, {
+        method: "DELETE"
+    })
+        .then(response => {
+            if (response.status === 200) {
+                // Remova o elemento da interface do usuário após a exclusão bem-sucedida
+                const enderecoElement = document.querySelector(`[data-endereco-id="${enderecoId}"]`);
+                if (enderecoElement) {
+                    enderecoElement.remove();
+                }
+                alert(`Endereço ${enderecoId} desativado com sucesso.`);
+                // Recarregue a página após a exclusão bem-sucedida
+                location.reload();
+            } else {
+                console.error(`Falha ao desativar o endereço ${enderecoId}.`);
+                // Exibir um alerta de falha
+                alert(`Falha ao desativar o endereço ${enderecoId}.`);
+            }
+        })
+        .catch(error => {
+            console.error(`Erro ao desativar o endereço ${enderecoId}:`, error);
+            // Exibir um alerta de erro
+            alert(`Erro ao desativar o endereço ${enderecoId}: ${error.message}`);
+        });
+}
