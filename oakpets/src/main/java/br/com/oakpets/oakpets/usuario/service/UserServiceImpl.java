@@ -39,16 +39,15 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    public boolean validateEmail(String login) {
+    public boolean validateEmail(String email) {
 
-       return repository.existsByLogin(login);
+       return repository.existsByEmail(email);
     }
 
 
     @Override
     public List<User> findAll() {
-        List<User> allUser = repository.findAll();
-        return allUser;
+        return repository.findAll();
     }
 
     @Override
@@ -70,7 +69,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-        UserDetails userDetails = repository.findByLogin(username);
+        UserDetails userDetails = repository.findByEmail(username);
 
         return userDetails;
 

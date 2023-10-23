@@ -30,7 +30,7 @@ public class SecurityConfigurations {
                         .requestMatchers(HttpMethod.GET, "/api/usuarios/listaTodos").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.GET, "/api/usuarios/{id}/details").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.PUT, "/api/usuarios/alterar").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.POST, "/api/usuarios/create").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.POST, "/api/usuarios/create").permitAll()
                         .anyRequest().permitAll())
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();

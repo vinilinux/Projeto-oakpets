@@ -34,7 +34,7 @@ public class User implements UserDetails {
     @Column(name = "EMAIL")
     @Email(message = "{email.not.valid}")
     @NotBlank(message = "{email.not.blank}")
-    private String login;
+    private String email;
 
     @Column(name = "PASSWORD")
     @NotBlank(message = "{senha.not.blank}")
@@ -54,7 +54,7 @@ public class User implements UserDetails {
 
     public User(String name, String login, String password, String cpf, String status, UserRole role) {
         this.name = name;
-        this.login = login;
+        this.email = login;
         this.password = password;
         this.cpf = cpf;
         this.status = status;
@@ -75,7 +75,7 @@ public class User implements UserDetails {
 
     @Override
     public String getUsername() {
-        return login;
+        return email;
     }
 
     @Override

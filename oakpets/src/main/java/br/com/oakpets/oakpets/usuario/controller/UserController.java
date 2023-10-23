@@ -5,6 +5,7 @@ import br.com.oakpets.oakpets.usuario.DTO.AuthenticationDTO;
 import br.com.oakpets.oakpets.usuario.DTO.LoginResponseDTO;
 import br.com.oakpets.oakpets.usuario.DTO.UserDTO;
 import br.com.oakpets.oakpets.usuario.entities.User;
+import br.com.oakpets.oakpets.usuario.entities.UserRole;
 import br.com.oakpets.oakpets.usuario.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -22,14 +23,18 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class UserController {
 
-    @Autowired
     private UserService userService;
 
-    @Autowired
     private AuthenticationManager authenticationManager;
 
-    @Autowired
     private TokenService tokenService;
+
+    @Autowired
+    public UserController(UserService userService, AuthenticationManager authenticationManager, TokenService tokenService) {
+        this.userService = userService;
+        this.authenticationManager = authenticationManager;
+        this.tokenService = tokenService;
+    }
 
     @PostMapping("/login")
     public ResponseEntity login(@RequestBody @Valid AuthenticationDTO data) {
@@ -48,19 +53,26 @@ public class UserController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity createUser(@RequestBody @Valid UserDTO data) {
-        if (userService.validateEmail(data.login())) {
+    @CrossOrigin(origins = "*")
+    public ResponseEntity createUser(@RequestBody  UserDTO data) {
+
+        if (data.email() == null) {
+            return ResponseEntity.badRequest().body("Dados inválidos");
+        }
+
+        if (userService.validateEmail(data.email())) {
             return ResponseEntity.badRequest().body("Usuário já existe");
         }
 
         String encryptedPassword = new BCryptPasswordEncoder().encode(data.password());
-        User newUser = new User(data.name(), data.login(), encryptedPassword, data.cpf(), "ativo", data.role());
+        User newUser = new User(data.name(), data.email(), encryptedPassword, data.cpf(), "ativo", data.role());
         userService.createUser(newUser);
 
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping("/listarTodos")
+    @GetMapping
+    @CrossOrigin(origins = "*")
     public ResponseEntity listarTodos() {
         return ResponseEntity.ok(userService.findAll());
     }
