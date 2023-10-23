@@ -1,0 +1,56 @@
+.titulo {
+    color: #003384;
+    font-weight: bold;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.enderecos {
+    border: 0.5px solid rgba(64, 102, 163, 0.30); /* Configuração da borda */
+    border-radius: 10px; /* Raio da borda para torná-la suave */
+}
+
+/* Estilize o contêiner dos itens de endereço */
+.endereco-container {
+    margin: 5px 0; /* Ajuste a margem vertical e horizontal conforme necessário */
+    text-align: left !important;
+}
+
+/* Estilize os itens de endereço individualmente */
+.endereco-container h6,
+.endereco-container p {
+    margin: 0px 0; /* Ajuste a margem vertical e horizontal conforme necessário */
+}
+
+.endereco-container > h5 {
+    color: #003384;
+}
+
+.editar {
+    text-decoration: none;
+    color: #003384;
+    font-weight: bold;
+}
+
+.editar:hover {
+    text-decoration: underline;
+    color: #4066a3;
+}
+
+.addEndereco {
+    background-color: #003384;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    height: 50px;
+    width: 200px;
+    margin-top: 30px;
+}
+
+.addEndereco:hover {
+    transition: 0.20s;
+    background-color: #4066a3;
+}
+
+
+

@@ -121,16 +121,3 @@ function getCustomerIdFromURL() {
     const customerId = urlParams.get("id");
     return customerId;
 }
-
-function formatarData(data) {
-    const partesData = data.split('-'); // Suponha que a data esteja no formato "DD-MM-YYYY"
-    if (partesData.length === 3) {
-        const dia = partesData[0];
-        const mes = partesData[1];
-        const ano = partesData[2];
-        return `${ano}-${mes}-${dia}`;
-    } else {
-        // Se a formatação estiver incorreta, você pode lidar com isso de acordo com sua necessidade
-        return null; // Ou uma mensagem de erro
-    }
-}

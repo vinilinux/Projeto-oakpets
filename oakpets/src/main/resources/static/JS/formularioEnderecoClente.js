@@ -20,6 +20,14 @@ document.getElementById('checkCep').addEventListener('click', function() {
         });
 });
 function sendAddressData() {
+    // Obtenha o ID do cliente da URL
+    const idCustomer = obterClienteIdDaURL();
+
+    if (!idCustomer) {
+        console.error("ID do cliente não encontrado na URL.");
+        return;
+    }
+
     const addressKind = document.querySelector('input[name="addressKind"]:checked').value;
     const number = document.getElementById('number').value;
     const zipCode = document.getElementById('zipCode').value;
@@ -37,9 +45,10 @@ function sendAddressData() {
         neighborhood: neighborhood,
         city: city,
         state: state,
-        zipCode: zipCode
+        zipCode: zipCode,
+        // Adicione o ID do cliente ao objeto
+        clientId: idCustomer
     };
-
 
     fetch('/address/create', {
         method: 'POST',
@@ -60,7 +69,13 @@ function sendAddressData() {
             console.error('Erro ao enviar o formulário:', error);
         });
 }
+
 document.getElementById('addressForms').addEventListener('submit', function(event) {
     event.preventDefault(); // Impede o envio padrão do formulário
     sendAddressData();
 });
+
+function obterClienteIdDaURL() {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get("id");
+}

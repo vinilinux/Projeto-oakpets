@@ -42,7 +42,7 @@ public class CustomerController {
 
     @GetMapping(value = "/{id}")
     public ResponseEntity<Customer> getCustomerById(@PathVariable Integer id) {
-        Customer customer = customerService.findById(id);
+        Customer customer = customerService.findCustomerWithActiveAddressesById(id);
         if(customer != null)
             return ResponseEntity.ok().body(customer);
         else

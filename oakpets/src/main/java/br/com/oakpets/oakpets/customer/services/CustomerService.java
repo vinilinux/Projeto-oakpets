@@ -27,4 +27,6 @@ public interface CustomerService {
     Boolean existsByCpf(String cpf);
 
     Customer findCustomerByEmail(String email);
+
+    Customer findCustomerWithActiveAddressesById(Integer id);
 }

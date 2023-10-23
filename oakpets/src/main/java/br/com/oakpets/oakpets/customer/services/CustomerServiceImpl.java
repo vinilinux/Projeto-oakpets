@@ -122,6 +122,11 @@ public class CustomerServiceImpl implements CustomerService {
         return customerRepository.findByEmail(email);
     }
 
+    @Override
+    public Customer findCustomerWithActiveAddressesById(Integer id) {
+        return customerRepository.findCustomerWithActiveAddressesById(id);
+    }
+
 
     @Override
     public Boolean doesEmailExist(String email) {
