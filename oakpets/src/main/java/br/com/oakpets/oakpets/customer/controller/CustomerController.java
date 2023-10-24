@@ -87,7 +87,26 @@ public class CustomerController {
         return ResponseEntity.created(uri).build();
     }
 
-    @GetMapping(value = "/check-email")
+    @PostMapping("/{customerId}/addresses")
+    public ResponseEntity<Address> createAddressForCustomer(
+            @PathVariable Integer customerId,
+            @RequestBody Address address) {
+        // Primeiro, você precisa carregar o cliente com base no ID.
+        Customer customer = customerService.findCustomerWithActiveAddressesById(customerId);
+
+        if (customer == null) {
+            // Retornar um erro 404 caso o cliente não seja encontrado.
+            return ResponseEntity.notFound().build();
+        }
+
+        // Adicione o endereço ao cliente e salve no banco de dados.
+        customer.addAddress(address);
+        customerRepository.save(customer);
+
+        return ResponseEntity.ok(address);
+    }
+
+   @GetMapping(value = "/check-email")
     public ResponseEntity<Boolean> checkEmailExistence(@RequestParam String email) {
         Boolean exists = customerService.doesEmailExist(email);
         return ResponseEntity.ok(exists);

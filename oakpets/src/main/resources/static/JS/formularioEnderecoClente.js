@@ -21,9 +21,10 @@ document.getElementById('checkCep').addEventListener('click', function() {
 });
 function sendAddressData() {
     // Obtenha o ID do cliente da URL
-    const idCustomer = obterClienteIdDaURL();
+    const customerId = parseInt(obterClienteIdDaURL(), 10);
 
-    if (!idCustomer) {
+
+    if (!customerId) {
         console.error("ID do cliente não encontrado na URL.");
         return;
     }
@@ -45,12 +46,10 @@ function sendAddressData() {
         neighborhood: neighborhood,
         city: city,
         state: state,
-        zipCode: zipCode,
-        // Adicione o ID do cliente ao objeto
-        clientId: idCustomer
+        zipCode: zipCode
     };
-
-    fetch('/address/create', {
+    console.log('customerId:', customerId);
+    fetch(`/customers/${customerId}/addresses`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -71,7 +70,7 @@ function sendAddressData() {
 }
 
 document.getElementById('addressForms').addEventListener('submit', function(event) {
-    event.preventDefault(); // Impede o envio padrão do formulário
+    event.preventDefault();
     sendAddressData();
 });
 
