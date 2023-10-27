@@ -1,13 +1,9 @@
 package br.com.oakpets.oakpets.customer.services;
 
-import br.com.oakpets.oakpets.customer.entities.Address;
 import br.com.oakpets.oakpets.customer.entities.Customer;
 import br.com.oakpets.oakpets.customer.repository.AddressRepository;
 import br.com.oakpets.oakpets.customer.repository.CustomerRepository;
-import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -39,58 +35,35 @@ public class CustomerServiceImpl implements CustomerService {
     public List<Customer> findAllCustomersWithAddresses() {
         return customerRepository.findAllCustomersWithAddresses();
     }
+
     @Override
-    public Customer update(Integer id, Customer obj) {
-        Customer newObj = findById(id);
+    public Customer update(Integer customerId, Customer customer) {
+        Customer updatedCustomer = findByCustomerId(customerId);
 
-        newObj.setName(obj.getName());
-        newObj.setBDay(obj.getBDay());
-        newObj.setCpf(obj.getCpf());
-        newObj.setEmail(obj.getEmail());
-        newObj.setPassword(obj.getPassword());
-        newObj.setGender(obj.getGender());
+        String encryptedPassword = passwordEncoder.encode(customer.getPassword());
+        customer.setPassword(encryptedPassword);
 
-        return customerRepository.save(newObj);
-    }
+        if (updatedCustomer != null) {
+            // Copie os atributos do objeto 'customer' para o 'updatedCustomer'
+            updatedCustomer.setName(customer.getName());
+            updatedCustomer.setBDay(customer.getBDay());
+            updatedCustomer.setCpf(customer.getCpf());
+            updatedCustomer.setEmail(customer.getEmail());
+            updatedCustomer.setPassword(customer.getPassword());
+            updatedCustomer.setGender(customer.getGender());
 
-    @Transactional
-    public Customer updateCustomerAndAddresses(Integer customerId, Customer customer) {
-        Customer existingCustomer = findById(customerId);
-
-        if (existingCustomer != null) {
-            existingCustomer.setName(customer.getName());
-            existingCustomer.setBDay(customer.getBDay());
-            System.out.println(customer.getBDay());
-            existingCustomer.setCpf(customer.getCpf());
-            existingCustomer.setEmail(customer.getEmail());
-            existingCustomer.setPassword(customer.getPassword());
-            existingCustomer.setGender(customer.getGender());
-
-            for (Address address : customer.getAddresses()) {
-                Address existingAddress = addressRepository.findById(address.getId());
-
-                if (existingAddress != null) {
-                    existingAddress.setAddressKind(address.getAddressKind());
-                    existingAddress.setStreet(address.getStreet());
-                    existingAddress.setNumber(address.getNumber());
-                    existingAddress.setComplement(address.getComplement());
-                    existingAddress.setNeighborhood(address.getNeighborhood());
-                    existingAddress.setCity(address.getCity());
-                    existingAddress.setState(address.getState());
-                    existingAddress.setZipCode(address.getZipCode());
-
-                    addressRepository.save(existingAddress);
-                }
-            }
-
-            return customerRepository.save(existingCustomer);
+            // Salve o 'updatedCustomer' para atualização no banco de dados
+            return customerRepository.save(updatedCustomer);
         } else {
+            // Cliente não encontrado
             return null;
         }
     }
 
+
     @Override
     public Customer create(Customer obj) {
+
         if (!isValidName(obj.getName())) {
             throw new RuntimeException("O nome do cliente deve ter 2 palavras e no mínimo 3 letras em cada palavra.");
         }
@@ -108,14 +81,15 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
 
-    public Customer findById(Integer id) {
-        return customerRepository.findByIdWithAddresses(id);
+    public Customer findByCustomerId(Integer id) {
+        return customerRepository.findByCustomerId(id);
     }
 
     @Override
     public Customer findByIdWithAddresses(Integer id) {
         return customerRepository.findByIdWithAddresses(id);
     }
+
 
     @Override
     public Customer findCustomerByEmail(String email) {
@@ -130,6 +104,7 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public Boolean doesEmailExist(String email) {
+
         return customerRepository.existsByEmail(email);
     }
 
@@ -153,5 +128,4 @@ public class CustomerServiceImpl implements CustomerService {
         }
         return true;
     }
-
 }

@@ -12,13 +12,12 @@ public interface CustomerService {
 
     List<Customer> findAllCustomersWithAddresses();
 
-    Customer update(Integer id, Customer obj);
 
-    Customer findById(Integer id);
+    Customer findByCustomerId(Integer id);
 
     Customer findByIdWithAddresses(Integer id);
 
-    Customer updateCustomerAndAddresses(Integer id, Customer obj);
+    Customer update(Integer id, Customer obj);
 
     Customer create(Customer obj);
 

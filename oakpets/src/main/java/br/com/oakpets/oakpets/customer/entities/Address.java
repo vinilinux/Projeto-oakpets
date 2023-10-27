@@ -44,6 +44,9 @@ public class Address {
     @Column(name = "ENABLED")
     private Boolean enabled;
 
+    @Column(name = "ADDRESS_DEFAULT")
+    private Boolean addressDefault;
+
     @ManyToOne
     @JoinColumn(name = "ID_Customer")
     @JsonIgnore

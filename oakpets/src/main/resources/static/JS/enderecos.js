@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function carregarEnderecos(clienteId) {
-        fetch(`/customers/${clienteId}`)
+        fetch(`/customers/address/${clienteId}`)
             .then((response) => response.json())
             .then((data) => {
                 if (data.addresses && data.addresses.length > 0) {
@@ -34,8 +34,15 @@ document.addEventListener("DOMContentLoaded", function () {
                         <p>${address.street}, ${address.number}</p>
                         <p>${address.neighborhood} - ${address.city} | ${address.state}</p>
                         <p>${address.zipCode}</p>
-                        <a href="#" class="editar">Editar</a>
+                        <a href="#" class="editar" data-address-id="${address.id}">Editar</a>
                     `;
+
+                        const editarLink = enderecoInfo.querySelector(".editar");
+                        editarLink.addEventListener("click", (event) => {
+                            event.preventDefault();
+                            const addressId = event.target.getAttribute("data-address-id");
+                            window.location.href = `editar-endereco-cliente.html?id=${addressId}`;
+                        });
 
                         const imgLixeira = document.createElement("a");
                         imgLixeira.href = "#";
@@ -64,12 +71,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const adicionarEnderecoButton = document.getElementById("adicionarEnderecoButton");
 
-// Adicione um ouvinte de evento de clique ao botão
+    // Adicione um ouvinte de evento de clique ao botão
     adicionarEnderecoButton.addEventListener("click", function() {
         const clienteId = obterClienteIdDaURL();
         if (clienteId) {
-            // Redirecione para a página "formularioEnderecoCliente.html" com o ID do cliente na URL
-            window.location.href = `/formularioEnderecoCliente.html?id=${clienteId}`;
+            // Redirecione para a página "cadastro-endereco-cliente.html" com o ID do cliente na URL
+            window.location.href = `/cadastro-endereco-cliente.html?id=${clienteId}`;
         } else {
             console.error("ID do cliente não encontrado na URL.");
         }
@@ -77,28 +84,29 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 function desativarEndereco(enderecoId) {
-    fetch(`/customers/address/${enderecoId}`, {
+    fetch(`/address/delete/${enderecoId}`, {
         method: "DELETE"
     })
-        .then(response => {
-            if (response.status === 200) {
-                // Remova o elemento da interface do usuário após a exclusão bem-sucedida
-                const enderecoElement = document.querySelector(`[data-endereco-id="${enderecoId}"]`);
-                if (enderecoElement) {
-                    enderecoElement.remove();
-                }
-                alert(`Endereço ${enderecoId} desativado com sucesso.`);
-                // Recarregue a página após a exclusão bem-sucedida
-                location.reload();
-            } else {
-                console.error(`Falha ao desativar o endereço ${enderecoId}.`);
-                // Exibir um alerta de falha
-                alert(`Falha ao desativar o endereço ${enderecoId}.`);
+
+    .then(response => {
+        if (response.status === 200) {
+            // Remova o elemento da interface do usuário após a exclusão bem-sucedida
+            const enderecoElement = document.querySelector(`[data-endereco-id="${enderecoId}"]`);
+            if (enderecoElement) {
+                enderecoElement.remove();
             }
-        })
-        .catch(error => {
-            console.error(`Erro ao desativar o endereço ${enderecoId}:`, error);
-            // Exibir um alerta de erro
-            alert(`Erro ao desativar o endereço ${enderecoId}: ${error.message}`);
-        });
+            alert(`Endereço ${enderecoId} desativado com sucesso.`);
+            // Recarregue a página após a exclusão bem-sucedida
+            location.reload();
+        } else {
+            console.error(`Falha ao desativar o endereço ${enderecoId}.`);
+            // Exibir um alerta de falha
+            alert(`Falha ao desativar o endereço ${enderecoId}.`);
+        }
+    })
+    .catch(error => {
+        console.error(`Erro ao desativar o endereço ${enderecoId}:`, error);
+        // Exibir um alerta de erro
+        alert(`Erro ao desativar o endereço ${enderecoId}: ${error.message}`);
+    });
 }

@@ -19,70 +19,70 @@
 
 <body>
 
-<nav class="navbar navbar-expand-lg navbar-light">
-    <div class="container">
-        <a class="navbar-brand" href="./index.html">
-            <img class="imgHeader" src="./Images/LogoSemFundo.png" alt="logo">
-        </a>
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <div class="container">
+            <a class="navbar-brand" href="./index.html">
+                <img class="imgHeader" src="./Images/LogoSemFundo.png" alt="logo">
+            </a>
 
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#headerItens"
-                aria-controls="headerItens" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="bi bi-list"></span>
-        </button>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#headerItens"
+                    aria-controls="headerItens" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="bi bi-list"></span>
+            </button>
 
-        <div class="collapse navbar-collapse justify-content-center" id="headerItens">
+            <div class="collapse navbar-collapse justify-content-center" id="headerItens">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="./index.html">Início</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="./colecoes.html">Produtos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="./contato.html">Sobre</a>
+                    </li>
+                </ul>
+            </div>
+
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" aria-current="page" href="./index.html">Início</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link active" href="./colecoes.html">Produtos</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="./contato.html">Sobre</a>
-                </li>
-            </ul>
-        </div>
-
-        <ul class="navbar-nav">
-            <li class="nav-item">
-                <a class="nav-link" href="./contato.html">
-                    <i class="bi bi-cart4"></i>
-                </a>
-            </li>
-        </ul>
-
-        <div class="navbar-nav ml-auto">
-            <span id="userStatus">
-                <li class="nav-item">
-                    <a class="nav-link" href="/login-customer.html">
-                        <button class="btn btnEntrar text-left" type="submit">
-                            <i class="bi bi-person-fill"></i> <span>Entre ou <br> cadastre-se</span>
-                        </button>
+                    <a class="nav-link" href="./contato.html">
+                        <i class="bi bi-cart4"></i>
                     </a>
                 </li>
-            </span>
+            </ul>
+
+            <div class="navbar-nav ml-auto">
+                <span id="userStatus">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/login-cliente.html">
+                            <button class="btn btnEntrar text-left" type="submit">
+                                <i class="bi bi-person-fill"></i> <span>Entre ou <br> cadastre-se</span>
+                            </button>
+                        </a>
+                    </li>
+                </span>
+            </div>
+
+            <a href="#" id="logoutLink" onclick="handleLogout();" style="display: none;"><i class="bi bi-box-arrow-left"></i></a>
+
         </div>
+    </nav>
 
-        <a href="#" id="logoutLink" onclick="handleLogout();" style="display: none;"><i class="bi bi-box-arrow-left"></i></a>
-
+    <div class="container">
+        <div>
+            <h2 class="titlePage">Rações Premium: Nutrição de Qualidade para o seu Pet</h2>
+            <p class="textPage">Apresentamos nossa linha premium de rações, elaborada com cuidado para atender às necessidades nutricionais do seu pet. Nossos produtos são o resultado de anos de pesquisa e paixão pela saúde animal, garantindo que seu amigo receba o melhor cuidado possível. Seu amor merece o melhor, e é isso que oferecemos.</p>
+        </div>
     </div>
-</nav>
 
-<div class="container">
-    <div>
-        <h2 class="titlePage">Rações Premium: Nutrição de Qualidade para o seu Pet</h2>
-        <p class="textPage">Apresentamos nossa linha premium de rações, elaborada com cuidado para atender às necessidades nutricionais do seu pet. Nossos produtos são o resultado de anos de pesquisa e paixão pela saúde animal, garantindo que seu amigo receba o melhor cuidado possível. Seu amor merece o melhor, e é isso que oferecemos.</p>
+
+
+    <div class="container">
+        <div id="product-list">
+
+        </div>
     </div>
-</div>
-
-
-
-<div class="container">
-    <div id="product-list">
-
-    </div>
-</div>
 
 </body>
 

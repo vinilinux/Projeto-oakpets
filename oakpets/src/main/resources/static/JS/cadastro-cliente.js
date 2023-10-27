@@ -10,6 +10,15 @@ document.addEventListener("DOMContentLoaded", function() {
 
 //Pega a informação do formulário
 function sendFormData() {
+    const passwordField = document.getElementById('password');
+    const confirmPasswordField = document.getElementById('ConfirmPassword');
+
+    // Verifique se as senhas não são iguais
+    if (passwordField.value !== confirmPasswordField.value) {
+        alert('As senhas não coincidem. Por favor, verifique.');
+        return;
+    }
+
     let customerData = {
         name: document.getElementById("name").value,
         bDay: document.getElementById("bday").value,
@@ -31,7 +40,7 @@ function sendFormData() {
 
             if (response.status === 201) {
                 alert('Cliente cadastrado com sucesso!');
-                window.location.href = "./login-customer.html"; // Redireciona o usuário
+                window.location.href = "./login-cliente.html"; // Redireciona o usuário
                 return null;
             } else {
                 return response.text().then(text => {
@@ -44,3 +53,4 @@ function sendFormData() {
         });
 
 }
+

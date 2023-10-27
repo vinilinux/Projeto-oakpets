@@ -15,4 +15,10 @@ public interface AddressService {
     void disabled(Long id);
 
     Address create(Address obj);
+
+    Boolean doesBillingAddressExist(Integer id);
+
+    Address findAddressById(Integer id);
+
+    Boolean doesDeliveryAddressExist(Integer id);
 }

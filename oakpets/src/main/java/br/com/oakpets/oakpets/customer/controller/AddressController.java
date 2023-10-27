@@ -3,51 +3,74 @@ package br.com.oakpets.oakpets.customer.controller;
 
 import br.com.oakpets.oakpets.customer.entities.Address;
 import br.com.oakpets.oakpets.customer.entities.Customer;
-import br.com.oakpets.oakpets.customer.repository.AddressRepository;
 import br.com.oakpets.oakpets.customer.repository.CustomerRepository;
+import br.com.oakpets.oakpets.customer.services.AddressService;
+import br.com.oakpets.oakpets.customer.services.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(value = "/address")
 public class AddressController {
 
     @Autowired
-    private AddressRepository addressRepository;
-
-    @Autowired
     private CustomerRepository customerRepository; // Supondo que você tenha um repositório para Customer
 
-    @PostMapping("/create")
-    public ResponseEntity<Address> createAddress(@RequestBody Address address) {
-        try {
-            // Primeiro, recupere o cliente existente pelo ID, ou crie um novo se necessário
-            Customer customer = address.getIdCustomer();
+    @Autowired
+    private CustomerService customerService;
 
+    @Autowired
+    private AddressService addressService;
 
-            // Associe o endereço ao cliente
-            customer.addAddress(address);
+    @PostMapping("/create/{customerId}")
+    public ResponseEntity<Address> createAddressForCustomer(
+            @PathVariable Integer customerId,
+            @RequestBody Address address) {
 
-            // Marque o endereço como habilitado (se necessário)
-            address.setEnabled(true);
+        Customer customer = customerService.findByIdWithAddresses(customerId);
 
-            // Salve o endereço
-            Address savedAddress = addressRepository.save(address);
-
-            // Salve o cliente se for novo
-            if (customer.getId_customer() == null) {
-                customerRepository.save(customer);
-            }
-
-            return new ResponseEntity<>(savedAddress, HttpStatus.CREATED);
-        } catch (Exception e) {
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        if (customer == null) {
+            return ResponseEntity.notFound().build();
         }
+
+        customer.addAddress(address);
+        customerRepository.save(customer);
+
+        return ResponseEntity.ok(address);
     }
+
+    @GetMapping(value = "/{id}")
+    public ResponseEntity<Address> getAddressById(@PathVariable Integer id) {
+        Address address = addressService.findAddressById(id);
+        if(address != null)
+            return ResponseEntity.ok().body(address);
+        else
+            return ResponseEntity.notFound().build();
+    }
+
+    @DeleteMapping(value = "/delete/{id}")
+    public void updateAddress(@PathVariable Long id) {
+        addressService.disabled(id);
+    }
+
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<Address> updateAddress(@PathVariable Integer id, @RequestBody Address obj) {
+        Address updatedAddress = addressService.update(id, obj);
+        return ResponseEntity.ok().body(updatedAddress);
+    }
+
+    @GetMapping(value = "/checkBillingAddress/{id}")
+    public ResponseEntity<Boolean> checkBillingAddress (@PathVariable Integer id) {
+        Boolean exists = addressService.doesBillingAddressExist(id);
+        return ResponseEntity.ok(exists);
+    }
+
+    @GetMapping(value = "/checkDeliveryAddress/{id}")
+    public ResponseEntity<Boolean> checkDeliveryAddress (@PathVariable Integer id) {
+        Boolean exists = addressService.doesDeliveryAddressExist(id);
+        return ResponseEntity.ok(exists);
+    }
+
 }
 
