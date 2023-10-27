@@ -16,11 +16,13 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/usuarios")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "*")
 public class UserController {
 
     private UserService userService;
@@ -53,11 +55,10 @@ public class UserController {
     }
 
     @PostMapping("/create")
-    @CrossOrigin(origins = "*")
     public ResponseEntity createUser(@RequestBody  UserDTO data) {
 
-        if (data.email() == null) {
-            return ResponseEntity.badRequest().body("Dados inválidos");
+        if (!data.password2().equals(data.password())) {
+            return ResponseEntity.badRequest().body("Senhas não conferem");
         }
 
         if (userService.validateEmail(data.email())) {
@@ -65,14 +66,13 @@ public class UserController {
         }
 
         String encryptedPassword = new BCryptPasswordEncoder().encode(data.password());
-        User newUser = new User(data.name(), data.email(), encryptedPassword, data.cpf(), "ativo", data.role());
+        User newUser = new User(data.name(), data.email(), encryptedPassword, data.cpf(), true, data.role());
         userService.createUser(newUser);
 
         return ResponseEntity.ok().build();
     }
 
     @GetMapping
-    @CrossOrigin(origins = "*")
     public ResponseEntity listarTodos() {
         return ResponseEntity.ok(userService.findAll());
     }
@@ -89,13 +89,38 @@ public class UserController {
         }
     }
 
-    @PutMapping("/alterar")
-    public ResponseEntity alterarUser(@RequestBody @Valid User user) {
+    @PutMapping("{id}/alterar")
+    public ResponseEntity alterarUser(@PathVariable Long id, @RequestBody UserDTO data) {
+
+        User newuser = User.builder()
+                .name(data.name())
+                .cpf(data.cpf())
+                .email(data.email())
+                .role(data.role())
+                .build();
+
+        if (data.password() != null) {
+            if (data.password2().equals(data.password())) {
+                newuser.setPassword(new BCryptPasswordEncoder().encode(data.password()));
+            }
+        }
+
         try {
-            userService.alterarUser(user);
+            userService.alterarUser(id, newuser);
             return ResponseEntity.ok().build();
-        } catch (RuntimeException e) {
-            return ResponseEntity.badRequest().body("Falha ao alterar " + e);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    @PutMapping("{id}/status")
+    public ResponseEntity status(@PathVariable Long id, @RequestBody UserDTO data) {
+        try {
+            userService.status(id, data);
+            return ResponseEntity.ok().build();
+
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
         }
 
     }

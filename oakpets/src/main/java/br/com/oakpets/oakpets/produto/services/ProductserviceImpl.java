@@ -1,8 +1,11 @@
 package br.com.oakpets.oakpets.produto.services;
 
+import br.com.oakpets.oakpets.produto.DTO.ProductDTO;
 import br.com.oakpets.oakpets.produto.entities.Image;
 import br.com.oakpets.oakpets.produto.entities.Product;
 import br.com.oakpets.oakpets.produto.repositories.ProductRepository;
+import br.com.oakpets.oakpets.usuario.DTO.UserDTO;
+import br.com.oakpets.oakpets.usuario.entities.User;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -32,7 +35,7 @@ public class ProductserviceImpl implements ProductService {
 
     @Override
     public List<Product> findALL() {
-        return null;
+        return repository.findAll();
     }
 
     @Override
@@ -46,31 +49,15 @@ public class ProductserviceImpl implements ProductService {
         return repository.findById(id);
     }
 
-    public List<Product> findAllWithMainImages() {
-        return repository.findAllWithMainImages();
-    }
+    @Override
+    public void status(Long id, ProductDTO data) {
+        Optional<Product> productOptional = repository.findById(id);
 
-    public List<Image> salvarArquivo(List<MultipartFile> file) {
-
-        List<Image> imageList = new ArrayList<>();
-
-        try {
-            for (MultipartFile newFile : file) {
-                Long currentTime = new Date().getTime();
-                String fileName =
-                        pathArquivo + currentTime.toString().concat("-").concat(Objects.requireNonNull(newFile.getOriginalFilename()).replace(" "
-                                , ""));
-                Files.copy(newFile.getInputStream(), Path.of(fileName), StandardCopyOption.REPLACE_EXISTING);
-
-                Image image = Image.builder()
-                        .imagePath(fileName)
-                        .build();
-                imageList.add(image);
-            }
-
-            return imageList;
-        } catch (IOException e) {
-            throw new RuntimeException(e + " Falha no upload");
+        if (productOptional.isEmpty()) {
+            throw new RuntimeException("Usuario não encontrado");
         }
+
+        productOptional.get().setStatus(data.status());
+        repository.save(productOptional.get());
     }
 }

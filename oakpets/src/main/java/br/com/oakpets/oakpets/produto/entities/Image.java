@@ -21,10 +21,10 @@ public class Image {
     private String imagePath;
 
     @Column(name = "IMAGE_DEFAULT")
-    private String imageDefault;
+    private boolean imageDefault;
 
     @ManyToOne
     @JoinColumn(name = "ID_PRODUCT")
     @JsonIgnore
-    private Product idProduct;
+    private Product product;
 }

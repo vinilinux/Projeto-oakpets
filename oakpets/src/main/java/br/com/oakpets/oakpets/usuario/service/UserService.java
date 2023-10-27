@@ -1,5 +1,6 @@
 package br.com.oakpets.oakpets.usuario.service;
 
+import br.com.oakpets.oakpets.usuario.DTO.UserDTO;
 import br.com.oakpets.oakpets.usuario.entities.User;
 
 import java.util.List;
@@ -15,7 +16,8 @@ public interface UserService {
 
     List<User> findAll();
 
-    void alterarUser(User user);
+    void alterarUser(Long id, User user);
 
 
+    void status(Long id, UserDTO data);
 }

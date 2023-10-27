@@ -46,13 +46,13 @@ public class User implements UserDetails {
     private String cpf;
 
     @Column(name = "STATUS")
-    private String status;
+    private boolean status;
 
     @Column(name = "ROLE")
     @Enumerated(EnumType.STRING)
     private UserRole role;
 
-    public User(String name, String login, String password, String cpf, String status, UserRole role) {
+    public User(String name, String login, String password, String cpf, boolean status, UserRole role) {
         this.name = name;
         this.email = login;
         this.password = password;
@@ -95,9 +95,6 @@ public class User implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-
-        if(this.status.equals("inativo")) return false;
-
-        return true;
+        return status;
     }
 }

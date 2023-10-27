@@ -1,26 +1,17 @@
 package br.com.oakpets.oakpets.usuario.service;
 
+import br.com.oakpets.oakpets.usuario.DTO.UserDTO;
 import br.com.oakpets.oakpets.usuario.entities.User;
 import br.com.oakpets.oakpets.usuario.repository.UserRepository;
 import jakarta.transaction.Transactional;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.StandardCopyOption;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
-import java.util.UUID;
 
 @Service
 public class UserServiceImpl implements UserService, UserDetailsService {
@@ -51,14 +42,51 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    public void alterarUser(User user) {
-        Optional<User> userOptional = repository.findById(user.getIdUser());
+    public void alterarUser(Long id, User user) {
 
-        if (!userOptional.get().getPassword().equals(user.getPassword())) {
-            user.setPassword(encoder.encode(user.getPassword()));
+        Optional<User> userOptional = repository.findById(id);
+
+        if (userOptional.isEmpty()) {
+            throw new RuntimeException("Usuario não encontrado");
         }
 
-        repository.save(user);
+        if (!user.getName().equals(userOptional.get().getName())) {
+            userOptional.get().setName(user.getName());
+        }
+
+        if (!user.getCpf().equals(userOptional.get().getCpf())) {
+            userOptional.get().setCpf(user.getCpf());
+        }
+
+        System.out.printf(userOptional.get().getEmail());
+        if (!user.getEmail().equals(userOptional.get().getEmail())) {
+            if (validateEmail(user.getEmail())) {
+                throw new RuntimeException("Email já cadastrado");
+            } else {
+                userOptional.get().setEmail(user.getEmail());
+            }
+        }
+        if (!user.getRole().equals(userOptional.get().getRole())) {
+            userOptional.get().setRole(user.getRole());
+        }
+
+        if (user.getPassword() != null) {
+            userOptional.get().setPassword(encoder.encode(user.getPassword()));
+        }
+
+        repository.save(userOptional.get());
+    }
+
+    @Override
+    public void status(Long id, UserDTO data) {
+        Optional<User> userOptional = repository.findById(id);
+
+        if (userOptional.isEmpty()) {
+            throw new RuntimeException("Usuario não encontrado");
+        }
+
+        userOptional.get().setStatus(data.status());
+        repository.save(userOptional.get());
     }
 
     @Override
