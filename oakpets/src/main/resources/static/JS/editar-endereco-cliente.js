@@ -82,7 +82,7 @@ document.getElementById('addressForm').addEventListener('submit', function(event
         .then(data => {
             if (data && data.id) {
                 alert('Endereço atualizado com sucesso!');
-                window.location.href = "./enderecos.html";
+                window.location.href = `enderecos.html?id=${customerId}`;
             } else if (data && data.error) {
                 alert('Erro ao atualizar o endereço: ' + data.error);
             }
