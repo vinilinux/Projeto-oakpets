@@ -45,7 +45,9 @@ document.addEventListener("DOMContentLoaded", function () {
                             editarLink.addEventListener("click", (event) => {
                                 event.preventDefault();
                                 const addressId = event.target.getAttribute("data-address-id");
-                                window.location.href = `editar-endereco-cliente.html?id=${addressId}`;
+
+                                window.location.href = `editar-endereco-cliente.html?customerId=${clienteId}&addressId=${addressId}`;
+
                             });
                             enderecoInfo.appendChild(editarLink);
                         }
@@ -142,21 +144,22 @@ document.addEventListener("DOMContentLoaded", function () {
         fetch(`/address/delete/${enderecoId}`, {
             method: "DELETE",
         })
-            .then(response => {
-                if (response.status === 200) {
-                    const enderecoElement = document.querySelector(`[data-endereco-id="${enderecoId}"]`);
-                    if (enderecoElement) {
-                        enderecoElement.remove();
-                    }
-                    alert(`Endereço ${enderecoId} desativado com sucesso.`);
-                } else {
-                    console.error(`Falha ao desativar o endereço ${enderecoId}.`);
-                    alert(`Falha ao desativar o endereço ${enderecoId}.`);
+        .then(response => {
+            if (response.status === 200) {
+                const enderecoElement = document.querySelector(`[data-endereco-id="${enderecoId}"]`);
+                if (enderecoElement) {
+                    enderecoElement.remove();
                 }
-            })
-            .catch(error => {
-                console.error(`Erro ao desativar o endereço ${enderecoId}: ${error.message}`);
-                alert(`Erro ao desativar o endereço ${enderecoId}: ${error.message}`);
-            });
+                alert(`Endereço ${enderecoId} desativado com sucesso.`);
+                window.location.reload();
+            } else {
+                console.error(`Falha ao desativar o endereço ${enderecoId}.`);
+                alert(`Falha ao desativar o endereço ${enderecoId}.`);
+            }
+        })
+        .catch(error => {
+            console.error(`Erro ao desativar o endereço ${enderecoId}: ${error.message}`);
+            alert(`Erro ao desativar o endereço ${enderecoId}: ${error.message}`);
+        });
     }
 });

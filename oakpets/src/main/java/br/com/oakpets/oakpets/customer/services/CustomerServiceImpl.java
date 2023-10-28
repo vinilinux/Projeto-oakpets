@@ -1,5 +1,6 @@
 package br.com.oakpets.oakpets.customer.services;
 
+import br.com.oakpets.oakpets.customer.entities.Address;
 import br.com.oakpets.oakpets.customer.entities.Customer;
 import br.com.oakpets.oakpets.customer.repository.AddressRepository;
 import br.com.oakpets.oakpets.customer.repository.CustomerRepository;
@@ -17,6 +18,9 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Autowired
     private AddressRepository addressRepository;
+
+    @Autowired
+    private AddressService addressService;
 
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
@@ -40,26 +44,70 @@ public class CustomerServiceImpl implements CustomerService {
     public Customer update(Integer customerId, Customer customer) {
         Customer updatedCustomer = findByCustomerId(customerId);
 
-        String encryptedPassword = passwordEncoder.encode(customer.getPassword());
-        customer.setPassword(encryptedPassword);
-
         if (updatedCustomer != null) {
-            // Copie os atributos do objeto 'customer' para o 'updatedCustomer'
-            updatedCustomer.setName(customer.getName());
+            if (!isValidName(customer.getName())) {
+                throw new RuntimeException("O nome do cliente deve ter 2 palavras e no mínimo 3 letras em cada palavra.");
+            } else {
+                updatedCustomer.setName(customer.getName());
+            }
+
+            if (!customer.getEmail().equals(updatedCustomer.getEmail())) {
+                if (doesEmailExist(customer.getEmail())) {
+                    throw new RuntimeException("E-mail já cadastrado!");
+                } else {
+                    updatedCustomer.setEmail(customer.getEmail());
+                }
+            }
+
+            if (!customer.getCpf().equals(updatedCustomer.getCpf())) {
+                if (existsByCpf(customer.getCpf())) {
+                    throw new RuntimeException("CPF inválido!");
+                } else {
+                    updatedCustomer.setCpf(customer.getCpf());
+                }
+            }
+
+            if (!customer.getPassword().equals(updatedCustomer.getPassword())) {
+                String encryptedPassword = passwordEncoder.encode(customer.getPassword());
+                updatedCustomer.setPassword(encryptedPassword);
+            }
+
             updatedCustomer.setBDay(customer.getBDay());
-            updatedCustomer.setCpf(customer.getCpf());
-            updatedCustomer.setEmail(customer.getEmail());
-            updatedCustomer.setPassword(customer.getPassword());
             updatedCustomer.setGender(customer.getGender());
 
-            // Salve o 'updatedCustomer' para atualização no banco de dados
             return customerRepository.save(updatedCustomer);
         } else {
-            // Cliente não encontrado
             return null;
         }
     }
 
+    @Override
+    public Address updateAddress(Integer customerId, Integer addressId, Address updatedAddress) {
+        Customer customer = findByCustomerId(customerId);
+        if (customer == null) {
+            return null;
+        }
+
+        Address existingAddress = addressService.findAddressById(addressId);
+        if (existingAddress == null) {
+            return null;
+        }
+
+        existingAddress.setAddressKind(updatedAddress.getAddressKind());
+        existingAddress.setStreet(updatedAddress.getStreet());
+        existingAddress.setNumber(updatedAddress.getNumber());
+        existingAddress.setComplement(updatedAddress.getComplement());
+        existingAddress.setNeighborhood(updatedAddress.getNeighborhood());
+        existingAddress.setCity(updatedAddress.getCity());
+        existingAddress.setState(updatedAddress.getState());
+        existingAddress.setZipCode(updatedAddress.getZipCode());
+        existingAddress.setEnabled(updatedAddress.getEnabled());
+        existingAddress.setAddressDefault(updatedAddress.getAddressDefault());
+
+        addressRepository.save(existingAddress);
+
+        return existingAddress;
+    }
 
     @Override
     public Customer create(Customer obj) {

@@ -49,12 +49,15 @@ function salvarPerfil(event) {
         .then(response => {
             if (response.status === 200) {
                 alert("Cliente atualizado com sucesso!");
+                window.location.href = "./minha-conta.html";
             } else {
-                alert("Ocorreu um erro ao atualizar o cliente.");
+                return response.text().then(text => {
+                    throw new Error(text);
+                });
             }
         })
         .catch(error => {
-            console.error("Erro na solicitação de atualização:", error);
+            alert(error.message);
         });
 }
 

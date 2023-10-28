@@ -23,7 +23,10 @@ document.getElementById('checkCep').addEventListener('click', function(event) {
 });
 
 const urlParams = new URLSearchParams(window.location.search);
-const addressId = urlParams.get("id");
+const addressId = urlParams.get("addressId");
+
+const urlParams2 = new URLSearchParams(window.location.search);
+const customerId = urlParams2.get("customerId");
 
 fetch(`/address/${addressId}`)
     .then(response => response.json())
@@ -52,6 +55,8 @@ document.getElementById('addressForm').addEventListener('submit', function(event
     const neighborhood = document.getElementById('neighborhood').value;
     const city = document.getElementById('city').value;
     const state = document.getElementById('state').value;
+    const enabled = true;
+    const addressDefault = true;
 
     const updatedAddressData = {
         addressKind: addressKind,
@@ -61,10 +66,12 @@ document.getElementById('addressForm').addEventListener('submit', function(event
         complement: complement,
         neighborhood: neighborhood,
         city: city,
-        state: state
+        state: state,
+        enabled: enabled,
+        addressDefault: addressDefault
     };
 
-    fetch(`/address/${addressId}`, {
+    fetch(`/customers/${customerId}/enderecos/${addressId}`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json'
@@ -75,6 +82,7 @@ document.getElementById('addressForm').addEventListener('submit', function(event
         .then(data => {
             if (data && data.id) {
                 alert('Endereço atualizado com sucesso!');
+                window.location.href = "./enderecos.html";
             } else if (data && data.error) {
                 alert('Erro ao atualizar o endereço: ' + data.error);
             }

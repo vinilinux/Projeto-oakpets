@@ -1,6 +1,10 @@
 package br.com.oakpets.oakpets.customer.controller;
 
+import br.com.oakpets.oakpets.customer.entities.Address;
 import br.com.oakpets.oakpets.customer.entities.Customer;
+import br.com.oakpets.oakpets.customer.repository.AddressRepository;
+import br.com.oakpets.oakpets.customer.repository.CustomerRepository;
+import br.com.oakpets.oakpets.customer.services.AddressService;
 import br.com.oakpets.oakpets.customer.services.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -61,6 +65,22 @@ public class CustomerController {
         Customer updatedCustomer = customerService.update(id, obj);
         return ResponseEntity.ok().body(updatedCustomer);
     }
+
+    @PutMapping("/{clienteId}/enderecos/{enderecoId}")
+    public ResponseEntity<Object> updateEndereco(
+            @PathVariable Integer clienteId,
+            @PathVariable Integer enderecoId,
+            @RequestBody Address updatedAddress
+    ) {
+        Address updated = customerService.updateAddress(clienteId, enderecoId, updatedAddress);
+
+        if (updated != null) {
+            return ResponseEntity.ok().body(updated);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\": \"Endereço não encontrado\"}");
+        }
+    }
+
 
     @ExceptionHandler(RuntimeException.class)
     public ResponseEntity<String> handleRuntimeException(RuntimeException ex) {

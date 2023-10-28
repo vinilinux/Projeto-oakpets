@@ -1,5 +1,6 @@
 package br.com.oakpets.oakpets.customer.services;
 
+import br.com.oakpets.oakpets.customer.entities.Address;
 import br.com.oakpets.oakpets.customer.entities.Customer;
 
 import java.util.List;
@@ -27,4 +28,6 @@ public interface CustomerService {
     Customer findCustomerByEmail(String email);
 
     Customer findCustomerWithActiveAddressesById(Integer id);
+
+    Address updateAddress(Integer customerId, Integer addressId, Address updatedAddress);
 }

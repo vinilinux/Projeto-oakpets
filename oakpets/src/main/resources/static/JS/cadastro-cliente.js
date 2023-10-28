@@ -36,7 +36,7 @@ function sendFormData() {
 
             if (response.status === 201) {
                 alert('Cliente cadastrado com sucesso!');
-                window.location.href = "./login-cliente.html"; // Redireciona o usuário
+                window.location.href = "./login-cliente.html";
                 return null;
             } else {
                 return response.text().then(text => {
