@@ -53,6 +53,24 @@ public class AddressServiceImpl implements AddressService {
     }
 
     @Override
+    public Address updateAddressDefault(Address address) {
+        if (address != null) {
+            Address existingAddress = findById(address.getId());
+            if (existingAddress != null) {
+                existingAddress.setAddressDefault(address.getAddressDefault());
+                return addressRepository.save(existingAddress);
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public Boolean doesDefaultAddressExist(Integer id) {
+        return addressRepository.existsActiveDefaultAddressByClientId(id);
+    }
+
+
+    @Override
     public List<Address> findByEnabled(boolean enabled) {
         return addressRepository.findByEnabled(enabled);
     }

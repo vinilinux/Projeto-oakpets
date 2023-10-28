@@ -7,7 +7,6 @@ import java.util.List;
 
 public interface CustomerService {
 
-    //usado para o login
     Customer authenticate(String email, String password);
 
     List<Customer> findAllCustomersWithAddresses();

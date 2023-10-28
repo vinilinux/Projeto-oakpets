@@ -33,7 +33,6 @@ public class LoginController {
         if (storedCustomer != null && passwordEncoder.matches(customer.getPassword(), storedCustomer.getPassword())) {
             session.setAttribute("currentUser", storedCustomer);
 
-            // Construa um objeto JSON com as informações desejadas (ID do cliente e nome, por exemplo)
             Map<String, Object> responseData = new HashMap<>();
             responseData.put("clientId", storedCustomer.getCustomerId());
             responseData.put("userName", storedCustomer.getName());

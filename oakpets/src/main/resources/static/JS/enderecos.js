@@ -30,19 +30,25 @@ document.addEventListener("DOMContentLoaded", function () {
                         const enderecoInfo = document.createElement("div");
                         enderecoInfo.classList.add("text-left", "endereco-container");
                         enderecoInfo.innerHTML = `
-                        <h5>${address.addressKind}</h5>
-                        <p>${address.street}, ${address.number}</p>
-                        <p>${address.neighborhood} - ${address.city} | ${address.state}</p>
-                        <p>${address.zipCode}</p>
-                        <a href="#" class="editar" data-address-id="${address.id}">Editar</a>
-                    `;
+                            <h5>${address.addressKind}</h5>
+                            <p>${address.street}, ${address.number}</p>
+                            <p>${address.neighborhood} - ${address.city} | ${address.state}</p>
+                            <p>${address.zipCode}</p>
+                        `;
 
-                        const editarLink = enderecoInfo.querySelector(".editar");
-                        editarLink.addEventListener("click", (event) => {
-                            event.preventDefault();
-                            const addressId = event.target.getAttribute("data-address-id");
-                            window.location.href = `editar-endereco-cliente.html?id=${addressId}`;
-                        });
+                        if (address.addressKind === "Faturamento") {
+                            const editarLink = document.createElement("a");
+                            editarLink.href = "#";
+                            editarLink.classList.add("editar");
+                            editarLink.setAttribute("data-address-id", address.id);
+                            editarLink.textContent = "Editar";
+                            editarLink.addEventListener("click", (event) => {
+                                event.preventDefault();
+                                const addressId = event.target.getAttribute("data-address-id");
+                                window.location.href = `editar-endereco-cliente.html?id=${addressId}`;
+                            });
+                            enderecoInfo.appendChild(editarLink);
+                        }
 
                         const imgLixeira = document.createElement("a");
                         imgLixeira.href = "#";
@@ -53,6 +59,36 @@ document.addEventListener("DOMContentLoaded", function () {
                             const enderecoId = address.id;
                             desativarEndereco(enderecoId);
                         });
+
+                        if (address.addressKind === "Entrega") {
+                            const checkbox = document.createElement("input");
+                            checkbox.type = "checkbox";
+                            checkbox.name = "enderecoPadrao";
+                            checkbox.value = address.id;
+                            checkbox.checked = address.addressDefault;
+
+                            checkbox.addEventListener("change", () => {
+                                if (checkbox.checked) {
+                                    const checkboxes = document.querySelectorAll('input[name="enderecoPadrao"]');
+                                    checkboxes.forEach(cb => {
+                                        if (cb !== checkbox) {
+                                            cb.checked = false;
+                                            atualizarEnderecoPadrao(cb.value, false);
+                                        }
+                                    });
+
+                                    atualizarEnderecoPadrao(checkbox.value, true);
+                                } else {
+                                    atualizarEnderecoPadrao(checkbox.value, false);
+                                }
+                            });
+
+                            const checkboxLabel = document.createElement("label");
+                            checkboxLabel.appendChild(checkbox);
+                            checkboxLabel.appendChild(document.createTextNode("Endereço Padrão"));
+
+                            enderecoInfo.appendChild(checkboxLabel);
+                        }
 
                         divEndereco.appendChild(imgEndereco);
                         divEndereco.appendChild(enderecoInfo);
@@ -71,42 +107,56 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const adicionarEnderecoButton = document.getElementById("adicionarEnderecoButton");
 
-    // Adicione um ouvinte de evento de clique ao botão
-    adicionarEnderecoButton.addEventListener("click", function() {
+    adicionarEnderecoButton.addEventListener("click", function () {
         const clienteId = obterClienteIdDaURL();
         if (clienteId) {
-            // Redirecione para a página "cadastro-endereco-cliente.html" com o ID do cliente na URL
             window.location.href = `/cadastro-endereco-cliente.html?id=${clienteId}`;
         } else {
             console.error("ID do cliente não encontrado na URL.");
         }
     });
+
+    function atualizarEnderecoPadrao(enderecoId, novoValor) {
+        fetch(`/address/updateAddressDefault/${enderecoId}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(novoValor),
+        })
+            .then((response) => {
+                if (response.status === 200) {
+                    alert("Endereço padrão atualizado com sucesso.");
+                } else {
+                    console.error(`Falha ao atualizar o endereço padrão.`);
+                    alert(`Falha ao atualizar o endereço padrão.`);
+                }
+            })
+            .catch((error) => {
+                console.error(`Erro ao atualizar o endereço padrão:`, error);
+                alert(`Erro ao atualizar o endereço padrão: ${error.message}`);
+            });
+    }
+
+    function desativarEndereco(enderecoId) {
+        fetch(`/address/delete/${enderecoId}`, {
+            method: "DELETE",
+        })
+            .then(response => {
+                if (response.status === 200) {
+                    const enderecoElement = document.querySelector(`[data-endereco-id="${enderecoId}"]`);
+                    if (enderecoElement) {
+                        enderecoElement.remove();
+                    }
+                    alert(`Endereço ${enderecoId} desativado com sucesso.`);
+                } else {
+                    console.error(`Falha ao desativar o endereço ${enderecoId}.`);
+                    alert(`Falha ao desativar o endereço ${enderecoId}.`);
+                }
+            })
+            .catch(error => {
+                console.error(`Erro ao desativar o endereço ${enderecoId}: ${error.message}`);
+                alert(`Erro ao desativar o endereço ${enderecoId}: ${error.message}`);
+            });
+    }
 });
-
-function desativarEndereco(enderecoId) {
-    fetch(`/address/delete/${enderecoId}`, {
-        method: "DELETE"
-    })
-
-    .then(response => {
-        if (response.status === 200) {
-            // Remova o elemento da interface do usuário após a exclusão bem-sucedida
-            const enderecoElement = document.querySelector(`[data-endereco-id="${enderecoId}"]`);
-            if (enderecoElement) {
-                enderecoElement.remove();
-            }
-            alert(`Endereço ${enderecoId} desativado com sucesso.`);
-            // Recarregue a página após a exclusão bem-sucedida
-            location.reload();
-        } else {
-            console.error(`Falha ao desativar o endereço ${enderecoId}.`);
-            // Exibir um alerta de falha
-            alert(`Falha ao desativar o endereço ${enderecoId}.`);
-        }
-    })
-    .catch(error => {
-        console.error(`Erro ao desativar o endereço ${enderecoId}:`, error);
-        // Exibir um alerta de erro
-        alert(`Erro ao desativar o endereço ${enderecoId}: ${error.message}`);
-    });
-}

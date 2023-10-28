@@ -1,5 +1,5 @@
 document.getElementById('checkCep').addEventListener('click', function(event) {
-    event.preventDefault(); // Evita o envio do formulário
+    event.preventDefault();
 
     const cep = document.getElementById('zipCode').value;
 
@@ -23,7 +23,7 @@ document.getElementById('checkCep').addEventListener('click', function(event) {
 });
 
 function sendAddressData() {
-    // Obtenha o ID do cliente da URL
+
     const customerId = parseInt(obterClienteIdDaURL(), 10);
 
     if (!customerId) {
@@ -40,7 +40,7 @@ function sendAddressData() {
     const city = document.getElementById('city').value;
     const state = document.getElementById('state').value;
     const enabled = true;
-    const address_default = true;
+    const addressDefault = true;
 
     const addressData = {
         addressKind: addressKind,
@@ -51,87 +51,118 @@ function sendAddressData() {
         city: city,
         state: state,
         zipCode: zipCode,
-        enabled: enabled
+        enabled: enabled,
+        addressDefault: addressDefault
     };
 
-    // Primeiro, verifique a existência do endereço de faturamento
+
     fetch(`/address/checkBillingAddress/${customerId}`)
-        .then(response => response.json())
-        .then(existingBillingAddress => {
-            if (existingBillingAddress && addressKind === "Faturamento") {
-                // Se já existe um endereço de faturamento, você pode atualizar ou lidar com isso de acordo com sua lógica.
-                alert('Já existe um endereço de faturamento cadastrado no sistema.');
-            } else {
-                // Se não existe um endereço de faturamento, você pode prosseguir com o cadastro.
-                fetch(`/address/create/${customerId}`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(addressData)
-                })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data && data.id) {
-                            alert('Endereço cadastrado com sucesso!');
+    .then(response => response.json())
+    .then(existingBillingAddress => {
+        if (existingBillingAddress && addressKind === "Faturamento") {
+            alert('Já existe um endereço de faturamento cadastrado no sistema.');
+        } else if (addressKind === "Entrega") {
+            fetch(`/address/checkDefaultAddress/${customerId}`)
+                .then(response => response.json())
+                .then(hasDefaultDeliveryAddress => {
+                    const addressData = {
+                        addressKind: addressKind,
+                        street: street,
+                        number: number,
+                        complement: complement,
+                        neighborhood: neighborhood,
+                        city: city,
+                        state: state,
+                        zipCode: zipCode,
+                        enabled: enabled,
+                        addressDefault: !hasDefaultDeliveryAddress
+                    };
 
-
-
-                            // Verificar se o último endereço cadastrado foi de faturamento
-                            if (addressKind === "Faturamento") {
-                                // Verificar se o cliente possui endereço de entrega cadastrado
-                                fetch(`/address/checkDeliveryAddress/${customerId}`)
-                                    .then(response => response.json())
-                                    .then(existingDeliveryAddress => {
-                                        if (!existingDeliveryAddress) {
-                                            const confirmCopy = confirm("Deseja copiar as informações do endereço de faturamento para o endereço de entrega?");
-                                            if (confirmCopy) {
-                                                // Aqui você pode copiar as informações do endereço de faturamento
-                                                const deliveryAddressData = { ...addressData, addressKind: "Entrega" };
-
-                                                // Enviar os dados do endereço de entrega
-                                                fetch(`/address/create/${customerId}`, {
-                                                    method: 'POST',
-                                                    headers: {
-                                                        'Content-Type': 'application/json'
-                                                    },
-                                                    body: JSON.stringify(deliveryAddressData)
-                                                })
-                                                    .then(response => response.json())
-                                                    .then(deliveryData => {
-                                                        if (deliveryData && deliveryData.id) {
-                                                            alert('Endereço de entrega cadastrado com sucesso!');
-                                                            window.location.href = `enderecos.html?id=${customerId}`;
-                                                        } else if (deliveryData && deliveryData.error) {
-                                                            alert('Erro ao cadastrar o endereço de entrega: ' + deliveryData.error);
-                                                        }
-                                                    })
-                                                    .catch(error => {
-                                                        console.error('Erro ao enviar o formulário de endereço de entrega:', error);
-                                                    });
-                                            }
-                                        }
-                                    })
-                                    .catch(error => {
-                                        console.error('Erro ao verificar o endereço de entrega:', error);
-                                    });
-                            }
-                        } else if (data && data.error) {
-                            alert('Erro ao cadastrar o endereço: ' + data.error);
-                        }
+                    fetch(`/address/create/${customerId}`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(addressData)
                     })
-                    .catch(error => {
-                        console.error('Erro ao enviar o formulário:', error);
-                    });
-            }
-        })
-        .catch(error => {
-            console.error('Erro ao verificar o endereço de faturamento:', error);
-        });
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data && data.id) {
+                                alert('Endereço de entrega cadastrado com sucesso!');
+                                window.location.href = `enderecos.html?id=${customerId}`;
+                            } else if (data && data.error) {
+                                alert('Erro ao cadastrar o endereço de entrega: ' + data.error);
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Erro ao enviar o formulário de endereço de entrega:', error);
+                        });
+                })
+                .catch(error => {
+                    console.error('Erro ao verificar o endereço de entrega padrão:', error);
+                });
+        } else {
+            fetch(`/address/create/${customerId}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(addressData)
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data && data.id) {
+                        alert('Endereço cadastrado com sucesso!');
+                        if (addressKind === "Faturamento") {
+                            fetch(`/address/checkDeliveryAddress/${customerId}`)
+                                .then(response => response.json())
+                                .then(existingDeliveryAddress => {
+                                    if (!existingDeliveryAddress) {
+                                        const confirmCopy = confirm("Deseja copiar as informações do endereço de faturamento para o endereço de entrega?");
+                                        if (confirmCopy) {
+                                            const deliveryAddressData = { ...addressData, addressKind: "Entrega" };
+                                            fetch(`/address/create/${customerId}`, {
+                                                method: 'POST',
+                                                headers: {
+                                                    'Content-Type': 'application/json'
+                                                },
+                                                body: JSON.stringify(deliveryAddressData)
+                                            })
+                                            .then(response => response.json())
+                                            .then(deliveryData => {
+                                                if (deliveryData && deliveryData.id) {
+                                                    alert('Endereço de entrega cadastrado com sucesso!');
+                                                    window.location.href = `enderecos.html?id=${customerId}`;
+                                                } else if (deliveryData && deliveryData.error) {
+                                                    alert('Erro ao cadastrar o endereço de entrega: ' + deliveryData.error);
+                                                }
+                                            })
+                                            .catch(error => {
+                                                console.error('Erro ao enviar o formulário de endereço de entrega:', error);
+                                            });
+                                        }
+                                    }
+                                })
+                                .catch(error => {
+                                    console.error('Erro ao verificar o endereço de entrega:', error);
+                                });
+                        }
+                    } else if (data && data.error) {
+                        alert('Erro ao cadastrar o endereço: ' + data.error);
+                    }
+                })
+                .catch(error => {
+                    console.error('Erro ao enviar o formulário:', error);
+                });
+        }
+    })
+    .catch(error => {
+        console.error('Erro ao verificar o endereço de faturamento:', error);
+    });
 }
 
 document.getElementById('addressForm').addEventListener('submit', function(event) {
-    event.preventDefault(); // Evita o envio do formulário
+    event.preventDefault();
     sendAddressData();
 });
 
@@ -152,6 +183,5 @@ function configureRadioButtons() {
         entregaRadioButton.disabled = true;
     }
 }
-
 
 document.addEventListener("DOMContentLoaded", configureRadioButtons);

@@ -1,5 +1,5 @@
 document.getElementById('checkCep').addEventListener('click', function(event) {
-    event.preventDefault(); // Evita o envio do formulário
+    event.preventDefault();
 
     const cep = document.getElementById('zipCode').value;
 
@@ -22,17 +22,12 @@ document.getElementById('checkCep').addEventListener('click', function(event) {
         });
 });
 
-// Obtenha o ID do endereço da URL ou de outra fonte
 const urlParams = new URLSearchParams(window.location.search);
-const addressId = urlParams.get("id"); // Certifique-se de que o parâmetro correto seja usado
+const addressId = urlParams.get("id");
 
-// Se o addressId não estiver presente ou não for válido, você deve lidar com isso apropriadamente
-
-// Realize uma requisição GET para obter os dados do endereço
 fetch(`/address/${addressId}`)
     .then(response => response.json())
     .then(addressData => {
-        // Preencha os campos do formulário com os dados obtidos
         document.querySelector('input[name="addressKind"][value="' + addressData.addressKind + '"]').checked = true;
         document.getElementById('zipCode').value = addressData.zipCode;
         document.getElementById('street').value = addressData.street;
@@ -47,9 +42,8 @@ fetch(`/address/${addressId}`)
     });
 
 document.getElementById('addressForm').addEventListener('submit', function(event) {
-    event.preventDefault(); // Evita o envio do formulário
+    event.preventDefault();
 
-    // Obtenha os dados do formulário para atualização
     const addressKind = document.querySelector('input[name="addressKind"]:checked').value;
     const zipCode = document.getElementById('zipCode').value;
     const street = document.getElementById('street').value;
@@ -59,7 +53,6 @@ document.getElementById('addressForm').addEventListener('submit', function(event
     const city = document.getElementById('city').value;
     const state = document.getElementById('state').value;
 
-    // Construa o objeto com os dados para atualização
     const updatedAddressData = {
         addressKind: addressKind,
         zipCode: zipCode,
@@ -71,7 +64,6 @@ document.getElementById('addressForm').addEventListener('submit', function(event
         state: state
     };
 
-    // Realize a requisição PUT para atualizar o endereço
     fetch(`/address/${addressId}`, {
         method: 'PUT',
         headers: {
@@ -83,8 +75,6 @@ document.getElementById('addressForm').addEventListener('submit', function(event
         .then(data => {
             if (data && data.id) {
                 alert('Endereço atualizado com sucesso!');
-                // Redirecione o usuário para a página desejada após a atualização, se necessário.
-                // window.location.href = 'sua_pagina_de_redirecionamento.html';
             } else if (data && data.error) {
                 alert('Erro ao atualizar o endereço: ' + data.error);
             }

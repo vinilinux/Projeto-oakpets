@@ -23,7 +23,7 @@ fetch(`/customers/address/${customerId}`)
 
 function salvarPerfil(event) {
     if (event) {
-        event.preventDefault(); // Evita o comportamento padrão de envio do formulário
+        event.preventDefault();
     }
 
     const formData = new FormData(document.getElementById("customerForms"));

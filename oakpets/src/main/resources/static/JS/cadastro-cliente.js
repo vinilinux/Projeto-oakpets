@@ -7,13 +7,10 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 });
 
-
-//Pega a informação do formulário
 function sendFormData() {
     const passwordField = document.getElementById('password');
     const confirmPasswordField = document.getElementById('ConfirmPassword');
 
-    // Verifique se as senhas não são iguais
     if (passwordField.value !== confirmPasswordField.value) {
         alert('As senhas não coincidem. Por favor, verifique.');
         return;
@@ -28,7 +25,6 @@ function sendFormData() {
         gender: document.getElementById("gender").value
     };
 
-    //envia para a API
     fetch('/customers', {
         method: 'POST',
         headers: {

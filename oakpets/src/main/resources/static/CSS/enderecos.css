@@ -14,20 +14,18 @@
 }
 
 .enderecos {
-    border: 0.5px solid rgba(64, 102, 163, 0.30); /* Configuração da borda */
-    border-radius: 10px; /* Raio da borda para torná-la suave */
+    border: 0.5px solid rgba(64, 102, 163, 0.30);
+    border-radius: 10px;
 }
 
-/* Estilize o contêiner dos itens de endereço */
 .endereco-container {
-    margin: 5px 0; /* Ajuste a margem vertical e horizontal conforme necessário */
+    margin: 5px 0;
     text-align: left !important;
 }
 
-/* Estilize os itens de endereço individualmente */
 .endereco-container h6,
 .endereco-container p {
-    margin: 0px 0; /* Ajuste a margem vertical e horizontal conforme necessário */
+    margin: 0px 0;
 }
 
 .endereco-container > h5 {
