@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Cadastro</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="JS/editar-cliente.js"></script>
+</head>
+<body>
+<div class="container">
+    <h2>Formulário de Cadastro</h2>
+
+    <form id="customerForms">
+
+        <h3>Dados do Cliente</h3>
+        <div class="form-group">
+            <label for="name">Nome:</label>
+            <input type="text" class="form-control" id="name" name="name" required>
+        </div>
+
+        <div class="form-group">
+            <label for="bday">Data de Nascimento:</label>
+            <input type="date" class="form-control" id="bday" name="bday" required>
+        </div>
+
+        <div class="form-group">
+            <label for="cpf">CPF:</label>
+            <input type="text" class="form-control" id="cpf" name="cpf" required>
+        </div>
+
+        <div class="form-group">
+            <label for="email">E-mail:</label>
+            <input type="email" class="form-control" id="email" name="email" required>
+        </div>
+
+        <div class="form-group">
+            <label for="password">Senha:</label>
+            <input type="password" class="form-control" id="password"
+                   name="password">
+        </div>
+
+        <div class="form-group">
+            <label for="password">Confirmação Senha:</label>
+            <input type="password" class="form-control" id="ConfirmPassword" name="ConfirmPassword">
+        </div>
+
+        <div class="form-group">
+            <label for="gender">Gênero:</label>
+            <select class="form-control" id="gender" name="gender">
+                <option value="masculino">Masculino</option>
+                <option value="feminino">Feminino</option>
+                <option value="outro">Outro</option>
+            </select>
+        </div>
+
+        <button type="button" class="btn btn-primary" onclick="salvarPerfil(event)">Enviar</button>
+
+    </form>
+</div>
+</body>
+</html>
