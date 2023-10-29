@@ -60,4 +60,9 @@ public class ProductserviceImpl implements ProductService {
         productOptional.get().setStatus(data.status());
         repository.save(productOptional.get());
     }
+
+    @Override
+    public void update(Product product) {
+        repository.save(product);
+    }
 }

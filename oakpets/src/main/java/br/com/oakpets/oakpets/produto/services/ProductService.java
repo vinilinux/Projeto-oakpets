@@ -20,4 +20,6 @@ public interface ProductService {
 
     void status(Long id, ProductDTO data);
 
+    void update(Product product);
+
 }

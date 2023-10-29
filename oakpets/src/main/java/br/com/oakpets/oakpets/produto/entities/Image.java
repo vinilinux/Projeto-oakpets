@@ -3,6 +3,7 @@ package br.com.oakpets.oakpets.produto.entities;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.Type;
 
 @Data
 @NoArgsConstructor
@@ -20,7 +21,7 @@ public class Image {
     @Column(name = "IMAGE_PRODUCT_PATH")
     private String imagePath;
 
-    @Column(name = "IMAGE_DEFAULT")
+    @Column(name = "IMAGE_DEFAULT", nullable = false)
     private boolean imageDefault;
 
     @ManyToOne

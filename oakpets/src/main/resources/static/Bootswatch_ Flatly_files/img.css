@@ -1,0 +1,8 @@
+.destaque {
+  border: 2px solid red;
+}
+
+.imgthumbnail:hover {
+  cursor: pointer;
+  opacity: 0.7;
+}

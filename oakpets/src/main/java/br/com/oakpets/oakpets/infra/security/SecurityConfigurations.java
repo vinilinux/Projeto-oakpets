@@ -31,6 +31,7 @@ public class SecurityConfigurations {
                         .requestMatchers(HttpMethod.GET, "/api/usuarios/{id}/details").permitAll()
                         .requestMatchers(HttpMethod.PUT, "/api/usuarios/alterar").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/usuarios/create").permitAll()
+                        .requestMatchers(HttpMethod.PUT, "/product/update").permitAll()
                         .anyRequest().permitAll())
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();

@@ -1,6 +1,7 @@
 package br.com.oakpets.oakpets.produto.controllers;
 
 import br.com.oakpets.oakpets.produto.DTO.ProductDTO;
+import br.com.oakpets.oakpets.produto.entities.Image;
 import br.com.oakpets.oakpets.produto.entities.Product;
 import br.com.oakpets.oakpets.produto.services.ImageService;
 import br.com.oakpets.oakpets.produto.services.ProductService;
@@ -39,15 +40,17 @@ public class ProductController {
         Optional<Product> product = service.searchProduct(id);
 
         if (product.isPresent()) {
-            return ResponseEntity.ok(product);
+            product.get().setImages(serviceImage.searchImage(id));
+             return ResponseEntity.ok(product);
         } else {
             return ResponseEntity.badRequest().body("Produto não encontrado");
         }
     }
+
     @CrossOrigin(origins = "*")
     @PostMapping("/create")
     public ResponseEntity createProduct(@RequestParam String data,
-                                        @RequestParam(value = "files", required = false) List<MultipartFile> files,
+                                        @RequestParam(value = "files") List<MultipartFile> files,
                                         @RequestParam(required = false) String imageDefault) throws JsonProcessingException {
 
         var converte = mapper.readValue(data, ProductDTO.class);
@@ -68,6 +71,39 @@ public class ProductController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+    @PutMapping("/update")
+    public ResponseEntity updateProduct(@RequestParam String data,
+                                        @RequestParam(value = "files", required = false) List<MultipartFile> files,
+                                        @RequestParam(required = false) String imageDefault,
+                                        @RequestParam(required = false) List<Long> idImage) throws JsonProcessingException {
+
+        var converte = mapper.readValue(data, ProductDTO.class);
+        Product product = Product.builder()
+                .idProduct(converte.idProduct())
+                .name(converte.name())
+                .amount(converte.amount())
+                .price(converte.price())
+                .description(converte.description())
+                .rate(converte.rate())
+                .build();
+
+        try {
+            service.update(product);
+            if (files != null) {
+                serviceImage.salvarArquivo(files, imageDefault, product);
+            }
+
+            if (idImage != null) {
+                serviceImage.deleteImage(idImage);
+                System.out.println(idImage.get(1));
+            }
+
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
 
     @PutMapping("{id}/status")
     public ResponseEntity status(@PathVariable Long id, @RequestBody ProductDTO data) {
