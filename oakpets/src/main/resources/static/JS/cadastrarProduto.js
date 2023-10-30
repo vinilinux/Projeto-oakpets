@@ -116,11 +116,11 @@ function handleFiles(files) {
       const image = document.createElement("img");
       image.className = "img-thumbnail imgthumbnail";
       image.src = URL.createObjectURL(file);
-      console.log(image.className + file.name)
+      console.log(file.name)
 
       image.onclick = function () {
         image.classList.add("destaque");
-        formData.append("imageDefault", file.nam)
+        formData.append("imageDefault", file.name)
       }
 
       thumbnail.appendChild(image);
@@ -130,7 +130,7 @@ function handleFiles(files) {
     }
   }
 
-  function displayImages(imagePaths) {
+function displayImages(imagePaths) {
     const thumbnailsDiv = document.getElementById("thumbnails-antigas");
 
     thumbnailsDiv.innerHTML = "";
@@ -138,20 +138,35 @@ function handleFiles(files) {
     for (let i = 0; i < imagePaths.length; i++) {
         const imagePath = imagePaths[i];
 
-        console.log("Caminho das imagens: ", imagePath)
-
         const thumbnail = document.createElement("div");
-        thumbnail.className = "col-3";
+        thumbnail.className = "image-container col-3"; // Adicione as classes "image-container" e "col-3" do Bootstrap
 
         const image = document.createElement("img");
-        image.className = "img-thumbnail imgthumbnail";
-        image.src = imagePath.imagePath;
+        image.className = "img-thumbnail"; // Adicione a classe "img-thumbnail" do Bootstrap
+        image.src = imagePath;
 
-        console.log(imagePath.imagePath)
+        const deleteIcon = document.createElement("a");
+        deleteIcon.className = "text-danger"; // Adicione a classe "text-danger" para a cor vermelha do Bootstrap
+        deleteIcon.href = "javascript:void(0)"; // Defina um link vazio para tornar o ícone clicável
+        deleteIcon.innerHTML = "&times;"; // Adicione o símbolo "x"
+
+        deleteIcon.addEventListener('click', () => {
+            // Capturar o ID da imagem quando o "x" for clicado
+            // Para obter o ID da imagem, você pode usar um atributo personalizado no elemento "thumbnail"
+            const imageId = thumbnail.getAttribute("data-image-id");
+            formData.append("idImage", imageId);
+            console.log('ID da imagem selecionada:', imageId);
+        });
+
+        // Defina o atributo personalizado "data-image-id" com o ID da imagem
+        thumbnail.setAttribute("data-image-id", imagePath.idImage);
 
         thumbnail.appendChild(image);
+        thumbnail.appendChild(deleteIcon);
 
         thumbnailsDiv.appendChild(thumbnail);
     }
 }
+
+
 

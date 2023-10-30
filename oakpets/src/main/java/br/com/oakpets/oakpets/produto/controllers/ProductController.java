@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -32,7 +33,9 @@ public class ProductController {
     @GetMapping("/all")
     @JsonIgnoreProperties(value = "images")
     public List<Product> findAll() {
-        return service.findALL();
+        List<Product> products = service.findALL();
+        Collections.reverse(products);
+        return products;
     }
 
     @GetMapping("/{id}/details")
@@ -95,7 +98,6 @@ public class ProductController {
 
             if (idImage != null) {
                 serviceImage.deleteImage(idImage);
-                System.out.println(idImage.get(1));
             }
 
             return new ResponseEntity<>(HttpStatus.OK);
@@ -114,6 +116,19 @@ public class ProductController {
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
+
+    }
+
+    @GetMapping("/allProducts")
+    public ResponseEntity allProduct() {
+
+        try {
+           List<Product> products = service.allProducts();
+            return ResponseEntity.ok(products);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+
 
     }
 

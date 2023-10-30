@@ -14,12 +14,12 @@ public interface ProductService {
 
     List<Product> findALL();
 
-    void editProduct(Product product);
-
     Optional<Product> searchProduct(Long id);
 
     void status(Long id, ProductDTO data);
 
     void update(Product product);
+
+    List<Product> allProducts();
 
 }

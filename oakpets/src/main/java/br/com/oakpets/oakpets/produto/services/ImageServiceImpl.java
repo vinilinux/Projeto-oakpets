@@ -24,6 +24,7 @@ public class ImageServiceImpl implements ImageService {
         this.pathArquivo = pathArquivo;
     }
 
+    @Override
     public void salvarArquivo(List<MultipartFile> file, String imageDefault, Product product) {
 
         List<Image> imageList = new ArrayList<>();
@@ -58,8 +59,12 @@ public class ImageServiceImpl implements ImageService {
     @Transactional
     public void deleteImage(List<Long> idImage) {
         for (Long id : idImage) {
-            System.out.println(id);
-            repository.deleteImagesByIdImage(id);
+            try {
+                repository.deleteImagesByIdImage(id);
+
+            } catch (Exception e) {
+                throw new RuntimeException(e + " Falha ao deletar imagem");
+            }
         }
     }
 

@@ -21,11 +21,9 @@ import java.util.*;
 public class ProductserviceImpl implements ProductService {
 
     private final ProductRepository repository;
-    private final String pathArquivo;
 
-    public ProductserviceImpl(ProductRepository repository, @Value("${app.path.arquivos}") String pathArquivo) {
+    public ProductserviceImpl(ProductRepository repository) {
         this.repository = repository;
-        this.pathArquivo = pathArquivo;
     }
 
     @Override
@@ -36,11 +34,6 @@ public class ProductserviceImpl implements ProductService {
     @Override
     public List<Product> findALL() {
         return repository.findAll();
-    }
-
-    @Override
-    public void editProduct(Product product) {
-
     }
 
     @Override
@@ -64,5 +57,10 @@ public class ProductserviceImpl implements ProductService {
     @Override
     public void update(Product product) {
         repository.save(product);
+    }
+
+    @Override
+    public List<Product> allProducts() {
+        return repository.findAllWithMainImages();
     }
 }
