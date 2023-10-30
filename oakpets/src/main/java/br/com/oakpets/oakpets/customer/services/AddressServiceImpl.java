@@ -32,6 +32,45 @@ public class AddressServiceImpl implements AddressService {
     }
 
     @Override
+    public Address create(Address obj) {
+        obj.setId(null);
+        return addressRepository.save(obj);
+    }
+
+    @Override
+    public Boolean doesBillingAddressExist(Integer id) {
+        return addressRepository.existsActiveBillingAddressByClientId(id);
+    }
+
+    @Override
+    public Address findAddressById(Integer id) {
+        return addressRepository.findById(id);
+    }
+
+    @Override
+    public Boolean doesDeliveryAddressExist(Integer id) {
+        return addressRepository.existsActiveDeliveryAddressByClientId(id);
+    }
+
+    @Override
+    public Address updateAddressDefault(Address address) {
+        if (address != null) {
+            Address existingAddress = findById(address.getId());
+            if (existingAddress != null) {
+                existingAddress.setAddressDefault(address.getAddressDefault());
+                return addressRepository.save(existingAddress);
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public Boolean doesDefaultAddressExist(Integer id) {
+        return addressRepository.existsActiveDefaultAddressByClientId(id);
+    }
+
+
+    @Override
     public List<Address> findByEnabled(boolean enabled) {
         return addressRepository.findByEnabled(enabled);
     }

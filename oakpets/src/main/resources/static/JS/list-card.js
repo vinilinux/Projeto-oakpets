@@ -34,11 +34,11 @@ async function fetchProducts() {
 
             const productPrice = document.createElement('p');
             productPrice.classList.add('product-price');
-            productPrice.textContent = `Preço: R$ ${product.price.toFixed(2)}`;
+            productPrice.textContent = `R$ ${product.price.toFixed(2)}`;
 
             const detailsButton = document.createElement('a');
             detailsButton.classList.add('details-button', 'btn', 'btn-primary');
-            detailsButton.href = `visualizarProduto.html?id=${product.id_product}`;
+            detailsButton.href = `visualizar-produto.html?id=${product.id_product}`;
             detailsButton.textContent = 'Detalhes';
 
             productContent.appendChild(productTitle);
@@ -57,33 +57,25 @@ async function fetchProducts() {
     }
 }
 
-
-
-
 function updateUIBasedOnLoginStatus() {
     const userName = localStorage.getItem("userName");
     const userStatusElement = document.getElementById('userStatus');
     const logoutLink = document.getElementById('logoutLink');
 
+    console.log("Valor de userName em localStorage:", localStorage.getItem("userName"));
+
+
     if (userName) {
-        userStatusElement.innerHTML = `<i class="bi bi-person-circle"></i> <a href="perfil-cliente.html">${userName}</a>`;
+        userStatusElement.classList.add('btnEntrar');
+        userStatusElement.innerHTML = `<i class="bi bi-person-fill"></i> <a href="minha-conta.html">${userName}</a>`;
         logoutLink.style.display = 'inline';
     } else {
-        userStatusElement.innerHTML = `<a href="./login-customer.html"><i class="bi bi-person-circle"></i> Entre ou cadastre-se</a>`;
+        userStatusElement.classList.remove('btnEntrar');
+        userStatusElement.innerHTML = `<a href="./login-cliente.html"><button class="btn btnEntrar text-left" type="submit"><i class="bi bi-person-fill"></i> <span>Entre ou <br> Cadastre-se</span></button></a>`;
         logoutLink.style.display = 'none';
     }
 }
 
-
-function handleLogout() {
-    const confirmation = confirm("Deseja realmente sair?");
-    if (confirmation) {
-        localStorage.removeItem("userName");
-        updateUIBasedOnLoginStatus();
-        window.location.href = "./login-customer.html";
-    }
-}
-
+updateUIBasedOnLoginStatus();
 
 fetchProducts();
-updateUIBasedOnLoginStatus();
