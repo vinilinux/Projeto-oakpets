@@ -126,7 +126,7 @@ public class ProductController {
            List<Product> products = service.allProducts();
             return ResponseEntity.ok(products);
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
+            return ResponseEntity.badRequest().body("Erro na listagem do produto " + e.getMessage());
         }
 
 
