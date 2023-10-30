@@ -1,0 +1,12 @@
+.destaque {
+  border: 2px solid red;
+}
+
+.imgthumbnail:hover {
+  cursor: pointer;
+  opacity: 0.7;
+}
+.thumbnail-image {
+  max-width: 100px; // Defina o tamanho máximo desejado
+max-height: 100px;
+}

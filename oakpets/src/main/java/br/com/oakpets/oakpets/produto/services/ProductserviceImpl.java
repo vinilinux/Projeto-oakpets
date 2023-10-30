@@ -1,21 +1,19 @@
 package br.com.oakpets.oakpets.produto.services;
 
+import br.com.oakpets.oakpets.produto.DTO.ProductDTO;
 import br.com.oakpets.oakpets.produto.entities.Image;
 import br.com.oakpets.oakpets.produto.entities.Product;
 import br.com.oakpets.oakpets.produto.repositories.ProductRepository;
-import br.com.oakpets.oakpets.produto.services.ProductService;
+import br.com.oakpets.oakpets.usuario.DTO.UserDTO;
+import br.com.oakpets.oakpets.usuario.entities.User;
 import jakarta.transaction.Transactional;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.codec.multipart.Part;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.*;
 
@@ -23,11 +21,9 @@ import java.util.*;
 public class ProductserviceImpl implements ProductService {
 
     private final ProductRepository repository;
-    private final String pathArquivo;
 
-    public ProductserviceImpl(ProductRepository repository, @Value("${app.path.arquivos}") String pathArquivo) {
+    public ProductserviceImpl(ProductRepository repository) {
         this.repository = repository;
-        this.pathArquivo = pathArquivo;
     }
 
     @Override
@@ -37,12 +33,7 @@ public class ProductserviceImpl implements ProductService {
 
     @Override
     public List<Product> findALL() {
-        return null;
-    }
-
-    @Override
-    public void editProduct(Product product) {
-
+        return repository.findAll();
     }
 
     @Override
@@ -51,36 +42,25 @@ public class ProductserviceImpl implements ProductService {
         return repository.findById(id);
     }
 
-    public List<Product> findAllWithMainImages() {
-        return repository.findAllWithMainImages();
-    }
+    @Override
+    public void status(Long id, ProductDTO data) {
+        Optional<Product> productOptional = repository.findById(id);
 
-    public List<Image> salvarArquivo(MultipartFile file[]) {
-
-        List<Image> imageList = new ArrayList<>();
-
-        try {
-            for (MultipartFile newFile : file) {
-                Long currentTime = new Date().getTime();
-                String fileName =
-                        pathArquivo + currentTime.toString().concat("-").concat(Objects.requireNonNull(newFile.getOriginalFilename()).replace(" "
-                                , ""));
-                Files.copy(newFile.getInputStream(), Path.of(fileName), StandardCopyOption.REPLACE_EXISTING);
-
-                Image image = Image.builder()
-                        .imagePath(fileName)
-                        .build();
-                imageList.add(image);
-            }
-
-            return imageList;
-        } catch (IOException e) {
-            throw new RuntimeException(e + " Falha no upload");
+        if (productOptional.isEmpty()) {
+            throw new RuntimeException("Usuario não encontrado");
         }
+
+        productOptional.get().setStatus(data.status());
+        repository.save(productOptional.get());
     }
 
-    private String extrairExtensao(String nomeArquivo) {
-        int i = nomeArquivo.lastIndexOf(".");
-        return nomeArquivo.substring(i + 1);
+    @Override
+    public void update(Product product) {
+        repository.save(product);
+    }
+
+    @Override
+    public List<Product> allProducts() {
+        return repository.findAllWithMainImages();
     }
 }

@@ -45,6 +45,6 @@ public class Product {
     @PositiveOrZero(message = "{positivoorzero}")
     private int amount;
 
-    @OneToMany(mappedBy = "idProduct", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Image> images = new ArrayList<>();
 }

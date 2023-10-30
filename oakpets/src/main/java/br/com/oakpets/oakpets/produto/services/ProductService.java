@@ -1,5 +1,6 @@
 package br.com.oakpets.oakpets.produto.services;
 
+import br.com.oakpets.oakpets.produto.DTO.ProductDTO;
 import br.com.oakpets.oakpets.produto.entities.Image;
 import br.com.oakpets.oakpets.produto.entities.Product;
 import org.springframework.web.multipart.MultipartFile;
@@ -13,12 +14,12 @@ public interface ProductService {
 
     List<Product> findALL();
 
-    void editProduct(Product product);
-
     Optional<Product> searchProduct(Long id);
 
-    List<Product> findAllWithMainImages();
+    void status(Long id, ProductDTO data);
 
-    List<Image> salvarArquivo(MultipartFile file[]);
+    void update(Product product);
+
+    List<Product> allProducts();
 
 }

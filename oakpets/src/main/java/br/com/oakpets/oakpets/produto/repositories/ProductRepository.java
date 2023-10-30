@@ -10,7 +10,8 @@ import java.util.Optional;
 
 public interface ProductRepository extends JpaRepository  <Product, Long>{
 
-    @Query("SELECT DISTINCT p FROM Product p JOIN FETCH p.images img WHERE img.imageDefault = 'Sim' AND p.status = 'ativo'")
+    @Query("SELECT DISTINCT p FROM Product p JOIN FETCH p.images img WHERE img.imageDefault = true AND p.status = " +
+            "'ativo'")
     List<Product> findAllWithMainImages();
 
 
