@@ -1,6 +1,6 @@
 async function fetchProducts() {
     try {
-        const response = await fetch('/products/allProducts');
+        const response = await fetch('/products/all');
         const products = await response.json();
 
         const productList = document.getElementById('product-list');
@@ -22,6 +22,7 @@ async function fetchProducts() {
 
             const productImage = document.createElement('img');
             productImage.src = product.images[0].imagePath;
+
             productImage.alt = 'Imagem do Produto';
             productImage.classList.add('img-fluid');
 
@@ -39,7 +40,7 @@ async function fetchProducts() {
             const detailsButton = document.createElement('a');
             detailsButton.classList.add('details-button', 'btn', 'btn-primary');
 
-            detailsButton.href = `visualizarProduto.html?id=${product.idProduct}`;
+            detailsButton.href = `visualizar-produto.html?id=${product.idProduct}`;
 
             detailsButton.textContent = 'Detalhes';
 
