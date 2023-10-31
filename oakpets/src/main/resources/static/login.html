@@ -10,6 +10,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="stylesheet" href="./Bootswatch_ Flatly_files/bootstrap.css" media="screen">
   <link rel="stylesheet" href="./Bootswatch_ Flatly_files/custom.min.css">
+  <script src="JS/login.js"></script>
 </head>
 
 <body class="" style="">
@@ -33,17 +34,17 @@
                     <form>
                       <fieldset>
                         <div class="form-group">
-                          <label for="exampleInputEmail1">Email: *</label>
-                          <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                          <label for="email">Email: *</label>
+                          <input type="email" class="form-control" id="email" aria-describedby="emailHelp"
                             placeholder="Digite o Email">
                         </div>
                         <div class="form-group">
-                          <label for="exampleInputPassword1">Senha: *</label>
-                          <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                          <label for="password">Senha: *</label>
+                          <input type="password" class="form-control" id="password" placeholder="Password">
                         </div>
                   </div>
 
-                  <button onclick="window.location.href='home.html'" type="button"
+                  <button onclick="acesso()" type="button"
                     class="btn btn-success">Entrar</button>
 
                   </fieldset>

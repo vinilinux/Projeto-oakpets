@@ -84,7 +84,9 @@ function salvar() {
             method: 'POST',
             body: JSON.stringify(data),
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                Authorization: 'Bearer ' + localStorage.getItem('token')
+
             }
         }).then(function (response) {
             if (response.status === 200) {
@@ -99,5 +101,4 @@ function salvar() {
             console.error("Erro ao cadastrar: ", error);
         });
     }
-
 }

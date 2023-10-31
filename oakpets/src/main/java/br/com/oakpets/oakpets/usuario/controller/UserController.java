@@ -13,6 +13,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
@@ -50,8 +53,16 @@ public class UserController {
 
         var token = tokenService.generateToken((User) auth.getPrincipal());
 
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
-        return ResponseEntity.ok(new LoginResponseDTO(token));
+        List<GrantedAuthority> authorities = (List<GrantedAuthority>) authentication.getAuthorities();
+
+        boolean hasEstoqueRole = authorities.stream().anyMatch(authority -> authority.getAuthority().equals("ROLE_ESTOQUE"));
+
+        System.out.println(hasEstoqueRole);
+
+
+        return ResponseEntity.ok(new LoginResponseDTO(token, data.login()));
     }
 
     @PostMapping("/create")
