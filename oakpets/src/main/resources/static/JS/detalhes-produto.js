@@ -11,11 +11,11 @@ async function fetchProducts() {
         if (Array.isArray(products_details.images)) {
             products_details.images.forEach((imagem, index) => {
                 const imgElement = document.createElement('img');
-                imgElement.src = imagem.image_path;
+                imgElement.src = imagem.imagePath;
 
                 imgElement.classList.add('carousel-item');
 
-                if (imagem.image_default === 'yes' && index === 0) {
+                if (imagem.imageDefault === true && index === 0) {
                     imgElement.classList.add('active');
                 }
                 carrossel.appendChild(imgElement);
