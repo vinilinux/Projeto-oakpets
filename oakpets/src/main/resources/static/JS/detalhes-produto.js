@@ -28,13 +28,13 @@ async function fetchProducts() {
         var estrelasContainer = document.getElementById('estrelas-container');
         for (var i = 0; i < rateInt; i++) {
             var img = document.createElement('img');
-            img.src = 'Images/icons8-estrela-50.png';
+            img.src = 'Images/icons8-estrela-50-azul.png';
             estrelasContainer.appendChild(img);
         }
 
         if (decimalPart > 0) {
             var img = document.createElement('img');
-            img.src = 'Images/icons8-estrela-meio-vazia-50.png';
+            img.src = 'Images/icons8-estrela-meio-vazia-50-azul.png';
             estrelasContainer.appendChild(img);
         }
 
@@ -42,7 +42,7 @@ async function fetchProducts() {
         productTitle.textContent = products_details.name;
 
         const productPrice = document.getElementById("product-price");
-        productPrice.textContent = `Preço: R$ ${products_details.price.toFixed(2)}`;
+        productPrice.textContent = `R$ ${products_details.price.toFixed(2)}`;
 
         const productDescription = document.getElementById("product-description")
         productDescription.textContent = products_details.description;

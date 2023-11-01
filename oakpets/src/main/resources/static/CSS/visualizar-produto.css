@@ -1,0 +1,60 @@
+* {
+    /*border: 2px solid rgb(2, 209, 2); !important;*/
+    margin: 0;
+    padding: 0;
+}
+
+.fonte-maior {
+    font-size: 25px;
+}
+
+.fonte-media {
+    font-size: 20px;
+}
+
+.fonte-menor {
+    font-size: 15px;
+}
+
+.principal {
+    display: flex;
+    align-items: center;
+    margin-top: 100px;
+}
+
+.quant-size {
+    display: flex;
+}
+
+#quantidade {
+    margin-left: 50px;
+    padding-left: 17%;
+    width: 200px;
+    height: 35px;
+
+}
+
+#estrelas-container {
+    display: flex;
+    width: 40px;
+    height: 40px;
+}
+
+#botao {
+    width: 300px;
+    height: 50px;
+    background-color: #003384;
+}
+
+#product-price {
+    color: black;
+}
+
+#carousel-inner {
+    width: 100%;
+    height: 100%;
+}
+
+.between {
+    margin-top: 30px;
+}
