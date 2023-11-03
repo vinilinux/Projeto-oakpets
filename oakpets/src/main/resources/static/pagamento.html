@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.4/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="/CSS/pagamento.css">
+    <link rel="stylesheet" href="/CSS/header.css">
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script src="JS/pagamento.js"></script>
+    <script src="JS/header.js" defer></script>
+
+
+
+    <title>Pagamento</title>
+
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <div class="container">
+            <a class="navbar-brand" href="./index.html">
+                <img class="imgHeader" src="./Images/LogoSemFundo.png" alt="logo">
+            </a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#headerItens"
+                aria-controls="headerItens" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="bi bi-list"></span>
+            </button>
+
+            <div class="collapse navbar-collapse justify-content-center" id="headerItens">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="./index.html">Início</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="./colecoes.html">Produtos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="./contato.html">Sobre</a>
+                    </li>
+                </ul>
+            </div>
+
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="./contato.html">
+                        <i class="bi bi-cart4"></i>
+                    </a>
+                </li>
+            </ul>
+
+            <div class="navbar-nav ml-auto">
+                <span id="userStatus">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/login-cliente.html">
+                            <button class="btn btnEntrar text-left" type="submit">
+                                <i class="bi bi-person-fill"></i> <span>Entre ou <br> cadastre-se</span>
+                            </button>
+                        </a>
+                    </li>
+                </span>
+            </div>
+
+            <a href="#" id="logoutLink" onclick="handleLogout();" style="display: none;"><i
+                    class="bi bi-box-arrow-left"></i></a>
+
+        </div>
+    </nav>
+
+    <div class="container cards">
+        <div class="row">
+            <div class="col-sm-9 mb-3 mb-sm-0">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Forma de Pagamento</h5>
+                        <div class="form-check" id="boleto">
+                            <input class="form-check-input" type="radio" name="payment" id="boleto-option" value="boleto">
+                            <label class="form-check-label" for="boleto">
+                                Boleto
+                            </label>
+                        </div>
+                        <div class="form-check cartao" id="cartao">
+                            <input class="form-check-input" type="radio" name="payment" id="cartao-option" value="cartao">
+                            <label class="form-check-label" for="cartao" id="formaCartao">
+                                Cartão
+                            </label>
+                            <div class="credit-card-details form-group dadosCartao">            
+                                <label for="numeroCartao">Número do Cartão</label>
+                                <input type="text" class="form-control" id="numeroCartao">
+                                <label for="nomeCartao">Nome</label>
+                                <input type="text" class="form-control" id="nomeCartao">
+                                <label for="validadeCartao">Validade</label>
+                                <input type="text" class="form-control" id="validadeCartao">
+                                <label for="codigoCartao">Código</label>
+                                <input type="text" class="form-control" id="codigoCartao">
+                                <label for="cpfCartao">CPF</label>
+                                <input type="text" class="form-control" id="cpfCartao">
+                                <label for="dataNascimentoCartao">Data de Nascimento</label>
+                                <input type="text" class="form-control" id="dataNascimentoCartao">
+                                <label for="parcelasCartao">Parcelas</label>
+                                <input type="text" class="form-control" id="parcelasCartao">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Valor da compra</h5>
+                        <div class="column-layout">
+                            <p>Total: </p>
+                            <p>Frete: </p>
+                            <button type="button" class="btn btn-primary small-button continua">Continuar</button>
+                            <button type="button" class="btn btn-secondary small-button">Voltar</button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</body>
+
+</html>

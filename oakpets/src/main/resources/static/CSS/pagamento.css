@@ -1,0 +1,44 @@
+.payment-container {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.payment-option {
+    display: flex;
+    justify-content: space-between;
+    margin: 10px 0;
+}
+
+.column-layout {
+    display: flex;
+    flex-direction: column;
+}
+.small-button {
+    padding: 6px 20px;
+    margin-left: 30px;
+    margin-right: 30px;
+}
+.continua {
+    margin-bottom: 10px;
+}
+
+.boleto {
+    margin-top: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+.cartao {
+    margin-top: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin-bottom: 6px;
+}
+
+.dadosCartao {
+    margin-right: 10px;
+    margin-bottom: 5px;
+}
+.cards {
+    margin-top: 30px;
+}
