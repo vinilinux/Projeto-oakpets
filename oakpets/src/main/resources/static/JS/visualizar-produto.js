@@ -39,18 +39,26 @@ document.addEventListener("DOMContentLoaded", function () {
                     const precoProduto = parseFloat(produto.price);
                     const total = quantidade * precoProduto;
 
-
                     const carrinho = recuperarInformacoesDoCarrinho();
-                    carrinho.push({ produto, quantidade, total });
+
+                    const produtoExistenteIndex = carrinho.findIndex(item => item.produto.idProduct === produto.idProduct);
+
+                    if (produtoExistenteIndex !== -1) {
+                        // O produto já está no carrinho, então, em vez de adicionar, atualizamos a quantidade
+                        carrinho[produtoExistenteIndex].quantidade += quantidade;
+                        carrinho[produtoExistenteIndex].total += total;
+                    } else {
+                        // O produto não existe no carrinho, então adicionamos
+                        carrinho.push({ produto, quantidade, total });
+                    }
+
                     localStorage.setItem("carrinho", JSON.stringify(carrinho));
 
                     atualizarIconeCarrinho();
 
-
                     window.location.href = `pre-carrinho.html?total=${total}&productName=${produto.name}&productDescription=${produto.description}&productPrice=${produto.price}&productImage=${produto.images[0].imagePath}`;
-
-
                 });
+
             } else {
                 console.error("Produto não encontrado.");
             }

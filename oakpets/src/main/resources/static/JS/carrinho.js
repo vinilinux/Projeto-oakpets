@@ -1,91 +1,49 @@
-const produtos = [
-    {
-        image: 'img/1698870816249-r1.png',
-        name: 'Ração Seca Nutrilus Pro+ Frango & Carne para Cães Adultos',
-        value: 163.92,
-        quantity: 1
-    },
-    {
-        image: 'img/1698870816249-r1.png',
-        name: 'Ração Seca Nutrilus Pro+ Frango & Carne para Cães Adultos',
-        value: 49.99,
-        quantity: 3
-    },
-    {
-        image: 'img/1698870816249-r1.png',
-        name: 'Ração Seca Nutrilus Pro+ Frango & Carne para Cães Adultos',
-        value: 29.99,
-        quantity: 2
-    }
-];
-
-function calculateTotal(subtotal, frete) {
-    const total = subtotal + frete;
-    return total;
-}
-function updateSubtotal() {
-    const products = JSON.parse(localStorage.getItem('products'));
-    const subtotal = calculateSubTotal(products);
-
-    document.getElementById('subtotal').textContent = `R$ ${subtotal.toFixed(2)}`;
-
-    return subtotal;
-}
-
-function updateFrete() {
-    const novoFrete = 15.00;
-
-    document.getElementById('frete').textContent = `R$ ${novoFrete.toFixed(2)}`;
-    return novoFrete;
-}
-
-
+const produtos = JSON.parse(localStorage.getItem('carrinho')) || [];
 
 localStorage.setItem('products', JSON.stringify(produtos));
-
-function calculateSubTotal(products) {
-    let subtotal = 0;
-    products.forEach(product => {
-        subtotal += product.value * product.quantity;
-    });
-    return subtotal;
-}
-
-calculateTotal(updateSubtotal(), updateFrete());
-
-function updateSubTotal(subtotal) {
-    const totalElement = document.getElementById('subtotal');
-    if (totalElement) {
-        totalElement.textContent = `R$ ${subtotal.toFixed(2)}`;
-    }
-}
-
-function updateTotal() {
-    const subtotal = updateSubtotal();
-    const frete = updateFrete();
-    const total = calculateTotal(subtotal, frete);
-
-    document.getElementById('total').textContent = `R$ ${total.toFixed(2)}`;
-}
 
 const products = JSON.parse(localStorage.getItem('products'));
 
 const productList = document.getElementById('product-list');
 
-if (products && products.length > 0) {
+const subtotalElement = document.getElementById('subtotal');
+const freteElement = document.getElementById('frete');
+const totalElement = document.getElementById('total');
 
-    products.forEach((product, index) => {
+function updateSubtotalAndTotal() {
+    let subtotal = 0;
+
+    produtos.forEach((produto) => {
+        subtotal += produto.quantidade * produto.produto.price;
+    });
+
+    const frete = 10; // Valor do frete
+    const total = subtotal + frete;
+
+    subtotalElement.textContent = `R$ ${subtotal.toFixed(2)}`;
+    freteElement.textContent = `R$ ${frete.toFixed(2)}`;
+    totalElement.textContent = `R$ ${total.toFixed(2)}`;
+}
+
+updateSubtotalAndTotal();
+
+function updateLocalStorage() {
+    localStorage.setItem('carrinho', JSON.stringify(produtos));
+}
+
+if (produtos && produtos.length > 0) {
+    produtos.forEach((produto, index) => {
         const productDiv = document.createElement('div');
         productDiv.className = 'd-flex justify-content-between';
 
         const img = document.createElement('img');
-        img.src = product.image;
+        img.src = produto.produto.images[0].imagePath;
         img.alt = 'Imagem do produto';
         img.className = 'align-self-start';
 
         const name = document.createElement('p');
         name.className = 'ml-3';
-        name.textContent = product.name;
+        name.textContent = produto.produto.name;
 
         const quantityDiv = document.createElement('div');
         quantityDiv.className = 'ml-3';
@@ -97,21 +55,22 @@ if (products && products.length > 0) {
         quantityInput.min = 1;
         quantityInput.max = 100;
         quantityInput.step = 1;
-        quantityInput.value = product.quantity;
+        quantityInput.value = produto.quantidade;
 
         quantityInput.addEventListener('change', () => {
             const newQuantity = parseInt(quantityInput.value, 10);
-            product.quantity = newQuantity;
-            const totalValue = product.value * newQuantity;
+            produto.quantidade = newQuantity;
+            const totalValue = newQuantity * produto.produto.price;
             value.innerHTML = `
-            <p>Valor:</p>
-            <p>R$ ${totalValue.toFixed(2)}
-        `;
-            const subtotal = calculateSubTotal(products);
-            updateSubTotal(subtotal);
-            localStorage.setItem('products', JSON.stringify(products));
+        <p>Valor:</p>
+        <p>R$ ${totalValue.toFixed(2)}
+    `;
 
+            updateSubtotalAndTotal();
+            updateLocalStorage();
         });
+
+
 
         const trashLink = document.createElement('a');
         trashLink.href = '#';
@@ -122,18 +81,17 @@ if (products && products.length > 0) {
             alert('Produto excluído com sucesso!');
         });
 
-
         const trashImg = document.createElement('img');
         trashImg.src = 'Images/lixeira.png';
         trashImg.alt = 'Lixeira';
 
         const value = document.createElement('div');
         value.className = 'ml-3 text-right';
-        const totalValue = product.value * product.quantity;
+        const totalValue = produto.quantidade * produto.produto.price;
         value.innerHTML = `
-        <p>Valor:</p>
-        <p>R$ ${totalValue.toFixed(2)}</p>
-    `;
+            <p>Valor:</p>
+            <p>R$ ${totalValue.toFixed(2)}</p>
+        `;
 
         quantityDiv.appendChild(quantityLabel);
         quantityDiv.appendChild(quantityInput);
@@ -148,25 +106,20 @@ if (products && products.length > 0) {
 
         quantityInput.addEventListener('change', () => {
             const newQuantity = parseInt(quantityInput.value, 10);
-            const totalValue = product.value * newQuantity;
+            const totalValue = newQuantity * produto.produto.price;
             value.innerHTML = `
-            <p>Valor:</p>
-            <p>R$ ${totalValue.toFixed(2)}</p>
-        `;
+                <p>Valor:</p>
+                <p>R$ ${totalValue.toFixed(2)}</p>
+            `;
         });
-        const subtotal = calculateSubTotal(products);
-        updateSubTotal(subtotal);
-
 
         productList.appendChild(productDiv);
     });
 }
 
-
 function removeProduct(index) {
-    products.splice(index, 1);
-    localStorage.setItem('products', JSON.stringify(products));
-
+    produtos.splice(index, 1);
+    localStorage.setItem('carrinho', JSON.stringify(produtos));
     location.reload();
 }
 
