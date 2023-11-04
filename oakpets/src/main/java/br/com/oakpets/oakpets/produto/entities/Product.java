@@ -1,6 +1,7 @@
 package br.com.oakpets.oakpets.produto.entities;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 import lombok.*;
 
 import java.util.ArrayList;
@@ -9,6 +10,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 @Entity
 @Table(name = "tbl_product")
 public class Product {
@@ -18,24 +20,31 @@ public class Product {
     @Column(name = "ID_PRODUCT")
     private Long idProduct;
 
-    @Column(name = "NAME_PRODUCT")
+    @Column(name = "NAME")
+    @NotBlank(message = "{name.not.blank}")
+    @Size(min = 2, max = 200, message = "{max.character}")
     private String name;
 
-    @Column(name = "DESCRIPTION_PRODUCT")
+    @Column(name = "DESCRIPTION")
+    @Size(min = 2, max = 2000, message = "{max.character}")
     private String description;
     
     @Column(name = "STATUS")
     private String status;
 
-    @Column(name = "RATING_PRODUCT")
+    @Column(name = "RATING")
+    @PositiveOrZero(message = "{positivoorzero}")
+    @DecimalMax(value = "5.0", message = "{max.character}")
     private double rate;
 
-    @Column(name = "PRICE_PRODUCT")
+    @Column(name = "PRICE")
+    @PositiveOrZero(message = "{positivoorzero}")
     private double price;
 
-    @Column(name = "AMOUNT_PRODUCT")
+    @Column(name = "AMOUNT")
+    @PositiveOrZero(message = "{positivoorzero}")
     private int amount;
 
-    @OneToMany(mappedBy = "idProduct", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Image> images = new ArrayList<>();
 }

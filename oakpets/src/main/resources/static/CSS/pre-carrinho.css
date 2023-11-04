@@ -1,0 +1,99 @@
+.body > * {
+    background-color: #fffafa;
+}
+
+.retangulo {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #ffffff;
+    width: 55%;
+    height: 450px;
+    margin: 25vh auto;
+    padding: 20px;
+    border: 2px solid #022E74;
+    border-radius: 5px;
+}
+
+.conteudo-superior {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 93%;
+}
+
+#product-image {
+    display: flex;
+    align-items: center;
+    width: 300px;
+    height: 300px;
+}
+
+.informacoes-produto {
+    flex-grow: 1;
+    text-align: left;
+    padding: 0 20px;
+}
+.informacoes-produto > p {
+    font-family: 'Noto Sans', sans-serif;
+    color: #022E74;
+    font-size: 25px;
+}
+#product-name {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+#product-description {
+    font-size: 16px;
+}
+
+#product-price {
+    font-size: 16px;
+}
+
+.total-compra {
+    font-family: 'Noto Sans', sans-serif;
+    color: #022E74;
+    font-size: 25px;
+    align-items: center;
+    white-space: nowrap;
+    margin-left: 40vw;
+    margin-top: -9vw;
+
+}
+.botoes button {
+    padding: 10px 20px;
+    background-color: #022E74;
+    color: white;
+    border: none;
+    cursor: pointer;
+    margin-right: 20px;
+    border-radius: 5px;
+    height: 75px;
+    font-size: 20px;
+    width: 25vw;
+}
+
+.botoes button:hover {
+    background-color: #0056b3;
+}
+
+#botao1 {
+    background-color: #ffffff;
+    color: #022E74;
+    border: 2px solid #022E74;
+}
+
+
+
+#botao1:hover {
+    background-color: #fffafa;
+}
+#product-description{
+    font-size: 20px;
+}
+#product-price{
+    font-size: 20px;
+}

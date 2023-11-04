@@ -1,8 +1,11 @@
 package br.com.oakpets.oakpets.usuario.entities;
 
+import lombok.Getter;
+
+@Getter
 public enum UserRole {
     ADMIN("admin"),
-    USER("user");
+    ESTOQUE("estoque");
 
     private String role;
 
@@ -10,7 +13,4 @@ public enum UserRole {
         this.role = role;
     }
 
-    public String getRole() {
-        return role;
-    }
 }
