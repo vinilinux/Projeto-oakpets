@@ -1,0 +1,16 @@
+/* Estilo da borda da div "Endereço" */
+.endereco {
+    border: 1px solid #ccc; /* Cor e espessura da borda */
+    padding: 10px; /* Espaçamento interno para afastar o conteúdo da borda */
+    width: 100%;
+}
+
+/* Estilo da borda da div "Produtos" */
+.produtos {
+    border: 1px solid #ccc; /* Cor e espessura da borda */
+    padding: 10px; /* Espaçamento interno para afastar o conteúdo da borda */
+}
+
+.lixeira {
+    margin-left: 100px;
+}

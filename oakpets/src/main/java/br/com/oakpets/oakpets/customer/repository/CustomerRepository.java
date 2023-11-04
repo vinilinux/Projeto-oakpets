@@ -27,5 +27,7 @@ public interface CustomerRepository extends JpaRepository<Customer, Integer> {
     Customer findCustomerWithActiveAddressesById(Integer customerId);
 
 
+    @Query("SELECT c FROM Customer c LEFT JOIN FETCH c.addresses a WHERE c.customerId = :customerId AND a.addressDefault = true")
+    Customer findCustomerWithDefaultAddressById(Integer customerId);
 
 }

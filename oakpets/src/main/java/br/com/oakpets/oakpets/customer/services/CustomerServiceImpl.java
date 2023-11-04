@@ -109,6 +109,8 @@ public class CustomerServiceImpl implements CustomerService {
         return existingAddress;
     }
 
+
+
     @Override
     public Customer create(Customer obj) {
 
@@ -147,6 +149,11 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public Customer findCustomerWithActiveAddressesById(Integer id) {
         return customerRepository.findCustomerWithActiveAddressesById(id);
+    }
+
+    @Override
+    public Customer findCustomerWithDefaultAddressById(Integer id) {
+        return customerRepository.findCustomerWithDefaultAddressById(id);
     }
 
 

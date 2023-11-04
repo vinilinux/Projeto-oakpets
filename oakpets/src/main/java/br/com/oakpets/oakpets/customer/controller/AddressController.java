@@ -81,6 +81,16 @@ public class AddressController {
         return ResponseEntity.ok(exists);
     }
 
+    @GetMapping("/default/{customerId}")
+    public ResponseEntity<Address> getDefaultAddress(@PathVariable Integer customerId) {
+        Address defaultAddress = addressService.getDefaultAddressByCustomerId(customerId);
+        if (defaultAddress != null) {
+            return ResponseEntity.ok(defaultAddress);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
     @GetMapping(value = "/checkDeliveryAddress/{id}")
     public ResponseEntity<Boolean> checkDeliveryAddress (@PathVariable Integer id) {
         Boolean exists = addressService.doesDeliveryAddressExist(id);
