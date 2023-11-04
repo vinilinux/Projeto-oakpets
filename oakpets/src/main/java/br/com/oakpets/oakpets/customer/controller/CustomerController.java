@@ -47,6 +47,16 @@ public class CustomerController {
             return ResponseEntity.notFound().build();
     }
 
+    @GetMapping(value = "/addressDefault/{id}")
+    public ResponseEntity<Customer> getCustomerDefaultAddressById(@PathVariable Integer id) {
+        Customer customer = customerService.findCustomerWithDefaultAddressById(id);
+
+        if(customer != null)
+            return ResponseEntity.ok().body(customer);
+        else
+            return ResponseEntity.notFound().build();
+    }
+
     @PostMapping
     public ResponseEntity<Customer> createCustomer(@RequestBody Customer obj) {
         Customer newObj = customerService.create(obj);

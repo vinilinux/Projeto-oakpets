@@ -22,6 +22,8 @@ public interface AddressService {
 
     Boolean doesDeliveryAddressExist(Integer id);
 
+    Address getDefaultAddressByCustomerId(Integer customerId);
+
     Address updateAddressDefault(Address address);
 
     Boolean doesDefaultAddressExist(Integer id);

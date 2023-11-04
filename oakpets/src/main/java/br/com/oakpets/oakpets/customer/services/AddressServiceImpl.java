@@ -53,6 +53,11 @@ public class AddressServiceImpl implements AddressService {
     }
 
     @Override
+    public Address getDefaultAddressByCustomerId(Integer customerId) {
+        return addressRepository.findByCustomerIdAndAddressDefaultTrue(customerId);
+    }
+
+    @Override
     public Address updateAddressDefault(Address address) {
         if (address != null) {
             Address existingAddress = findById(address.getId());

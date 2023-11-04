@@ -15,7 +15,7 @@ async function fetchProducts() {
 
                 imgElement.classList.add('carousel-item');
 
-                if (imagem.imageDefault === true && index === 0) {
+                if (imagem.imageDefault === true) {
                     imgElement.classList.add('active');
                 }
                 carrossel.appendChild(imgElement);
