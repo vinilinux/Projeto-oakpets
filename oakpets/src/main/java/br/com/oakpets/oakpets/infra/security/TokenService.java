@@ -1,4 +1,4 @@
-package br.com.oakpets.oakpets.infra.security_old;
+package br.com.oakpets.oakpets.infra.security;
 
 import br.com.oakpets.oakpets.usuario.entities.User;
 import com.auth0.jwt.JWT;
@@ -26,7 +26,6 @@ public class TokenService {
                     .withSubject(user.getEmail())
                     .withExpiresAt(generateExpirationDate())
                     .sign(algorithm);
-
             return token;
         } catch (JWTCreationException exception) {
             throw new RuntimeException("Error while generating token ", exception);
@@ -42,7 +41,7 @@ public class TokenService {
                     .verify(token)
                     .getSubject();
         } catch (JWTVerificationException exception) {
-            return "";
+            return exception.getMessage();
         }
     }
 

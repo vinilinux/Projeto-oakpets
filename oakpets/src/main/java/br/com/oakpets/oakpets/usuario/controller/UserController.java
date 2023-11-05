@@ -1,6 +1,6 @@
 package br.com.oakpets.oakpets.usuario.controller;
 
-import br.com.oakpets.oakpets.infra.security_old.TokenService;
+import br.com.oakpets.oakpets.infra.security.TokenService;
 import br.com.oakpets.oakpets.usuario.DTO.AuthenticationDTO;
 import br.com.oakpets.oakpets.usuario.DTO.LoginResponseDTO;
 import br.com.oakpets.oakpets.usuario.DTO.UserDTO;

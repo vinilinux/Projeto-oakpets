@@ -1,4 +1,4 @@
-package br.com.oakpets.oakpets.infra.security_old;
+package br.com.oakpets.oakpets.infra.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -25,13 +25,9 @@ public class SecurityConfigurations {
                 .csrf(csrf -> csrf.disable())
                 .sessionManagement(sesion -> sesion.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers(HttpMethod.POST, "/api/usuarios/login").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/api/usuarios/listaTodos").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/api/usuarios/{id}/details").permitAll()
-                        .requestMatchers(HttpMethod.PUT, "/api/usuarios/alterar").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/api/usuarios/create").permitAll()
-                        .requestMatchers(HttpMethod.PUT, "/product/update").permitAll()
-                        .anyRequest().permitAll())
+                        .requestMatchers(HttpMethod.POST, "/api/usuarios/login").permitAll().requestMatchers(HttpMethod.POST, "api/usuarios/create").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/usuarios/listaTodos").hasRole("ADMIN")
+                        .anyRequest().authenticated())
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
