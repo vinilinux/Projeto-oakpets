@@ -62,39 +62,25 @@ document.getElementById('buscarEnderecoBtn').addEventListener('click', function 
     }
 });
 
+
 function showFreteOptions() {
-    document.getElementById('frete-expresso').style.display = 'block';
-    document.getElementById('frete-normal').style.display = 'block';
-    document.getElementById('frete-gratis').style.display = 'block';
+    const freteOptions = {
+        "frete-expresso": 15.00,
+        "frete-normal": 10.00,
+        "frete-gratis": 0.00
+    };
 
-    const freteExpresso = 15.00;
-    const freteNormal = 10.00;
-    const freteGratis = 0.00;
-
-    document.getElementById('frete-expresso-preco').textContent = freteExpresso.toFixed(2);
-    document.getElementById('frete-normal-preco').textContent = freteNormal.toFixed(2);
-    document.getElementById('frete-gratis-preco').textContent = freteGratis.toFixed(2);
+    for (const optionId in freteOptions) {
+        const option = document.getElementById(optionId);
+        if (option) {
+            option.setAttribute("data-frete", freteOptions[optionId]);
+            option.addEventListener("change", updateSubtotalAndTotal);
+        }
+    }
 
     document.getElementById('freteDiv').style.display = 'block';
 }
 
-
-function showFreteOptions() {
-    document.getElementById('frete-expresso').style.display = 'block';
-    document.getElementById('frete-normal').style.display = 'block';
-    document.getElementById('frete-gratis').style.display = 'block';
-
-    // Atualize os valores de frete aqui
-    const freteExpresso = 15.00;
-    const freteNormal = 10.00;
-    const freteGratis = 0.00;
-
-    document.getElementById('frete-expresso-preco').textContent = freteExpresso.toFixed(2);
-    document.getElementById('frete-normal-preco').textContent = freteNormal.toFixed(2);
-    document.getElementById('frete-gratis-preco').textContent = freteGratis.toFixed(2);
-
-    document.getElementById('freteDiv').style.display = 'block';
-}
 
 const produtos = JSON.parse(localStorage.getItem('carrinho')) || [];
 
@@ -115,13 +101,35 @@ function updateSubtotalAndTotal() {
         subtotal += produto.quantidade * produto.produto.price;
     });
 
-    const frete = 10; // Valor do frete
-    const total = subtotal + frete;
+    const selectedFreteOption = document.querySelector('input[name="frete"]:checked');
 
-    subtotalElement.textContent = `R$ ${subtotal.toFixed(2)}`;
-    freteElement.textContent = `R$ ${frete.toFixed(2)}`;
-    totalElement.textContent = `R$ ${total.toFixed(2)}`;
+    if (selectedFreteOption) {
+        const frete = parseFloat(selectedFreteOption.getAttribute("data-frete"));
+
+        const total = subtotal + frete;
+
+        subtotalElement.textContent = `R$ ${subtotal.toFixed(2)}`;
+        freteElement.textContent = `R$ ${frete.toFixed(2)}`;
+        totalElement.textContent = `R$ ${total.toFixed(2)}`;
+    } else {
+        // Caso nenhuma opção de frete seja selecionada, o valor padrão é 0.00
+        const frete = 0.00;
+        const total = subtotal + frete;
+
+        subtotalElement.textContent = `R$ ${subtotal.toFixed(2)}`;
+        freteElement.textContent = `R$ ${frete.toFixed(2)}`;
+        totalElement.textContent = `R$ ${total.toFixed(2)}`;
+    }
 }
+
+// Chame a função para atualizar os valores iniciais
+updateSubtotalAndTotal();
+
+
+const freteOptions = document.querySelectorAll('input[name="frete"]');
+freteOptions.forEach((option) => {
+    option.addEventListener('change', updateSubtotalAndTotal);
+});
 
 updateSubtotalAndTotal();
 
