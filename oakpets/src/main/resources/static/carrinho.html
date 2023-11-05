@@ -17,8 +17,7 @@
 </head>
 <body>
 
-<<<<<<< HEAD
-=======
+
 <nav class="navbar navbar-expand-lg navbar-light">
     <div class="container">
         <a class="navbar-brand" href="./index.html">
@@ -69,6 +68,7 @@
     </div>
 </nav>
 
+
 <div class="container">
     <div class="row">
         <div class="col-12 col-md-10">
@@ -78,11 +78,13 @@
             </div>
         </div>
 
-
         <div id="cepInputDiv" style="display: none;">
             <input type="text" id="cepInput" placeholder="Digite seu CEP">
             <button id="buscarEnderecoBtn">Buscar</button>
         </div>
+
+
+
         <div class="col-12 col-md-10">
             <div class="produtos">
                 <h2 class="text-left">Produtos</h2>
@@ -91,6 +93,11 @@
                 </div>
             </div>
         </div>
+
+
+
+
+
         <div class="col-md-2">
             <div class="resumo">
                 <h2 class="mb-4">Resumo</h2>
@@ -112,7 +119,34 @@
 
         </div>
 
-    </div>
+
+
+        <div id="freteDiv" style="display: none;">
+            <h2>Opções de frete</h2>
+            <div class="form-check">
+
+                <input class="form-check-input" type="radio" name="frete" id="frete-expresso" value="frete-expresso">
+                <label class="form-check-label" for="frete-expresso" id="frete-expresso-label">
+                    Frete Expresso - R$ <span id="frete-expresso-preco">0.00</span>
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="frete" id="frete-normal" value="frete-normal">
+                <label class="form-check-label" for="frete-normal" id="frete-normal-label">
+                    Frete Normal - R$ <span id="frete-normal-preco">0.00</span>
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="frete" id="frete-gratis" value="frete-gratis">
+                <label class="form-check-label" for="frete-gratis" id="frete-gratis-label">
+                    Frete Grátis - R$ <span id="frete-gratis-preco">0.00</span>
+                </label>
+            </div>
+        </div>
+
+
+
+</div>
 </div>
 
 <script src="JS/carrinho.js"></script>

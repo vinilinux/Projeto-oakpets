@@ -19,6 +19,108 @@ const produtos = [
     }
 ];
 
+function fetchCEPInfo(cep) {
+    fetch(`https://viacep.com.br/ws/${cep}/json/`)
+        .then(response => response.json())
+        .then(data => {
+            if (data.erro) {
+                alert('CEP não encontrado.');
+            } else {
+                document.getElementById('enderecoInfo').innerHTML = `
+                    <h4>Endereço</h4>
+                    <p>Entrega</p>
+                    <p>${data.logradouro}, ${data.bairro}</p>
+                    <p>CEP: ${data.cep} - ${data.localidade}, ${data.uf}</p>
+                `;
+                showFreteOptions();
+            }
+
+            document.getElementById('cepInput').value = '';
+        })
+        .catch(error => {
+            console.error('Erro ao consultar o CEP:', error);
+            alert('Ocorreu um erro ao consultar o CEP. Tente novamente mais tarde.');
+        });
+}
+
+function updateAddressInfoLoggedIn(clientId) {
+    fetch(`/address/default/${clientId}`)
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById('enderecoInfo').innerHTML = `
+                <h4>Endereço</h4>
+                <p>Entrega</p>
+                <p>${data.street}, ${data.number} - ${data.neighborhood}</p>
+                <p>CEP: ${data.zipCode} - ${data.city}, ${data.state}</p>
+            `;
+            showFreteOptions();
+        })
+        .catch(error => console.error(error));
+    document.getElementById('enderecoDiv').style.display = 'block';
+    document.getElementById('cepInputDiv').style.display = 'block';
+}
+
+function updateAddressInfoNotLoggedIn(cep) {
+    fetchCEPInfo(cep);
+    document.getElementById('enderecoDiv').style.display = 'block';
+    document.getElementById('cepInputDiv').style.display = 'none';
+}
+
+document.getElementById('buscarEnderecoBtn').addEventListener('click', function () {
+    const userName = localStorage.getItem('userName');
+    const clientId = localStorage.getItem('clientId');
+    const cepInput = document.getElementById('cepInput');
+    const cep = cepInput.value.replace(/\D/g, ''); // Remove caracteres não numéricos do CEP
+
+    if (userName && clientId) {
+        updateAddressInfoLoggedIn(clientId);
+    } else {
+        if (cep.length === 8) {
+            updateAddressInfoNotLoggedIn(cep);
+        } else {
+            alert('CEP inválido. Informe um CEP válido com 8 dígitos.');
+        }
+    }
+});
+
+function showFreteOptions() {
+    document.getElementById('frete-expresso').style.display = 'block';
+    document.getElementById('frete-normal').style.display = 'block';
+    document.getElementById('frete-gratis').style.display = 'block';
+
+    const freteExpresso = 15.00;
+    const freteNormal = 10.00;
+    const freteGratis = 0.00;
+
+    document.getElementById('frete-expresso-preco').textContent = freteExpresso.toFixed(2);
+    document.getElementById('frete-normal-preco').textContent = freteNormal.toFixed(2);
+    document.getElementById('frete-gratis-preco').textContent = freteGratis.toFixed(2);
+
+    document.getElementById('freteDiv').style.display = 'block';
+}
+
+
+function showFreteOptions() {
+    document.getElementById('frete-expresso').style.display = 'block';
+    document.getElementById('frete-normal').style.display = 'block';
+    document.getElementById('frete-gratis').style.display = 'block';
+
+    // Atualize os valores de frete aqui
+    const freteExpresso = 15.00;
+    const freteNormal = 10.00;
+    const freteGratis = 0.00;
+
+    document.getElementById('frete-expresso-preco').textContent = freteExpresso.toFixed(2);
+    document.getElementById('frete-normal-preco').textContent = freteNormal.toFixed(2);
+    document.getElementById('frete-gratis-preco').textContent = freteGratis.toFixed(2);
+
+    document.getElementById('freteDiv').style.display = 'block';
+}
+
+
+
+
+
 function calculateTotal(subtotal, frete) {
     const total = subtotal + frete;
     return total;
@@ -186,17 +288,24 @@ function updateAddressInfo() {
                 enderecoInfo.innerHTML = `
                     <h4>Endereço</h4>
                     <p>Entrega</p>
-                    <p>${data.street}, ${data.number} - ${data.complement}</p>
+                    <p>${data.street}, ${data.number} - ${data.neighborhood}</p>
                     <p>CEP: ${data.zipCode} - ${data.city}, ${data.state}</p>
                 `;
+                showFreteOptions();
+
             })
             .catch(error => console.error(error));
-        enderecoDiv.style.display = 'block';
-        cepInputDiv.style.display = 'none';
+        document.getElementById('enderecoDiv').style.display = 'block';
+        document.getElementById('cepInputDiv').style.display = 'block';
     } else {
         enderecoDiv.style.display = 'none';
         cepInputDiv.style.display = 'block';
     }
 }
+
+
+
+
+
 
 updateAddressInfo();
