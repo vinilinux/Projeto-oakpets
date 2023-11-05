@@ -1,11 +1,10 @@
 package br.com.oakpets.oakpets.usuario.controller;
 
-import br.com.oakpets.oakpets.infra.security.TokenService;
+import br.com.oakpets.oakpets.infra.security_old.TokenService;
 import br.com.oakpets.oakpets.usuario.DTO.AuthenticationDTO;
 import br.com.oakpets.oakpets.usuario.DTO.LoginResponseDTO;
 import br.com.oakpets.oakpets.usuario.DTO.UserDTO;
 import br.com.oakpets.oakpets.usuario.entities.User;
-import br.com.oakpets.oakpets.usuario.entities.UserRole;
 import br.com.oakpets.oakpets.usuario.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

@@ -1,4 +1,4 @@
-package br.com.oakpets.oakpets.infra.security;
+package br.com.oakpets.oakpets.infra.security_old;
 
 import br.com.oakpets.oakpets.usuario.repository.UserRepository;
 import jakarta.servlet.FilterChain;
