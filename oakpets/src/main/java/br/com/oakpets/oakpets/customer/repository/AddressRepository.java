@@ -32,7 +32,8 @@ public interface AddressRepository extends JpaRepository<Address, Long> {
             "AND a.addressDefault = true")
     Boolean existsActiveDefaultAddressByClientId(Integer clientId);
 
-    @Query("SELECT a FROM Address a WHERE a.idCustomer.customerId = :customerId AND a.addressDefault = true")
+    @Query("SELECT a FROM Address a WHERE a.idCustomer.customerId = :customerId AND a.addressDefault = true AND a.addressKind = 'Entrega'")
     Address findByCustomerIdAndAddressDefaultTrue(@Param("customerId") Integer customerId);
+
 
 }

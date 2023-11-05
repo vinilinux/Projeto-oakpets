@@ -132,7 +132,17 @@ function sendAddressData() {
                                             .then(deliveryData => {
                                                 if (deliveryData && deliveryData.id) {
                                                     alert('Endereço de entrega cadastrado com sucesso!');
-                                                    window.location.href = `enderecos.html?id=${customerId}`;
+
+                                                    // Verifique se há algum item no Local Storage
+                                                    const carrinho = JSON.parse(localStorage.getItem('carrinho'));
+
+                                                    if (carrinho && carrinho.length > 0) {
+                                                        // Se houver itens no carrinho, redirecione para a página 'carrinho.html'
+                                                        window.location.href = 'carrinho.html';
+                                                    } else {
+                                                        // Caso contrário, redirecione para a página 'enderecos.html'
+                                                        window.location.href = `enderecos.html?id=${customerId}`;
+                                                    }
                                                 } else if (deliveryData && deliveryData.error) {
                                                     alert('Erro ao cadastrar o endereço de entrega: ' + deliveryData.error);
                                                 }

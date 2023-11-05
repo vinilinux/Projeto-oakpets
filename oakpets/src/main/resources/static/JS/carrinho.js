@@ -62,7 +62,6 @@ document.getElementById('buscarEnderecoBtn').addEventListener('click', function 
     }
 });
 
-
 function showFreteOptions() {
     const freteOptions = {
         "frete-expresso": 15.00,
@@ -105,6 +104,8 @@ function updateSubtotalAndTotal() {
 
     if (selectedFreteOption) {
         const frete = parseFloat(selectedFreteOption.getAttribute("data-frete"));
+        localStorage.setItem('selectedFrete', selectedFreteOption.id);
+        localStorage.setItem('selectedFreteValue', frete);
 
         const total = subtotal + frete;
 
@@ -112,7 +113,6 @@ function updateSubtotalAndTotal() {
         freteElement.textContent = `R$ ${frete.toFixed(2)}`;
         totalElement.textContent = `R$ ${total.toFixed(2)}`;
     } else {
-        // Caso nenhuma opção de frete seja selecionada, o valor padrão é 0.00
         const frete = 0.00;
         const total = subtotal + frete;
 
@@ -122,7 +122,6 @@ function updateSubtotalAndTotal() {
     }
 }
 
-// Chame a função para atualizar os valores iniciais
 updateSubtotalAndTotal();
 
 
@@ -175,8 +174,6 @@ if (produtos && produtos.length > 0) {
             updateSubtotalAndTotal();
             updateLocalStorage();
         });
-
-
 
         const trashLink = document.createElement('a');
         trashLink.href = '#';
@@ -259,4 +256,52 @@ function updateAddressInfo() {
         cepInputDiv.style.display = 'block';
     }
 }
+
+document.addEventListener("DOMContentLoaded", function() {
+    const selectedFreteId = localStorage.getItem('selectedFrete');
+    const selectedFreteValue = localStorage.getItem('selectedFreteValue');
+    if (selectedFreteId) {
+        const selectedFreteOption = document.getElementById(selectedFreteId);
+        if (selectedFreteOption) {
+            selectedFreteOption.checked = true;
+        }
+        if (selectedFreteValue) {
+            freteElement.textContent = `R$ ${parseFloat(selectedFreteValue).toFixed(2)}`;
+        }
+        updateSubtotalAndTotal();
+    }
+});
+
+const paymentButton = document.getElementById('paymentButton');
+
+paymentButton.addEventListener('click', function () {
+    const userName = localStorage.getItem('userName');
+    const clientId = localStorage.getItem('clientId');
+    const produtos = JSON.parse(localStorage.getItem('carrinho')) || [];
+
+    if (userName && clientId) {
+        const pedido = {
+            clientId: clientId,
+            totalValue: parseFloat(totalElement.textContent.replace('R$ ', '')),
+            freteValue: parseFloat(freteElement.textContent.replace('R$ ', '')),
+            endereco: document.getElementById('enderecoInfo').textContent.trim(),
+            produtos: produtos.map((produto) => {
+                return {
+                    id: produto.produto.id,
+                    quantidade: produto.quantidade,
+                    totalProduto: produto.quantidade * produto.produto.price,
+                    nomeProduto: produto.produto.name,
+                    imagemProduto: produto.produto.images[0].imagePath
+                };
+            })
+        };
+
+        localStorage.setItem('pedido', JSON.stringify(pedido));
+
+        window.location.href = 'pagamento.html';
+    } else {
+        window.location.href = 'login-cliente.html';
+    }
+});
+
 updateAddressInfo();
