@@ -87,9 +87,8 @@ public class PedidoController {
 
 
     @GetMapping("/{id}")
-    public ResponseEntity<List<Pedidos>> findAll(@PathVariable Long id) {
+    public ResponseEntity findAll(@PathVariable Integer id) {
         try {
-
             return ResponseEntity.ok(service.findAll(id));
         } catch (Exception e) {
             return ResponseEntity.badRequest().build();
