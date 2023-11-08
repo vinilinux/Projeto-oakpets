@@ -8,7 +8,7 @@ var pedidoCompleto = localStorage.getItem('pedido');
 var userName = localStorage.getItem('userName');
 var tipoFrete = localStorage.getItem('selectedFrete')
 var freteValor = localStorage.getItem('selectedFreteValue');
-var carrinho = localStorage.getItem('carrinho')
+var carrinho = localStorage.getItem('carrinho');
 
 if (pedidoCompleto) {
     var visualizacaoPedido = JSON.parse(pedidoCompleto);
@@ -63,17 +63,13 @@ if (carrinho) {
 
 //Enviando para o backend
 
-// Obtenha os dados do localStorage
-    var pedidoCompleto = localStorage.getItem('pedido');
-    var userName = localStorage.getItem('userName');
-    var tipoFrete = localStorage.getItem('selectedFrete');
-    var freteValor = parseFloat(localStorage.getItem('selectedFreteValue'));
-    var carrinho = localStorage.getItem('carrinho');
-
 // Adicione um ouvinte de evento de clique ao botão
+
     var enviarPedidoButton = document.getElementById('enviarPedido');
     enviarPedidoButton.addEventListener('click', function () {
+
         // Obtenha os dados do localStorage e envie-os para o backend
+
         if (pedidoCompleto && userName && tipoFrete && !isNaN(freteValor) && carrinho) {
             var visualizacaoPedido = JSON.parse(pedidoCompleto);
 
@@ -84,7 +80,7 @@ if (carrinho) {
                 valorFrete: freteValor,
                 tipoPagamento: tipoFrete,
                 data: new Date().toLocaleDateString(),
-                itemPedidoDTOS: carrinho.map(function (produto) {
+                itemPedidoDTOS: produtosCarrinho.map(function (produto) {
                     return {
                         productId: produto.produto.idProduct,
                         quantidade: produto.quantidade,
@@ -93,7 +89,7 @@ if (carrinho) {
                 })
             };
 
-            axios.post('URL_do_seu_endpoint', dadosParaEnviar)
+            axios.post('http://localhost:8080/pedidos', dadosParaEnviar)
                 .then(function (response) {
                     console.log('Dados enviados com sucesso.');
                 })
