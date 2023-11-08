@@ -28,7 +28,6 @@ public class ProductserviceImpl implements ProductService {
     }
 
     @Override
-    @Transactional
     public Optional<Product> searchProduct(Long id) {
         return repository.findById(id);
     }

@@ -2,10 +2,16 @@ package br.com.oakpets.oakpets.carrinho.entities;
 
 import br.com.oakpets.oakpets.produto.entities.Product;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @Entity
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "item_pedidos")
 public class ItemPedidos {
 
