@@ -80,6 +80,147 @@ function showFreteOptions() {
     document.getElementById('freteDiv').style.display = 'block';
 }
 
+function attachSelectAddressClickEvent(clientId) {
+    const selectAddressLink = document.getElementById('selectAddress');
+    selectAddressLink.addEventListener('click', (event) => {
+        event.preventDefault();
+        openAddressPopup(clientId);
+    });
+}
+
+function updateAddressInfo() {
+    const userName = localStorage.getItem("userName");
+    const enderecoDiv = document.getElementById('enderecoDiv');
+    const cepInputDiv = document.getElementById('cepInputDiv');
+    const enderecoInfo = document.getElementById('enderecoInfo');
+    const cepInfo = document.getElementById('cepInfo');
+    const clientId = localStorage.getItem("clientId");
+
+    if (userName && clientId) {
+        fetch(`/address/default/${clientId}`)
+            .then(response => response.json())
+            .then(data => {
+                enderecoInfo.innerHTML = `
+                    <h4>Endereço</h4>
+                    <p>Entrega</p>
+                    <p>${data.street}, ${data.number} - ${data.neighborhood}</p>
+                    <p>CEP: ${data.zipCode} - ${data.city}, ${data.state}</p>
+                    <a href="#" id="selectAddress">Selecionar outro endereço</a>
+                    <a href="cadastro-endereco-cliente.html">Adicionar Novo Endereço</a>
+                `;
+
+
+                showFreteOptions();
+
+                // Adicione um evento de clique à tag 'Selecionar outro endereço' e passe clientId como parâmetro
+                attachSelectAddressClickEvent(clientId);
+            })
+            .catch(error => console.error(error));
+
+        enderecoDiv.style.display = 'block';
+        cepInputDiv.style.display = 'block';
+    } else {
+        enderecoDiv.style.display = 'none';
+        cepInputDiv.style.display = 'block';
+    }
+}
+
+
+
+
+
+function openAddressPopup(clientId) {
+    const addressPopup = document.getElementById('addressPopup');
+    const addressList = document.getElementById('addressList');
+
+    // Limpe a lista de endereços, caso já tenha sido preenchida anteriormente
+    addressList.innerHTML = '';
+
+    // Exiba o popup
+    addressPopup.style.display = 'block';
+
+    // Faça uma requisição para obter os endereços do cliente
+    fetch(`/address/delivery/${clientId}`)
+        .then(response => response.json())
+        .then(data => {
+            data.forEach(address => {
+                const addressItem = document.createElement('li');
+                addressItem.innerHTML = `
+                    <a href="#" class="selectAddress" data-addressid="${address.id}">
+                        ${address.street}, ${address.number} - ${address.neighborhood}, CEP: ${address.zipCode}
+                    </a>
+                `;
+                addressList.appendChild(addressItem);
+            });
+
+            // Adicione um evento de clique a cada item da lista de endereços
+            const selectAddressLinks = document.querySelectorAll('.selectAddress');
+            selectAddressLinks.forEach(link => {
+                link.addEventListener('click', (event) => {
+                    event.preventDefault();
+                    const selectedAddressId = link.getAttribute('data-addressid');
+                    updateCartWithSelectedAddress(selectedAddressId, clientId);
+                    addressPopup.style.display = 'none';
+                });
+            });
+        })
+        .catch(error => console.error(error));
+
+        const closePopupLink = document.getElementById('closePopup');
+        closePopupLink.addEventListener('click', (event) => {
+            event.preventDefault();
+            addressPopup.style.display = 'none';
+        });
+
+        attachSelectAddressClickEvent(clientId);
+}
+
+const cart = {
+    address: {}
+};
+function updateCartWithSelectedAddress(selectedAddressId, clientId) {
+    // Faça uma requisição para obter os detalhes do endereço selecionado
+    fetch(`/address/${selectedAddressId}`)
+        .then(response => response.json())
+        .then(selectedAddress => {
+            // Atualize o endereço no objeto cart
+            cart.address = selectedAddress;
+
+            // Atualize o elemento HTML que exibe o endereço de entrega no carrinho.
+            const enderecoInfo = document.getElementById('enderecoInfo');
+            enderecoInfo.innerHTML = `
+                <h4>Endereço</h4>
+                <p>Entrega</p>
+                <p>${selectedAddress.street}, ${selectedAddress.number} - ${selectedAddress.neighborhood}</p>
+                <p>CEP: ${selectedAddress.zipCode} - ${selectedAddress.city}, ${selectedAddress.state}</p>
+                <a href="#" id="selectAddress">Selecionar outro endereço</a>
+                <a href="cadastro-endereco-cliente.html">Adicionar Novo Endereço</a>
+            `;
+
+            // Adicione novamente os eventos de clique às tags 'Selecionar outro endereço' e 'Adicionar Novo Endereço'
+            const selectAddressLink = document.getElementById('selectAddress');
+            selectAddressLink.addEventListener('click', (event) => {
+                event.preventDefault();
+                openAddressPopup(clientId);
+            });
+
+            // Feche o popup de seleção de endereço
+            const addressPopup = document.getElementById('addressPopup');
+            addressPopup.style.display = 'none';
+
+            // Realize outras ações conforme necessário, como calcular o frete com o novo endereço, etc.
+        })
+        .catch(error => console.error(error));
+}
+
+// Restante do seu código aqui
+
+
+
+
+
+
+
 
 const produtos = JSON.parse(localStorage.getItem('carrinho')) || [];
 
@@ -226,37 +367,6 @@ function removeProduct(index) {
     location.reload();
 }
 
-function updateAddressInfo() {
-    const userName = localStorage.getItem("userName");
-    const enderecoDiv = document.getElementById('enderecoDiv');
-    const cepInputDiv = document.getElementById('cepInputDiv');
-    const enderecoInfo = document.getElementById('enderecoInfo');
-    const cepInfo = document.getElementById('cepInfo');
-
-    const clientId = localStorage.getItem("clientId");
-
-    if (userName && clientId) {
-        fetch(`/address/default/${clientId}`)
-            .then(response => response.json())
-            .then(data => {
-                enderecoInfo.innerHTML = `
-                    <h4>Endereço</h4>
-                    <p>Entrega</p>
-                    <p>${data.street}, ${data.number} - ${data.neighborhood}</p>
-                    <p>CEP: ${data.zipCode} - ${data.city}, ${data.state}</p>
-                `;
-                showFreteOptions();
-
-            })
-            .catch(error => console.error(error));
-        document.getElementById('enderecoDiv').style.display = 'block';
-        document.getElementById('cepInputDiv').style.display = 'block';
-    } else {
-        enderecoDiv.style.display = 'none';
-        cepInputDiv.style.display = 'block';
-    }
-}
-
 document.addEventListener("DOMContentLoaded", function() {
     const selectedFreteId = localStorage.getItem('selectedFrete');
     const selectedFreteValue = localStorage.getItem('selectedFreteValue');
@@ -278,27 +388,31 @@ paymentButton.addEventListener('click', function () {
     const userName = localStorage.getItem('userName');
     const clientId = localStorage.getItem('clientId');
     const produtos = JSON.parse(localStorage.getItem('carrinho')) || [];
+    const selectedFreteOption = document.querySelector('input[name="frete"]:checked'); // Obtém a opção de frete selecionada
 
     if (userName && clientId) {
-        const pedido = {
-            clientId: clientId,
-            totalValue: parseFloat(totalElement.textContent.replace('R$ ', '')),
-            freteValue: parseFloat(freteElement.textContent.replace('R$ ', '')),
-            endereco: document.getElementById('enderecoInfo').textContent.trim(),
-            produtos: produtos.map((produto) => {
-                return {
-                    id: produto.produto.id,
-                    quantidade: produto.quantidade,
-                    totalProduto: produto.quantidade * produto.produto.price,
-                    nomeProduto: produto.produto.name,
-                    imagemProduto: produto.produto.images[0].imagePath
-                };
-            })
-        };
+        if (selectedFreteOption) {
+            const pedido = {
+                clientId: clientId,
+                totalValue: parseFloat(totalElement.textContent.replace('R$ ', '')),
+                freteValue: parseFloat(freteElement.textContent.replace('R$ ', '')),
+                endereco: document.getElementById('enderecoInfo').textContent.trim(),
+                produtos: produtos.map((produto) => {
+                    return {
+                        id: produto.produto.id,
+                        quantidade: produto.quantidade,
+                        totalProduto: produto.quantidade * produto.produto.price,
+                        nomeProduto: produto.produto.name,
+                        imagemProduto: produto.produto.images[0].imagePath
+                    };
+                })
+            };
+            localStorage.setItem('pedido', JSON.stringify(pedido));
 
-        localStorage.setItem('pedido', JSON.stringify(pedido));
-
-        window.location.href = 'pagamento.html';
+            window.location.href = 'pagamento.html';
+        } else {
+            alert('Por favor, selecione uma opção de frete antes de prosseguir.');
+        }
     } else {
         window.location.href = 'login-cliente.html';
     }

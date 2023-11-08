@@ -20,6 +20,8 @@ public interface AddressService {
 
     Address findAddressById(Integer id);
 
+    List<Address> findDeliveryAddressesByCustomerId(Integer id);
+
     Boolean doesDeliveryAddressExist(Integer id);
 
     Address getDefaultAddressByCustomerId(Integer customerId);
