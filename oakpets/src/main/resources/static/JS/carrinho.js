@@ -10,6 +10,8 @@ function fetchCEPInfo(cep) {
                     <p>Entrega</p>
                     <p>${data.logradouro}, ${data.bairro}</p>
                     <p>CEP: ${data.cep} - ${data.localidade}, ${data.uf}</p>
+                    <a href="#" id="selectAddress">Selecionar outro endereço</a>
+                    <a href="cadastro-endereco-cliente.html">Adicionar Novo Endereço</a>
                 `;
                 showFreteOptions();
             }
@@ -22,19 +24,25 @@ function fetchCEPInfo(cep) {
         });
 }
 
-function updateAddressInfoLoggedIn(clientId) {
-    fetch(`/address/default/${clientId}`)
-        .then(response => response.json())
-        .then(data => {
-            document.getElementById('enderecoInfo').innerHTML = `
-                <h4>Endereço</h4>
-                <p>Entrega</p>
-                <p>${data.street}, ${data.number} - ${data.neighborhood}</p>
-                <p>CEP: ${data.zipCode} - ${data.city}, ${data.state}</p>
-            `;
-            showFreteOptions();
-        })
-        .catch(error => console.error(error));
+function updateAddressInfoLoggedIn(clientId, newCep) {
+    if (newCep) {
+        fetchCEPInfo(newCep);
+    } else {
+        fetch(`/address/default/${clientId}`)
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('enderecoInfo').innerHTML = `
+                    <h4>Endereço</h4>
+                    <p>Entrega</p>
+                    <p>${data.street}, ${data.number} - ${data.neighborhood}</p>
+                    <p>CEP: ${data.zipCode} - ${data.city}, ${data.state}</p>
+                     
+                `;
+
+                showFreteOptions();
+            })
+            .catch(error => console.error(error));
+    }
     document.getElementById('enderecoDiv').style.display = 'block';
     document.getElementById('cepInputDiv').style.display = 'block';
 }
@@ -42,17 +50,18 @@ function updateAddressInfoLoggedIn(clientId) {
 function updateAddressInfoNotLoggedIn(cep) {
     fetchCEPInfo(cep);
     document.getElementById('enderecoDiv').style.display = 'block';
-    document.getElementById('cepInputDiv').style.display = 'none';
+   // document.getElementById('cepInputDiv').style.display = 'none';
+
 }
 
 document.getElementById('buscarEnderecoBtn').addEventListener('click', function () {
     const userName = localStorage.getItem('userName');
     const clientId = localStorage.getItem('clientId');
     const cepInput = document.getElementById('cepInput');
-    const cep = cepInput.value.replace(/\D/g, ''); // Remove caracteres não numéricos do CEP
+    const cep = cepInput.value.replace(/\D/g, '');
 
     if (userName && clientId) {
-        updateAddressInfoLoggedIn(clientId);
+        updateAddressInfoLoggedIn(clientId, cep);
     } else {
         if (cep.length === 8) {
             updateAddressInfoNotLoggedIn(cep);
@@ -61,7 +70,6 @@ document.getElementById('buscarEnderecoBtn').addEventListener('click', function 
         }
     }
 });
-
 function showFreteOptions() {
     const freteOptions = {
         "frete-expresso": 15.00,
@@ -107,6 +115,7 @@ function updateAddressInfo() {
                     <p>CEP: ${data.zipCode} - ${data.city}, ${data.state}</p>
                     <a href="#" id="selectAddress">Selecionar outro endereço</a>
                     <a href="cadastro-endereco-cliente.html">Adicionar Novo Endereço</a>
+                   
                 `;
 
 
