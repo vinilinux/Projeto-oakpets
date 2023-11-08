@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping(value = "/address")
 public class AddressController {
@@ -90,6 +92,17 @@ public class AddressController {
             return ResponseEntity.notFound().build();
         }
     }
+
+    @GetMapping("/delivery/{customerId}")
+    public ResponseEntity<List<Address>> getDeliveryAddressesByCustomerId(@PathVariable Integer customerId) {
+        List<Address> deliveryAddresses = addressService.findDeliveryAddressesByCustomerId(customerId);
+        if (!deliveryAddresses.isEmpty()) {
+            return ResponseEntity.ok(deliveryAddresses);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
 
     @GetMapping(value = "/checkDeliveryAddress/{id}")
     public ResponseEntity<Boolean> checkDeliveryAddress (@PathVariable Integer id) {
