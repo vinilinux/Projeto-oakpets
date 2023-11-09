@@ -1,0 +1,7 @@
+.custom-container {
+    background-color: #f2f2f2; /* Cor de fundo cinza */
+    height: 150px; /* Altura de 150px */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

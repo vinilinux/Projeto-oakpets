@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -38,7 +39,7 @@ public class PedidoController {
     @Autowired
     private ProductService  productService;
 
-    @PostMapping
+    @PostMapping("/create")
     public ResponseEntity salvar(@RequestBody PedidosDTO dados) throws ParseException {
 
         SimpleDateFormat fmt = new SimpleDateFormat("dd/MM/yyyy");
@@ -80,7 +81,7 @@ public class PedidoController {
                     .tipoPagamento(dados.tipoPagamento())
                     .address(address)
                     .status("Aguardando Pagamento")
-                    .data(fmt.parse(dados.data()))
+                    .data(LocalDate.parse(dados.data()))
                     .build();
 
             System.out.println("5");
