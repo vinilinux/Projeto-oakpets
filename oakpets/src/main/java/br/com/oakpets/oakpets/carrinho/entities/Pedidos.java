@@ -15,6 +15,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -52,7 +53,7 @@ public class Pedidos {
     private String status;
 
     @Column(name = "DATA")
-    private Date data;
+    private LocalDate data;
 
     @OneToMany(mappedBy = "pedidos", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<ItemPedidos> Itempedidos = new ArrayList<>();
