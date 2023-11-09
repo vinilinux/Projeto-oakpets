@@ -12,6 +12,7 @@ import br.com.oakpets.oakpets.customer.services.CustomerService;
 import br.com.oakpets.oakpets.produto.entities.Product;
 import br.com.oakpets.oakpets.produto.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -39,8 +40,8 @@ public class PedidoController {
     @Autowired
     private ProductService  productService;
 
-    @PostMapping("/create")
-    public ResponseEntity salvar(@RequestBody PedidosDTO dados) throws ParseException {
+    @PostMapping
+    public ResponseEntity salvar(@RequestBody PedidosDTO dados) {
 
         SimpleDateFormat fmt = new SimpleDateFormat("dd/MM/yyyy");
 
@@ -50,7 +51,7 @@ public class PedidoController {
             Address address = addressService.findAddressById(dados.address());
 
             if (customer == null || address == null) {
-                return ResponseEntity.badRequest().build();
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Usuário inválido");
             }
 
             List<ItemPedidos> itemPedidos = new ArrayList<>();
@@ -58,7 +59,7 @@ public class PedidoController {
             for (ItemPedidoDTO item : dados.itemPedidoDTOS()) {
                 Optional<Product> product = productService.searchProduct(item.productId());
                 if (product.isEmpty() || product.get().getAmount() < item.quantidade()) {
-                    return ResponseEntity.badRequest().build();
+                    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Quantidade insuficiente");
                 }
                 ItemPedidos itens = ItemPedidos.builder()
                         .quantidade(item.quantidade())
@@ -75,7 +76,7 @@ public class PedidoController {
                     .tipoPagamento(dados.tipoPagamento())
                     .address(address)
                     .status("Aguardando Pagamento")
-                    .data(LocalDate.parse(dados.data()))
+                    .data(fmt.parse(dados.data()))
                     .build();
 
             service.criarPedido(pedidos);
@@ -83,7 +84,7 @@ public class PedidoController {
 
             return ResponseEntity.ok().build();
         } catch (Exception e) {
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Falha ao salvar o pedido");
         }
     }
 
