@@ -81,14 +81,14 @@ if (carrinho) {
         // Obtenha os dados do localStorage e envie-os para o backend
 
 
-        if (pedidoCompleto && userName && tipoFrete && !isNaN(freteValor) && carrinho) {
+        if (pedidoCompleto && userName && opcaoPagamento && !isNaN(freteValor) && carrinho) {
             var visualizacaoPedido = JSON.parse(pedidoCompleto);
 
             var dadosParaEnviar = {
                 customerId: visualizacaoPedido.clientId,
                 valorTotal: visualizacaoPedido.totalValue,
                 valorFrete: freteValor,
-                tipoPagamento: tipoFrete,
+                tipoPagamento: opcaoPagamento,
                 address: idEnderecoString,
                 data: new Date().toLocaleDateString(),
                 itemPedidoDTOS: produtosCarrinho.map(function (produto) {
