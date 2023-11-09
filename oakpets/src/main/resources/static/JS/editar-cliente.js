@@ -28,12 +28,25 @@ function salvarPerfil(event) {
 
     const formData = new FormData(document.getElementById("customerForms"));
 
+    const newPassword = formData.get("password");
+    const confirmPassword = formData.get("ConfirmPassword");
+
+    if (newPassword === '' || confirmPassword === '') {
+        alert("Por favor, preencha ambos os campos de senha e confirmação de senha.");
+        return; // Evita o envio dos dados se as senhas estiverem em branco.
+    }
+
+    if (newPassword !== confirmPassword) {
+        alert("As senhas não coincidem. Por favor, verifique e tente novamente.");
+        return; // Evita o envio dos dados se as senhas não coincidirem.
+    }
+
     const data = {
         name: formData.get("name"),
         bDay: formData.get("bday"),
-        cpf: formData.get("cpf"),
-        email: formData.get("email"),
-        password: formData.get("password"),
+        cpf: document.getElementById('cpf').value,
+        email: document.getElementById('email').value,
+        password: newPassword, // Use a nova senha aqui
         gender: formData.get("gender"),
     };
 
