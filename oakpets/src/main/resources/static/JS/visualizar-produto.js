@@ -11,13 +11,14 @@ document.addEventListener("DOMContentLoaded", function () {
         const carrinho = recuperarInformacoesDoCarrinho();
         const quantidadeItens = carrinho.length;
         const iconeCarrinho = document.getElementById("icone-carrinho");
-        if (quantidadeItens > 0) {
-            iconeCarrinho.innerHTML = `<i class="bi bi-cart4"></i><span class="badge badge-danger">${quantidadeItens}</span>`;
-        } else {
-            iconeCarrinho.innerHTML = `<i class="bi bi-cart4"></i>`;
+        if (iconeCarrinho) {
+            if (quantidadeItens > 0) {
+                iconeCarrinho.innerHTML = `<i class="bi bi-cart4"></i><span class="badge badge-danger">${quantidadeItens}</span>`;
+            } else {
+                iconeCarrinho.innerHTML = `<i class="bi bi-cart4"></i>`;
+            }
         }
     }
-
     atualizarIconeCarrinho();
 
     fetch(`/products/${produtoId}/details`)

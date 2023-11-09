@@ -59,5 +59,23 @@
     margin-top: 30px;
 }
 
+/* Adicione estilos básicos */
+#contador-carrinho {
+    font-size: 14px;
+    font-weight: bold;
+    color: #fff;
+    background-color: #dc3545; /* Vermelho, ou a cor desejada para o fundo do contador */
+    padding: 4px 8px;
+    border-radius: 50%;
+}
 
+/* Adicione estilos específicos para quando há itens no carrinho */
+#contador-carrinho.contador-ativo {
+    /* Estilos adicionais quando há itens no carrinho */
+}
+
+/* Adicione estilos específicos para quando não há itens no carrinho */
+#contador-carrinho.contador-vazio {
+    /* Estilos adicionais quando não há itens no carrinho */
+}
 
