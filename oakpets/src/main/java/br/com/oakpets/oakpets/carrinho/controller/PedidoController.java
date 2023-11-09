@@ -79,6 +79,7 @@ public class PedidoController {
 
             service.criarPedido(pedidos);
             service.salvarItens(pedidos, itemPedidos);
+
             return ResponseEntity.ok().build();
         } catch (Exception e) {
             return ResponseEntity.badRequest().build();
