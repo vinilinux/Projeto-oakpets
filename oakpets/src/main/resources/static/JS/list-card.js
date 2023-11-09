@@ -1,5 +1,36 @@
+
+
+function recuperarInformacoesDoCarrinho() {
+    const carrinho = JSON.parse(localStorage.getItem("carrinho")) || [];
+    return carrinho;
+}
+
+// Função para recuperar um item específico do carrinho com base no ID do produto
+function recuperarItemDoCarrinhoPorId(produtoId) {
+    const carrinho = recuperarInformacoesDoCarrinho();
+    const itemEncontrado = carrinho.find(item => item.produto.idProduct === produtoId);
+    return itemEncontrado || null;
+}
+
+function atualizarIconeCarrinhoGlobal() {
+    const carrinho = recuperarInformacoesDoCarrinho();
+    const quantidadeItens = carrinho.length;
+    const contadorCarrinho = document.getElementById("contador-carrinho");
+
+    console.log("Iniciando atualizarIconeCarrinhoGlobal");
+
+    if (contadorCarrinho) {
+        contadorCarrinho.textContent = quantidadeItens;
+        contadorCarrinho.style.display = quantidadeItens > 0 ? 'inline' : 'none';
+    }
+
+    console.log("AtualizarIconeCarrinhoGlobal concluído com sucesso");
+}
+
+
 async function fetchProducts() {
     try {
+        console.log("Iniciando fetchProducts");
         const response = await fetch('/products/all');
         const products = await response.json();
 
@@ -11,7 +42,6 @@ async function fetchProducts() {
 
         products.forEach((product, index) => {
             if (productCount % 3 === 0) {
-
                 currentRow = document.createElement('div');
                 currentRow.classList.add('row');
                 productList.appendChild(currentRow);
@@ -22,7 +52,6 @@ async function fetchProducts() {
 
             const productImage = document.createElement('img');
             productImage.src = product.images[0].imagePath;
-
             productImage.alt = 'Imagem do Produto';
             productImage.classList.add('img-fluid');
 
@@ -39,9 +68,7 @@ async function fetchProducts() {
 
             const detailsButton = document.createElement('a');
             detailsButton.classList.add('details-button', 'btn', 'btn-primary');
-
             detailsButton.href = `visualizar-produto.html?id=${product.idProduct}`;
-
             detailsButton.textContent = 'Detalhes';
 
             productContent.appendChild(productTitle);
@@ -55,6 +82,10 @@ async function fetchProducts() {
 
             productCount++;
         });
+
+        // Atualiza o ícone do carrinho após a busca e renderização dos produtos
+        atualizarIconeCarrinhoGlobal();
+
     } catch (error) {
         console.error('Erro ao buscar produtos:', error);
     }
@@ -67,7 +98,6 @@ function updateUIBasedOnLoginStatus() {
 
     console.log("Valor de userName em localStorage:", localStorage.getItem("userName"));
 
-
     if (userName) {
         userStatusElement.classList.add('btnEntrar');
         userStatusElement.innerHTML = `<i class="bi bi-person-fill"></i> <a href="minha-conta.html">${userName}</a>`;
@@ -79,6 +109,8 @@ function updateUIBasedOnLoginStatus() {
     }
 }
 
-updateUIBasedOnLoginStatus();
-
-fetchProducts();
+document.addEventListener("DOMContentLoaded", function () {
+    updateUIBasedOnLoginStatus();
+    fetchProducts();
+    atualizarIconeCarrinhoGlobal();
+});
