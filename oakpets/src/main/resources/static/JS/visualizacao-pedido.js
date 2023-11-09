@@ -77,10 +77,6 @@ if (carrinho) {
 
     var enviarPedidoButton = document.getElementById('enviarPedido');
     enviarPedidoButton.addEventListener('click', function () {
-
-        // Obtenha os dados do localStorage e envie-os para o backend
-
-
         if (pedidoCompleto && userName && opcaoPagamento && !isNaN(freteValor) && carrinho) {
             var visualizacaoPedido = JSON.parse(pedidoCompleto);
 
@@ -102,15 +98,26 @@ if (carrinho) {
 
             console.log(dadosParaEnviar);
 
+            // Envie os dados para o backend
             axios.post('http://localhost:8080/pedidos', dadosParaEnviar)
                 .then(function (response) {
                     console.log('Dados enviados com sucesso.');
+
+                    // Exibir um alerta com as informações do pedido e se foi gravado no banco
+                    var pedidoInfo = `Gravado com sucesso no banco de Dados!\n Número do Pedido: ${response.data.numeroDoPedido}\nValor do Pedido: R$ ${visualizacaoPedido.totalValue}`;
+                    alert(pedidoInfo);
+
+                    window.location.href = 'minha-conta.html';
                 })
                 .catch(function (error) {
                     console.error('Erro ao enviar os dados:', error);
+                    // Exibir um alerta indicando que ocorreu um erro
+                    alert('Erro ao enviar os dados: ' + error.message);
                 });
         } else {
             console.log('Dados incompletos no localStorage');
+            // Exibir um alerta indicando que os dados estão incompletos
+            alert('Dados incompletos. Por favor, preencha todos os campos necessários.');
         }
     });
 });

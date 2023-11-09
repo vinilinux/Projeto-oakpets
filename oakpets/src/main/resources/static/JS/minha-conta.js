@@ -14,6 +14,9 @@ document.addEventListener("DOMContentLoaded", function() {
 
         const listarEnderecos = document.getElementById("listarEnderecos");
         listarEnderecos.href = `/enderecos.html?id=${data.customerId}`;
+
+        const listarPedidos = document.getElementById("listarPedidos");
+        listarPedidos.href = `/meus-pedidos.html?id=${data.customerId}`;
     })
     .catch(error => {
         console.error("Erro ao obter informações do cliente: " + error);

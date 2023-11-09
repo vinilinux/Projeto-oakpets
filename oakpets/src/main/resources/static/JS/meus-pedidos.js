@@ -1,16 +1,15 @@
-document.addEventListener("DOMContentLoaded", function () {
-    // Obtenha o clientId do Local Storage
-    const clientId = localStorage.getItem('clientId');
+// Obtenha o clientId a partir da URL
+const urlParams = new URLSearchParams(window.location.search);
+const clientId = urlParams.get('id');
 
-    if (!clientId) {
-        console.log('Cliente não encontrado no Local Storage.');
-        return;
-    }
-
+if (!clientId) {
+    console.log('Cliente não encontrado na URL.');
+} else {
     // Substitua 'SEU_ENDPOINT' pelo URL real do seu endpoint
     const endpoint = `/pedidos/${clientId}`;
     const meusPedidosRow = document.getElementById('meus-pedidos');
 
+    // Função para carregar os pedidos
     function carregarPedidos() {
         fetch(endpoint)
             .then(response => {
@@ -45,12 +44,10 @@ document.addEventListener("DOMContentLoaded", function () {
                                     <div class="col-2">
                                         <p>Status:</p>
                                         <p>${pedido.status}</p>
-                                        
                                     </div>
                                     <div class="col-2">
                                         <button class="btn btn-primary">Mais Detalhes</button>    
                                     </div>
-
                                 </div>
                             </div>
                         </div>
@@ -64,6 +61,6 @@ document.addEventListener("DOMContentLoaded", function () {
             });
     }
 
-    // Chame a função carregarPedidos
+    // Chame a função carregarPedidos imediatamente
     carregarPedidos();
-});
+}

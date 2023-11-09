@@ -19,9 +19,7 @@ import org.springframework.web.bind.annotation.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 
 @RestController
@@ -41,17 +39,15 @@ public class PedidoController {
     private ProductService  productService;
 
     @PostMapping
-    public ResponseEntity salvar(@RequestBody PedidosDTO dados) {
-
+    public ResponseEntity<?> salvar(@RequestBody PedidosDTO dados) {
         SimpleDateFormat fmt = new SimpleDateFormat("dd/MM/yyyy");
 
         try {
-
             Customer customer = customerService.findByCustomerId(dados.customerId());
             Address address = addressService.findAddressById(dados.address());
 
             if (customer == null || address == null) {
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Usuário inválido");
+                return ResponseEntity.badRequest().body("Usuário inválido");
             }
 
             List<ItemPedidos> itemPedidos = new ArrayList<>();
@@ -59,7 +55,7 @@ public class PedidoController {
             for (ItemPedidoDTO item : dados.itemPedidoDTOS()) {
                 Optional<Product> product = productService.searchProduct(item.productId());
                 if (product.isEmpty() || product.get().getAmount() < item.quantidade()) {
-                    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Quantidade insuficiente");
+                    return ResponseEntity.badRequest().body("Quantidade insuficiente");
                 }
                 ItemPedidos itens = ItemPedidos.builder()
                         .quantidade(item.quantidade())
@@ -79,14 +75,21 @@ public class PedidoController {
                     .data(fmt.parse(dados.data()))
                     .build();
 
-            service.criarPedido(pedidos);
-            service.salvarItens(pedidos, itemPedidos);
+            Pedidos savedPedido = service.criarPedido(pedidos);
+            service.salvarItens(savedPedido, itemPedidos);
 
-            return ResponseEntity.ok().build();
+            // Retorna um objeto que inclui informações sobre o pedido criado
+            Map<String, Object> response = new HashMap<>();
+            response.put("numeroDoPedido", savedPedido.getId());
+            response.put("valorTotal", savedPedido.getValorTotal());
+            response.put("gravadoNoBanco", true);
+
+            return ResponseEntity.ok(response);
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Falha ao salvar o pedido");
+            return ResponseEntity.badRequest().body("Falha ao salvar o pedido");
         }
     }
+
 
 
     @GetMapping("/{id}")
