@@ -77,6 +77,7 @@ if (carrinho) {
 
     var enviarPedidoButton = document.getElementById('enviarPedido');
     enviarPedidoButton.addEventListener('click', function () {
+        var idEndereco = localStorage.getItem('enderecoId');
         if (pedidoCompleto && userName && opcaoPagamento && !isNaN(freteValor) && carrinho) {
             var visualizacaoPedido = JSON.parse(pedidoCompleto);
 
@@ -85,7 +86,7 @@ if (carrinho) {
                 valorTotal: visualizacaoPedido.totalValue,
                 valorFrete: freteValor,
                 tipoPagamento: opcaoPagamento,
-                address: idEnderecoString,
+                address: idEndereco,
                 data: new Date().toLocaleDateString(),
                 itemPedidoDTOS: produtosCarrinho.map(function (produto) {
                     return {

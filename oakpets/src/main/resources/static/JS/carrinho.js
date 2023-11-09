@@ -5,15 +5,14 @@ function fetchCEPInfo(cep) {
             if (data.erro) {
                 alert('CEP não encontrado.');
             } else {
+
                 document.getElementById('enderecoInfo').innerHTML = `
                     
                     <h4>Endereço</h4>
-                    <p style="display: none;">${data.id}</p>
                     <p>Entrega</p>
                     <p>${data.logradouro}, ${data.bairro}</p>
                     <p>CEP: ${data.cep} - ${data.localidade}, ${data.uf}</p>
-                    <a href="#" id="selectAddress">Selecionar outro endereço</a>
-                    <a href="cadastro-endereco-cliente.html">Adicionar Novo Endereço</a>
+                    
                 `;
                 showFreteOptions();
             }
@@ -33,15 +32,15 @@ function updateAddressInfoLoggedIn(clientId, newCep) {
         fetch(`/address/default/${clientId}`)
             .then(response => response.json())
             .then(data => {
+                localStorage.setItem('enderecoId', data.id);
                 document.getElementById('enderecoInfo').innerHTML = `
-                     <p style="display: none;">${data.id}</p>
+                    
                     <h4>Endereço</h4>
                     <p>Entrega</p>
                     <p>${data.street}, ${data.number} - ${data.neighborhood}</p>
                     <p>CEP: ${data.zipCode} - ${data.city}, ${data.state}</p>
                      
                 `;
-                localStorage.setItem('enderecoId', data.id);
                 showFreteOptions();
             })
             .catch(error => console.error(error));
@@ -53,9 +52,7 @@ function updateAddressInfoLoggedIn(clientId, newCep) {
 function updateAddressInfoNotLoggedIn(cep) {
     fetchCEPInfo(cep);
     document.getElementById('enderecoDiv').style.display = 'block';
-   // document.getElementById('cepInputDiv').style.display = 'none';
-    const enderecoId = document.querySelector('#enderecoInfo > p').textContent.trim();
-    localStorage.setItem('enderecoId', enderecoId);
+    // document.getElementById('cepInputDiv').style.display = 'none';
 
 }
 
@@ -113,8 +110,9 @@ function updateAddressInfo() {
         fetch(`/address/default/${clientId}`)
             .then(response => response.json())
             .then(data => {
+                localStorage.setItem('enderecoId', data.id);
                 enderecoInfo.innerHTML = `
-                    <p style="display: none;">${data.id}</p>
+
                     <h4>Endereço</h4>
                     <p>Entrega</p>
                     <p>${data.street}, ${data.number} - ${data.neighborhood}</p>
@@ -181,13 +179,13 @@ function openAddressPopup(clientId) {
         })
         .catch(error => console.error(error));
 
-        const closePopupLink = document.getElementById('closePopup');
-        closePopupLink.addEventListener('click', (event) => {
-            event.preventDefault();
-            addressPopup.style.display = 'none';
-        });
+    const closePopupLink = document.getElementById('closePopup');
+    closePopupLink.addEventListener('click', (event) => {
+        event.preventDefault();
+        addressPopup.style.display = 'none';
+    });
 
-        attachSelectAddressClickEvent(clientId);
+    attachSelectAddressClickEvent(clientId);
 }
 
 const cart = {
@@ -200,11 +198,10 @@ function updateCartWithSelectedAddress(selectedAddressId, clientId) {
         .then(selectedAddress => {
             // Atualize o endereço no objeto cart
             cart.address = selectedAddress;
-
+            localStorage.setItem('enderecoId', selectedAddress.id);
             // Atualize o elemento HTML que exibe o endereço de entrega no carrinho.
             const enderecoInfo = document.getElementById('enderecoInfo');
             enderecoInfo.innerHTML = `
-                <p style="display: none;">${data.id}</p>
                 <h4>Endereço</h4>
                 <p>Entrega</p>
                 <p>${selectedAddress.street}, ${selectedAddress.number} - ${selectedAddress.neighborhood}</p>
