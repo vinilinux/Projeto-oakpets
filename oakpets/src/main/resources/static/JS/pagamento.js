@@ -58,7 +58,9 @@ document.addEventListener("DOMContentLoaded", function () {
     // Adicione um manipulador de eventos para o botão "Continuar"
     continuarButton.addEventListener("click", function () {
         // Redirecione o usuário para a página desejada
-        window.location.href = "URL_DA_PAGINA_CONTINUAR"; // Substitua "URL_DA_PAGINA_CONTINUAR" pela URL da página para a qual você deseja redirecionar.
+        window.location.href = "visualizacao-pedido.html"; // Substitua "URL_DA_PAGINA_CONTINUAR" pela URL da página
+        // para a qual você
+        // deseja redirecionar.
     });
 
     // Adicione um manipulador de eventos para o botão "Voltar"
