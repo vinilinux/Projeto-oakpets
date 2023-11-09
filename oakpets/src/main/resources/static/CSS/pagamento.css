@@ -42,3 +42,20 @@
 .cards {
     margin-top: 30px;
 }
+
+.column-layout {
+    display: flex;
+    justify-content: space-between;
+}
+
+.column-group {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-right: 30px;
+}
+
+.column-group h6, .column-group p {
+    margin: 0;
+}
+
