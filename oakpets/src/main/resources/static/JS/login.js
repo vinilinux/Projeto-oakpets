@@ -6,7 +6,7 @@ function acesso() {
         password: document.querySelector("#password").value
     }
 
-    fetch("api/usuarios/login",{
+    fetch("auth/login",{
         method: "POST",
         headers: {
             "Content-Type": "application/json"

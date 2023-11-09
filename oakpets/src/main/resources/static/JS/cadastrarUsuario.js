@@ -62,7 +62,8 @@ function salvar() {
             method: 'PUT',
             body: JSON.stringify(data),
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                Authorization: 'Bearer ' + localStorage.getItem('token')
             }
         }).then(function (response) {
             if (response.status === 200) {

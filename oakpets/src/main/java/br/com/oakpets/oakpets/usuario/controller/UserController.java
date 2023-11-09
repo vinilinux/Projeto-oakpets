@@ -28,44 +28,16 @@ import java.util.Optional;
 public class UserController {
 
     private UserService userService;
-
-    private AuthenticationManager authenticationManager;
-
     private TokenService tokenService;
 
     @Autowired
-    public UserController(UserService userService, AuthenticationManager authenticationManager, TokenService tokenService) {
+    public UserController(UserService userService, TokenService tokenService) {
         this.userService = userService;
-        this.authenticationManager = authenticationManager;
         this.tokenService = tokenService;
     }
 
-    @PostMapping("/login")
-    public ResponseEntity login(@RequestBody @Valid AuthenticationDTO data) {
-        if (!userService.validateEmail(data.login())) {
-            return ResponseEntity.badRequest().body("Usuário não existe");
-        }
-
-        var usernamePassword = new UsernamePasswordAuthenticationToken(data.login(), data.password());
-
-        var auth = this.authenticationManager.authenticate(usernamePassword);
-
-        var token = tokenService.generateToken((User) auth.getPrincipal());
-
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-
-        List<GrantedAuthority> authorities = (List<GrantedAuthority>) authentication.getAuthorities();
-
-        boolean hasEstoqueRole = authorities.stream().anyMatch(authority -> authority.getAuthority().equals("ROLE_ESTOQUE"));
-
-        System.out.println(hasEstoqueRole);
-
-
-        return ResponseEntity.ok(new LoginResponseDTO(token, data.login()));
-    }
-
     @PostMapping("/create")
-    public ResponseEntity createUser(@RequestBody  UserDTO data) {
+    public ResponseEntity createUser(@RequestBody @Valid UserDTO data) {
 
         if (!data.password2().equals(data.password())) {
             return ResponseEntity.badRequest().body("Senhas não conferem");
@@ -99,7 +71,7 @@ public class UserController {
         }
     }
 
-    @PutMapping("{id}/alterar")
+    @PatchMapping("{id}/alterar")
     public ResponseEntity alterarUser(@PathVariable Long id, @RequestBody UserDTO data) {
 
         User newuser = User.builder()

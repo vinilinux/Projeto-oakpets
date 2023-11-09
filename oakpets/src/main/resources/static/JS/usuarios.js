@@ -6,7 +6,12 @@ function redirecionarParaCadastro() {
 
 async function fetchUsers() {
     try {
-        const response = await fetch('http://localhost:8080/api/usuarios');
+        const response = await fetch('http://localhost:8080/api/usuarios', {
+            method: 'GET',
+                headers: {
+                Authorization: 'Bearer ' + localStorage.getItem('token')
+            }
+        });
         const users = await response.json();
 
         const tabela = document.querySelector('tbody');

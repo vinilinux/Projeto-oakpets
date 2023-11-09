@@ -25,8 +25,12 @@ public class SecurityConfigurations {
                 .csrf(csrf -> csrf.disable())
                 .sessionManagement(sesion -> sesion.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers(HttpMethod.POST, "/api/usuarios/login").permitAll().requestMatchers(HttpMethod.POST, "api/usuarios/create").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/api/usuarios/listaTodos").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/*.html", "Bootswatch_ Flatly_files/*", "/JS/*",
+                                "/Images/*", "/CSS/*").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/usuarios/*").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/api/usuarios").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.PUT, "/api/usuarios/*").hasRole("ADMIN")
                         .anyRequest().authenticated())
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
