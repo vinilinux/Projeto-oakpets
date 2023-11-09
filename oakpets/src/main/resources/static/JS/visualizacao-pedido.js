@@ -102,7 +102,7 @@ if (carrinho) {
 
             console.log(dadosParaEnviar);
 
-            axios.post('http://localhost:8080/pedidos/create', dadosParaEnviar)
+            axios.post('http://localhost:8080/pedidos', dadosParaEnviar)
                 .then(function (response) {
                     console.log('Dados enviados com sucesso.');
                 })
