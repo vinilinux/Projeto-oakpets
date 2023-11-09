@@ -47,18 +47,24 @@ public class PedidoController {
 
             Customer customer = customerService.findByCustomerId(dados.customerId());
             Address address = addressService.findAddressById(dados.address());
+            System.out.println("1");
 
             if (customer == null || address == null) {
                 return ResponseEntity.badRequest().build();
             }
 
+            System.out.println("2");
+
             List<ItemPedidos> itemPedidos = new ArrayList<>();
 
             for (ItemPedidoDTO item : dados.itemPedidoDTOS()) {
                 Optional<Product> product = productService.searchProduct(item.productId());
+                System.out.println("3");
                 if (product.isEmpty() || product.get().getAmount() < item.quantidade()) {
+                    System.out.println("4");
                     return ResponseEntity.badRequest().build();
                 }
+                System.out.println("5");
                 ItemPedidos itens = ItemPedidos.builder()
                         .quantidade(item.quantidade())
                         .valor(product.get().getPrice() * item.quantidade())
@@ -76,6 +82,8 @@ public class PedidoController {
                     .status("Aguardando Pagamento")
                     .data(fmt.parse(dados.data()))
                     .build();
+
+            System.out.println("5");
 
             service.criarPedido(pedidos);
             service.salvarItens(pedidos, itemPedidos);

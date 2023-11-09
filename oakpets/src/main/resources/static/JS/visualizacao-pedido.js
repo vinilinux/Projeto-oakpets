@@ -9,6 +9,7 @@ var userName = localStorage.getItem('userName');
 var tipoFrete = localStorage.getItem('selectedFrete')
 var freteValor = localStorage.getItem('selectedFreteValue');
 var carrinho = localStorage.getItem('carrinho');
+var idEndereco = "1";
 
 if (pedidoCompleto) {
     var visualizacaoPedido = JSON.parse(pedidoCompleto);
@@ -70,15 +71,17 @@ if (carrinho) {
 
         // Obtenha os dados do localStorage e envie-os para o backend
 
+
         if (pedidoCompleto && userName && tipoFrete && !isNaN(freteValor) && carrinho) {
             var visualizacaoPedido = JSON.parse(pedidoCompleto);
 
             var dadosParaEnviar = {
                 customerId: visualizacaoPedido.clientId,
-                address: visualizacaoPedido.endereco,
                 valorTotal: visualizacaoPedido.totalValue,
                 valorFrete: freteValor,
                 tipoPagamento: tipoFrete,
+                // address: visualizacaoPedido.endereco,
+                address: idEndereco,
                 data: new Date().toLocaleDateString(),
                 itemPedidoDTOS: produtosCarrinho.map(function (produto) {
                     return {
@@ -88,6 +91,8 @@ if (carrinho) {
                     };
                 })
             };
+
+            console.log(dadosParaEnviar);
 
             axios.post('http://localhost:8080/pedidos', dadosParaEnviar)
                 .then(function (response) {
