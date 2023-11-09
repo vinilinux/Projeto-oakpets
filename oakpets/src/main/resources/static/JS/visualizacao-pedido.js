@@ -9,7 +9,6 @@ var userName = localStorage.getItem('userName');
 var tipoFrete = localStorage.getItem('selectedFrete')
 var freteValor = localStorage.getItem('selectedFreteValue');
 var carrinho = localStorage.getItem('carrinho');
-var idEndereco = "1";
 
 if (pedidoCompleto) {
     var visualizacaoPedido = JSON.parse(pedidoCompleto);
@@ -18,6 +17,16 @@ if (pedidoCompleto) {
     var endereco = visualizacaoPedido.endereco;
     var enderecoPedido = document.getElementById('endereco');
     enderecoPedido.textContent = endereco;
+    var idEndereco = endereco.match(/\d+/);
+
+    // Verifique se o primeiro número foi encontrado e imprima-o
+    if (idEndereco) {
+        var idEnderecoString = idEndereco[0].toString();
+        console.log('ID do endereço:', idEnderecoString);
+        console.log(typeof idEnderecoString);
+    } else {
+        console.log('ID do endereço não encontrado');
+    }
 
     //Tratando dados pessoais
     var dadosPessoaisPedido = document.getElementById('dadosPessoais');
@@ -80,8 +89,7 @@ if (carrinho) {
                 valorTotal: visualizacaoPedido.totalValue,
                 valorFrete: freteValor,
                 tipoPagamento: tipoFrete,
-                // address: visualizacaoPedido.endereco,
-                address: idEndereco,
+                address: idEnderecoString,
                 data: new Date().toLocaleDateString(),
                 itemPedidoDTOS: produtosCarrinho.map(function (produto) {
                     return {
@@ -94,7 +102,7 @@ if (carrinho) {
 
             console.log(dadosParaEnviar);
 
-            axios.post('http://localhost:8080/pedidos', dadosParaEnviar)
+            axios.post('http://localhost:8080/pedidos/create', dadosParaEnviar)
                 .then(function (response) {
                     console.log('Dados enviados com sucesso.');
                 })

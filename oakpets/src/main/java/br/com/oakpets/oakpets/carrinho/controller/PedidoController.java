@@ -72,7 +72,19 @@ public class PedidoController {
                         .product(product.get())
                         .build();
                 itemPedidos.add(itens);
+                System.out.println("6");
             }
+
+            System.out.println("7");
+            System.out.println(address);
+
+//                    .valorTotal(dados.valorTotal())
+//                    .valorFrete(dados.valorFrete())
+//                    .tipoPagamento(dados.tipoPagamento())
+//                    .address(address)
+//                    .status("Aguardando Pagamento")
+//                    .data(LocalDate.parse(dados.data()))
+//                    .build();
 
             Pedidos pedidos = Pedidos.builder()
                     .customer(customer)
@@ -84,7 +96,7 @@ public class PedidoController {
                     .data(LocalDate.parse(dados.data()))
                     .build();
 
-            System.out.println("5");
+            System.out.println("8");
 
             service.criarPedido(pedidos);
             service.salvarItens(pedidos, itemPedidos);
