@@ -47,7 +47,7 @@ public class Customer {
     @Column(name = "GENDER")
     private String gender;
 
-   @OneToMany(mappedBy = "idCustomer", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+   @OneToMany(mappedBy = "idCustomer", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
    private List<Address> addresses = new ArrayList<>();
 
    public void addAddress(Address address) {
