@@ -1,4 +1,3 @@
-// Obtenha o clientId a partir da URL
 const urlParams = new URLSearchParams(window.location.search);
 const clientId = urlParams.get('id');
 
@@ -10,15 +9,12 @@ function formatarDataBrasileira(data) {
     return `${dia}/${mes}/${ano}`;
 }
 
-
 if (!clientId) {
     console.log('Cliente não encontrado na URL.');
 } else {
-    // Substitua 'SEU_ENDPOINT' pelo URL real do seu endpoint
     const endpoint = `/pedidos/${clientId}`;
     const meusPedidosRow = document.getElementById('meus-pedidos');
 
-    // Função para carregar os pedidos
     function carregarPedidos() {
         fetch(endpoint)
             .then(response => {
@@ -28,10 +24,11 @@ if (!clientId) {
                 return response.json();
             })
             .then(data => {
+                // Ordenar os pedidos em forma decrescente com base no ID
+                data.sort((a, b) => b.id - a.id);
+
                 // Limpe o conteúdo anterior (se houver)
                 meusPedidosRow.innerHTML = '';
-
-
 
                 data.forEach(pedido => {
                     const pedidoDiv = document.createElement('div');
