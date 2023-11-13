@@ -118,7 +118,7 @@ function updateAddressInfo() {
                     <p>${data.street}, ${data.number} - ${data.neighborhood}</p>
                     <p>CEP: ${data.zipCode} - ${data.city}, ${data.state}</p>
                     <a href="#" id="selectAddress">Selecionar outro endereço</a>
-                    <a href="cadastro-endereco-cliente.html">Adicionar Novo Endereço</a>
+                    <a href="cadastro-endereco-cliente.html?id=${clientId}">Adicionar Novo Endereço</a>
                    
                 `;
 
@@ -207,7 +207,7 @@ function updateCartWithSelectedAddress(selectedAddressId, clientId) {
                 <p>${selectedAddress.street}, ${selectedAddress.number} - ${selectedAddress.neighborhood}</p>
                 <p>CEP: ${selectedAddress.zipCode} - ${selectedAddress.city}, ${selectedAddress.state}</p>
                 <a href="#" id="selectAddress">Selecionar outro endereço</a>
-                <a href="cadastro-endereco-cliente.html">Adicionar Novo Endereço</a>
+                <a href="cadastro-endereco-cliente.html?id=${clientId}">Adicionar Novo Endereço</a>
             `;
 
             // Adicione novamente os eventos de clique às tags 'Selecionar outro endereço' e 'Adicionar Novo Endereço'

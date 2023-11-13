@@ -89,10 +89,29 @@ function sendAddressData() {
                         .then(data => {
                             if (data && data.id) {
                                 alert('Endereço de entrega cadastrado com sucesso!');
-                                window.location.href = `enderecos.html?id=${customerId}`;
+
+                                // Verifique se há algum item no Local Storage
+                                const carrinho = JSON.parse(localStorage.getItem('carrinho'));
+
+                                if (carrinho && carrinho.length > 0) {
+                                    // Se houver itens no carrinho, pergunte ao usuário se deseja ir para o carrinho
+                                    const resposta = confirm('Há itens no carrinho. Deseja ir para o carrinho?');
+
+                                    if (resposta) {
+                                        // Se a resposta for sim, redirecione para a página 'carrinho.html'
+                                        window.location.href = 'carrinho.html';
+                                    } else {
+                                        // Se a resposta for não, permaneça na página 'enderecos.html'
+                                        window.location.href = `enderecos.html?id=${customerId}`;
+                                    }
+                                } else {
+                                    // Caso contrário, redirecione para a página 'enderecos.html'
+                                    window.location.href = `enderecos.html?id=${customerId}`;
+                                }
                             } else if (data && data.error) {
                                 alert('Erro ao cadastrar o endereço de entrega: ' + data.error);
                             }
+
                         })
                         .catch(error => {
                             console.error('Erro ao enviar o formulário de endereço de entrega:', error);
