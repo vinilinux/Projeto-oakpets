@@ -157,23 +157,52 @@ function fecharPopup() {
 document.addEventListener('DOMContentLoaded', function () {
     carregarPedidos();
     document.getElementById("btnBuscar").addEventListener("click", filtrarPedidos);
-    
 
     function filtrarPedidos() {
         var codigoPedido = document.getElementById("search").value;
 
-        // Validar se o código do pedido é um número inteiro
-        if (!Number.isInteger(Number(codigoPedido))) {
-            alert("Por favor, digite um código de pedido válido.");
-            return;
+        if (codigoPedido.trim() === "") {
+            // Se o campo de input estiver vazio, carregar a lista completa
+            carregarPedidos();
+        } else {
+            // Se o campo de input contiver um código, filtrar os pedidos
+            if (!Number.isInteger(Number(codigoPedido))) {
+                alert("Por favor, digite um código de pedido válido.");
+                return;
+            }
+            carregarPedidosPorCodigo(codigoPedido);
         }
+    }
 
-        carregarPedidosPorCodigo(codigoPedido);
+    function carregarPedidos() {
+        fetch('/pedidos/todos')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Erro ao carregar pedidos');
+                }
+                return response.json();
+            })
+            .then(data => {
+                var tbody = document.getElementById('products').getElementsByTagName('tbody')[0];
+                tbody.innerHTML = '';
+
+                data.forEach(function (pedido) {
+                    var row = '<tr>' +
+                        '<td>' + pedido.numeroPedido + '</td>' +
+                        '<td>' + formatarData(pedido.dataPedido) + '</td>' +
+                        '<td>' + formatarMoeda(pedido.valorTotal) + '</td>' +
+                        '<td>' + pedido.status + '</td>' +
+                        '<td><button class="btn btn-primary" data-id="' + pedido.numeroPedido + '" onclick="abrirPopup(this)">Editar</button></td>' +
+                        '</tr>';
+
+                    tbody.innerHTML += row;
+                });
+            })
+            .catch(error => {
+                console.error('Erro ao carregar pedidos:', error);
+            });
     }
-    function limparTabela() {
-        carregarPedidosPorCodigo();
-        tbody.innerHTML = '';
-    }
+
     function carregarPedidosPorCodigo(codigoPedido) {
         var apiUrl = '/pedidos/obteridpedido/' + codigoPedido;
 
@@ -187,9 +216,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 return response.json();
             })
             .then(pedido => {
-                limparTabela();
-
                 var tbody = document.getElementById('products').getElementsByTagName('tbody')[0];
+                tbody.innerHTML = '';
 
                 if (pedido) {
                     var row = '<tr>' +
@@ -202,18 +230,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
                     tbody.innerHTML += row;
                 } else {
-
                     alert("Nenhum pedido encontrado com o código fornecido.");
                 }
             })
             .catch(error => {
                 console.error('Erro ao carregar pedido por código:', error);
             });
-    }
-
-
-    function limparTabela() {
-        var tbody = document.getElementById('products').getElementsByTagName('tbody')[0];
-        tbody.innerHTML = '';
     }
 });
