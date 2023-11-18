@@ -1,7 +1,9 @@
 
 //-------------------------------- Lista -------------------------------- //
 
+
 function carregarPedidos() {
+
     fetch('/pedidos/todos')
         .then(response => {
             if (!response.ok) {
@@ -48,6 +50,9 @@ function formatarData(dataString) {
 function formatarMoeda(valor) {
     return valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
 }
+
+
+
 
 
 //-------------------------------- Lista -------------------------------- //
@@ -140,8 +145,6 @@ function enviarDadosParaServidor() {
     }
 }
 
-
-
 function fecharPopup() {
     var popup = document.getElementById("popup");
     popup.style.display = "none";
@@ -153,5 +156,64 @@ function fecharPopup() {
 
 document.addEventListener('DOMContentLoaded', function () {
     carregarPedidos();
+    document.getElementById("btnBuscar").addEventListener("click", filtrarPedidos);
+    
 
+    function filtrarPedidos() {
+        var codigoPedido = document.getElementById("search").value;
+
+        // Validar se o código do pedido é um número inteiro
+        if (!Number.isInteger(Number(codigoPedido))) {
+            alert("Por favor, digite um código de pedido válido.");
+            return;
+        }
+
+        carregarPedidosPorCodigo(codigoPedido);
+    }
+    function limparTabela() {
+        carregarPedidosPorCodigo();
+        tbody.innerHTML = '';
+    }
+    function carregarPedidosPorCodigo(codigoPedido) {
+        var apiUrl = '/pedidos/obteridpedido/' + codigoPedido;
+
+        console.log('Chamando API:', apiUrl);
+
+        fetch(apiUrl)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Erro ao carregar pedido por código');
+                }
+                return response.json();
+            })
+            .then(pedido => {
+                limparTabela();
+
+                var tbody = document.getElementById('products').getElementsByTagName('tbody')[0];
+
+                if (pedido) {
+                    var row = '<tr>' +
+                        '<td>' + pedido.numeroDoPedido + '</td>' +
+                        '<td>' + formatarData(pedido.dataPedido) + '</td>' +
+                        '<td>' + formatarMoeda(pedido.valorTotal) + '</td>' +
+                        '<td>' + pedido.status + '</td>' +
+                        '<td><button class="btn btn-primary" data-id="' + pedido.numeroDoPedido + '" onclick="abrirPopup(this)">Editar</button></td>' +
+                        '</tr>';
+
+                    tbody.innerHTML += row;
+                } else {
+
+                    alert("Nenhum pedido encontrado com o código fornecido.");
+                }
+            })
+            .catch(error => {
+                console.error('Erro ao carregar pedido por código:', error);
+            });
+    }
+
+
+    function limparTabela() {
+        var tbody = document.getElementById('products').getElementsByTagName('tbody')[0];
+        tbody.innerHTML = '';
+    }
 });
