@@ -5,3 +5,52 @@
     align-items: center;
     justify-content: center;
 }
+
+.container {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    max-width: 1200px;
+}
+
+.titlePage {
+    margin-top: 30px;
+    margin-bottom: 30px;
+    font-size: 1.5rem;
+    color: #003384;
+    font-weight: bolder;
+}
+
+.titlesCard {
+    color: #003384;
+    margin: 0;
+}
+
+.contentCard {
+    margin: 0;
+}
+
+.card {
+    border: 0.5px solid rgba(64, 102, 163, 0.30);
+    border-radius: 10px;
+}
+
+.card > p {
+    color: #003384;
+}
+
+.meus-pedidos {
+    margin-bottom: 20px;
+}
+
+.btn {
+    background-color: #003384;
+    border: none;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.btn:hover {
+    transition: 0.20s;
+    background-color: #4066a3;
+}
