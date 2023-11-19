@@ -91,3 +91,8 @@
     font-family: Noto Sans;
     text-align: center;
 }
+
+.icon:hover svg {
+    fill: #FECB8A;
+    transition: fill 0.3s;
+}
