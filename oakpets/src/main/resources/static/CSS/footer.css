@@ -26,6 +26,7 @@
     background: #022E74;
     margin: 10px auto;
 }
+
 .titulo-redes-sociais > h2{
     font-size: 25px;
     font-family: Noto Sans;
@@ -71,7 +72,7 @@
     text-decoration: none;
     font-family: Noto Sans;
     color: #FFFFFF;
-    font-size: 18px;
+    font-size: 1rem;
     margin-top: 10px;
     margin-bottom: 25px;
 }
@@ -82,4 +83,11 @@
 
 .primeira-linha-branca2{
     margin-top: 20px;
+}
+
+.container > p{
+    color: #FFFFFF;
+    font-size: 10px;
+    font-family: Noto Sans;
+    text-align: center;
 }
