@@ -1,0 +1,59 @@
+.navbar {
+    background-color: #003384;
+    color: #FFFFFF;
+}
+
+.navbar > img {
+    width: 65px;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+
+.titlePage {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+    color: #003384;
+    font-weight: bolder;
+}
+
+.login-card > form {
+    width: 500px;
+}
+
+.form-label {
+    margin-bottom: 10px;
+    color: #003384;
+    font-weight: bold;
+}
+
+.login-input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #ffffff;
+}
+
+.login-button {
+    width: 50%;
+    padding: 10px;
+    background-color: #003384;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 15px;
+}
+
+.login-button:hover {
+    transition: 0.20s;
+    background-color: #4066a3;
+}
+
+.register-link {
+    margin-top: 20px;
+    text-align: center;
+    font-size: smaller;
+}

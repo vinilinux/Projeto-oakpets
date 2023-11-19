@@ -1,29 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulário de Login - Oakpets</title>
-    <link rel="stylesheet" type="text/css" href="./CSS/login-customer.css">
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-</head>
-<body>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+        <title>Formulário de Login - Oakpets</title>
 
-<div class="login-card">
-    <form action="/api/login" method="post">
-        <span id="loginError" style="color: red; display: none; font-size: 15px;
-          margin-top: -10px; margin-bottom: 5px;"></span>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.4/font/bootstrap-icons.css">
 
-        <input type="email" name="email" placeholder="E-mail" class="login-input" required>
-        <input type="password" name="password" placeholder="Senha" class="login-input" required>
-        <button type="submit" class="login-button">Entrar</button>
-        <div class="register-link">
-            Não é cadastrado? <a href="/cadastro-cliente.html">Clique aqui para se registrar</a>
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&display=swap" rel="stylesheet">
+
+        <link rel="stylesheet" type="text/css" href="CSS/login-cliente.css">
+    </head>
+    <body>
+
+        <nav class="navbar navbar-expand-lg navbar-light">
+            <img src="Images/LogoSemFundoBranco.png">
+        </nav>
+
+        <div class="container mt-5">
+            <div class="row justify-content-center">
+                <div class="col-md-6 d-flex justify-content-center align-items-center">
+                    <div class="login-card">
+                        <h3 class="text-center mb-5 titlePage">Acesse sua conta</h3>
+                        <form action="/api/login" method="post">
+                                <span id="loginError" style="color: red; display: none; font-size: 15px;
+                                    margin-top: -10px; margin-bottom: 5px;"></span>
+
+                            <div class="mb-3">
+                                <label class="form-label">Email</label>
+                                <input type="email" name="email" placeholder="Digite seu e-mail" class="login-input" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label">Senha</label>
+                                <input type="password" name="password" placeholder="Digite sua senha" class="login-input" required>
+                            </div>
+
+                            <div class="d-flex justify-content-between align-items-center">
+                                <button type="submit" class="login-button">Entrar</button>
+                                <p class="mt-2 register-link">Não é cadastrado? <a href="/cadastro-cliente.html">Crie sua conta</a></p>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
-    </form>
-</div>
 
-<script src="JS/login-cliente.js"></script>
-</body>
+        <script src="JS/login-cliente.js"></script>
+    </body>
 </html>
