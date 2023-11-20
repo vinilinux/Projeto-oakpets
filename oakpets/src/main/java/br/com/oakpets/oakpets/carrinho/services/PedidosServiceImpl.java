@@ -1,5 +1,6 @@
 package br.com.oakpets.oakpets.carrinho.services;
 
+import br.com.oakpets.oakpets.carrinho.DTO.ItemPedidoDTO;
 import br.com.oakpets.oakpets.carrinho.DTO.RespDTO;
 import br.com.oakpets.oakpets.carrinho.entities.ItemPedidos;
 import br.com.oakpets.oakpets.carrinho.entities.Pedidos;
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class PedidosServiceImpl implements PedidosService{
@@ -56,5 +58,11 @@ public class PedidosServiceImpl implements PedidosService{
 
         return RespDTO;
 
+    }
+
+    @Override
+    public Pedidos findById (long id) {
+        Optional<Pedidos> pedidos = pedidosRepository.findById(id);
+        return pedidos.get();
     }
 }

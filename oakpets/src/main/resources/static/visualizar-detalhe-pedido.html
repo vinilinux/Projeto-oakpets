@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;500&family=Poppins:wght@400;500;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="/CSS/header.css">
+    <link rel="stylesheet" href="/CSS/visualizacao-pedido.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="JS/header.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+
+
+    <title>Visualização Pedido</title>
+
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <div class="container">
+            <a class="navbar-brand" href="./index.html">
+                <img class="imgHeader" src="./Images/LogoSemFundo.png" alt="logo">
+            </a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#headerItens"
+                aria-controls="headerItens" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="bi bi-list"></span>
+            </button>
+
+            <div class="collapse navbar-collapse justify-content-center" id="headerItens">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="./index.html">Início</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="./colecoes.html">Produtos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="./contato.html">Sobre</a>
+                    </li>
+                </ul>
+            </div>
+
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="./contato.html">
+                        <i class="bi bi-cart4"></i>
+                    </a>
+                </li>
+            </ul>
+
+            <div class="navbar-nav ml-auto">
+                <span id="userStatus">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/login-cliente.html">
+                            <button class="btn btnEntrar text-left" type="submit">
+                                <i class="bi bi-person-fill"></i> <span>Entre ou <br> cadastre-se</span>
+                            </button>
+                        </a>
+                    </li>
+                </span>
+            </div>
+
+            <a href="#" id="logoutLink" onclick="handleLogout();" style="display: none;"><i
+                    class="bi bi-box-arrow-left"></i></a>
+
+        </div>
+    </nav>
+    <div class="container">
+        <div class="row justify-content-md-center">
+            <div class="col border border-color ">
+                <h1 class="titulo-fonte ajuste-margin-bottom">Informações do pedido</h1>
+                <div class="row justify-content-md-center">
+                    <div class="col">
+                        <h2 class="subtitulo-fonte ajuste-margin-bottom">Dados pessoais</h2>
+                        <div class="col back-color">
+                            <p id="dadosPessoais"></p>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <h2 class="subtitulo-fonte ajuste-margin-bottom">Endereço de entrega</h2>
+                        <div class="col back-color">
+                            <p id="endereco"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col ">
+                <div class="row justify-content-md-center ajuste-margin-bottom">
+                    <div class="col border border-color ajuste-margin-left-right">
+                        <h1 class="titulo-fonte ajuste-margin-bottom" id="numeroPedido"></h1>
+                        <div class="col">
+                            Total + Frete
+                        </div>
+                        <div class="col" id="valorTotal">
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+        <div class="row justify-content-md-center">
+            <div class="col-6 border border-color ">
+                <h1 class="titulo-fonte">Forma de pagamento selecionado</h1>
+
+                <div class="row justify-content-md-center border border-color">
+                    <div class="col">
+                        <h2 class="subtitulo-fonte" id="forma-pagamento"> </h2>
+                    </div>
+                    <div class="col ">
+                        icone
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 border border-color">
+
+            </div>
+        </div>
+        <div class="row justify-content-md-center">
+            <div class="col border border-color">
+                <div class="row justify-content-md-center border border-color">
+
+                    <ul id="listaProdutos"></ul>
+
+                </div>
+            </div>
+            <div class="col">
+            </div>
+        </div>
+        <div class="row justify-content-md-center">
+            <div class="col-6 border border-color">
+                <h1 class="titulo-fonte">Frete</h1>
+
+                <div class="row justify-content-md-center border border-color">
+                    <div class="col">
+                        <h2 class="subtitulo-fonte" id="tipoFrete"></h2>
+                    </div>
+                    <div class="col" style="display: flex;">
+                        <p>R$ </p><p id="freteValor"></p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6">
+
+            </div>
+        </div>
+    </div>
+
+
+    <script src="JS/visualizar-detalhe-pedido.js"></script>
+
+</body>
+
+</html>
