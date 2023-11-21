@@ -1,18 +1,130 @@
-/* Estilo da borda da div "Endereço" */
+.container {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    max-width: 1200px;
+}
+
+.cepInputDiv {
+    margin-top: 25px;
+    margin-bottom: -15px;
+    width: 250px;
+}
+
+.btnBuscar {
+    background-color: #fff;
+    color: #003384;
+    border-color: #003384;
+}
+
+.btnBuscar:hover {
+    background-color: #fff;
+    color: #003384;
+    border-color: #003384;
+}
+
+
 .endereco {
-    border: 1px solid #ccc; /* Cor e espessura da borda */
-    padding: 10px; /* Espaçamento interno para afastar o conteúdo da borda */
+    margin-top: 25px;
+    margin-bottom: 25px;
+    padding: 25px;
     width: 100%;
+    border: 0.5px solid rgba(64, 102, 163, 0.30);
+    border-radius: 10px;
 }
 
-/* Estilo da borda da div "Produtos" */
+#enderecoInfo h4 {
+    color: #003384; /* Torna o título azul */
+    font-weight: bold;
+}
+
+#enderecoInfo p:nth-child(2) {
+    font-weight: bold; /* Torna o segundo parágrafo (Entrega) em negrito */
+}
+
+#enderecoInfo p {
+    margin-bottom: 0px; /* Adiciona uma margem inferior para aproximar as informações do endereço */
+}
+
+#enderecoInfo a {
+    text-decoration: none; /* Remove o sublinhado padrão dos links */
+}
+
+#enderecoInfo a#selectAddress {
+    color: #999; /* Cor cinza bem clarinho para "Selecionar outro endereço" */
+}
+
+#enderecoInfo a#addNewAddress {
+    color: #003384; /* Cor azul #003384 para "Adicionar Novo Endereço" */
+    font-weight: bolder; /* Torna o texto em negrito */
+}
+
+.titles {
+    color: #003384; /* Torna o título azul */
+    font-weight: bold;
+}
+
 .produtos {
-    border: 1px solid #ccc; /* Cor e espessura da borda */
-    padding: 10px; /* Espaçamento interno para afastar o conteúdo da borda */
+    margin-top: 25px;
+    margin-bottom: 25px;
+    padding: 25px;
+    border: 0.5px solid rgba(64, 102, 163, 0.30);
+    border-radius: 10px;
+
 }
 
-.lixeira {
-    margin-left: 100px;
+.productName {
+    width: 250px;
+}
+
+
+.lixeira img {
+    width: 25px;
+}
+
+.imageProduct {
+    width: 100px;
+}
+
+/* Adicione estilos para os elementos Quantidade e Valor */
+.quantityLabel, .valueLabel {
+    font-weight: bold;
+    color: #003384;
+    margin-bottom: 0; /* Ajuste conforme necessário para controlar o espaçamento abaixo dos rótulos */
+}
+
+/* Adicione estilos para os elementos de input de quantidade e valor */
+
+
+/* Adicione outros estilos conforme necessário */
+
+
+.resumo {
+    margin-top: 25px;
+    margin-bottom: 25px;
+    padding: 25px;
+    border: 0.5px solid rgba(64, 102, 163, 0.30);
+    border-radius: 10px;
+    width: 280px;
+}
+
+.valorCart {
+    font-weight: bold;
+}
+
+.btnPgto {
+    background-color: #003384;
+    border: none;
+    margin-bottom: 20px;
+
+}
+
+.divFrete {
+    border-bottom: 1px solid #ccc;
+}
+
+.btn-block {
+    width: 100%;
 }
 
 .popup {

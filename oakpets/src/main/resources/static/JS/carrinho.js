@@ -291,22 +291,23 @@ function updateLocalStorage() {
 }
 
 if (produtos && produtos.length > 0) {
-    produtos.forEach((produto, index) => {
+        produtos.forEach((produto, index) => {
         const productDiv = document.createElement('div');
-        productDiv.className = 'd-flex justify-content-between';
+        productDiv.className = 'd-flex justify-content-between productDiv';
 
         const img = document.createElement('img');
         img.src = produto.produto.images[0].imagePath;
         img.alt = 'Imagem do produto';
-        img.className = 'align-self-start';
+        img.className = 'align-self-start imageProduct';
 
         const name = document.createElement('p');
-        name.className = 'ml-3';
+        name.className = 'ml-3 productName';
         name.textContent = produto.produto.name;
 
         const quantityDiv = document.createElement('div');
         quantityDiv.className = 'ml-3';
         const quantityLabel = document.createElement('p');
+        quantityLabel.className = 'quantityLabel';
         quantityLabel.textContent = 'Quantidade:';
         const quantityInput = document.createElement('input');
         quantityInput.type = 'number';
@@ -315,13 +316,14 @@ if (produtos && produtos.length > 0) {
         quantityInput.max = 100;
         quantityInput.step = 1;
         quantityInput.value = produto.quantidade;
+            quantityInput.className = 'quantityInput';
 
         quantityInput.addEventListener('change', () => {
             const newQuantity = parseInt(quantityInput.value, 10);
             produto.quantidade = newQuantity;
             const totalValue = newQuantity * produto.produto.price;
             value.innerHTML = `
-        <p>Valor:</p>
+        <p class="valueLabel">Valor:</p>
         <p>R$ ${totalValue.toFixed(2)}
     `;
 
@@ -346,7 +348,7 @@ if (produtos && produtos.length > 0) {
         value.className = 'ml-3 text-right';
         const totalValue = produto.quantidade * produto.produto.price;
         value.innerHTML = `
-            <p>Valor:</p>
+            <p class="valueLabel">Valor:</p>
             <p>R$ ${totalValue.toFixed(2)}</p>
         `;
 

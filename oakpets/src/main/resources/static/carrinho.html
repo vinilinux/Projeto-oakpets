@@ -2,18 +2,22 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrinho</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.4/font/bootstrap-icons.css">
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
     <link rel="stylesheet" type="text/css" href="CSS/header.css">
     <link rel="stylesheet" type="text/css" href="CSS/carrinho.css">
 
     <script src="JS/header.js" defer></script>
-
-    <title>Carrinho</title>
 </head>
 <body>
 
@@ -31,20 +35,20 @@
         <div class="collapse navbar-collapse justify-content-center" id="headerItens">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" aria-current="page" href="./index.html">Início</a>
+                    <a class="nav-link" aria-current="page" href="./landing-page.html">Início</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" href="./colecoes.html">Produtos</a>
+                    <a class="nav-link" href="./list-card.html">Produtos</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="./contato.html">Sobre</a>
+                    <a class="nav-link" href="./sobre.html">Sobre</a>
                 </li>
             </ul>
         </div>
 
         <ul class="navbar-nav">
             <li class="nav-item">
-                <a class="nav-link" href="./contato.html">
+                <a class="nav-link" href="./carrinho.html">
                     <i class="bi bi-cart4"></i>
                 </a>
             </li>
@@ -66,82 +70,75 @@
     </div>
 </nav>
 
-<div class="container">
-    <div class="row">
-        <div class="col-12 col-md-10">
-            <div class="endereco" id="enderecoDiv">
-                <p id="enderecoInfo"></p>
-                <p id="cepInfo"></p>
+    <div class="container">
+
+        <div id="cepInputDiv" style="display: none;" class="cepInputDiv">
+            <div class="input-group mb-3">
+                <input type="text" id="cepInput" class="form-control me-2" placeholder="Digite seu CEP">
+                <button id="buscarEnderecoBtn" class="btn btn-primary btnBuscar">Buscar</button>
             </div>
         </div>
 
-        <div id="addressPopup" class="popup">
-            <div class="popup-content">
-                <h2>Selecione um endereço de entrega:</h2>
-                <ul id="addressList"></ul>
-                <a href="#" id="closePopup" class="close-popup">Fechar</a>
+        <div class="row">
+
+            <div class="col-md-9">
+
+                <div class="endereco" id="enderecoDiv">
+                    <p id="enderecoInfo"></p>
+                    <p id="cepInfo"></p>
+                </div>
+
+                <div class="produtos">
+                    <h4 class="text-left titles">Produtos</h4>
+                    <div id="product-list">
+                        <!-- Lista de produtos será gerada aqui -->
+                    </div>
+                </div>
             </div>
-        </div>
 
+            <div class="col-md-3">
+                <div class="resumo">
+                    <h4 class="mb-4 titles">Resumo</h4>
+                    <div class="d-flex justify-content-between mb-2">
+                        <p>Subtotal:</p>
+                        <p class="valorCart" id="subtotal">R$ 0.00</p>
+                    </div>
+                    <div class="d-flex justify-content-between mb-2 divFrete">
+                        <p>Frete:</p>
+                        <p class="valorCart" id="frete">R$ 0.00</p>
+                    </div>
+                    <div class="d-flex justify-content-between mb-2">
+                        <p>Total:</p>
+                        <p class="valorCart" id="total">R$ 0.00</p>
+                    </div>
+                    <button id="paymentButton" class="btn btn-primary btn-block mb-2 btnPgto">Pagamento</button>
+                    <button class="btn btn-secondary btn-block btnBuscar">Continuar Comprando</button>
+                </div>
+            </div>
 
-
-        <div id="cepInputDiv" style="display: none;">
-            <input type="text" id="cepInput" placeholder="Digite seu CEP">
-            <button id="buscarEnderecoBtn">Buscar</button>
-        </div>
-
-        <div class="col-12 col-md-10">
-            <div class="produtos">
-                <h2 class="text-left">Produtos</h2>
-                <div id="product-list">
-                    <!-- Lista de produtos será gerada aqui -->
+            <div id="freteDiv" style="display: none;">
+                <h2>Opções de frete</h2>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="frete" id="frete-expresso" value="frete-expresso" data-frete="15.00">
+                    <label class="form-check-label" for="frete-expresso" id="frete-expresso-label">
+                        Frete Expresso - R$ <span id="frete-expresso-preco">15.00</span>
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="frete" id="frete-normal" value="frete-normal" data-frete="10.00">
+                    <label class="form-check-label" for="frete-normal" id="frete-normal-label">
+                        Frete Normal - R$ <span id="frete-normal-preco">10.00</span>
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="frete" id="frete-gratis" value="frete-gratis" data-frete="0.00">
+                    <label class="form-check-label" for="frete-gratis" id="frete-gratis-label">
+                        Frete Grátis - R$ <span id="frete-gratis-preco">0.00</span>
+                    </label>
                 </div>
             </div>
         </div>
-
-        <div class="col-md-2">
-            <div class="resumo">
-                <h2 class="mb-4">Resumo</h2>
-                <div class="d-flex justify-content-between mb-2">
-                    <p>Subtotal:</p>
-                    <p id="subtotal">R$ 0.00</p>
-                </div>
-                <div class="d-flex justify-content-between mb-2">
-                    <p>Frete:</p>
-                    <p id="frete">R$ 10,00</p>
-                </div>
-                <div class="d-flex justify-content-between mb-2">
-                    <p>Total:</p>
-                    <p id="total">R$ 0.00</p>
-                </div>
-                <button id="paymentButton" class="btn btn-primary btn-block mb-2">Pagamento</button>
-                <button class="btn btn-secondary btn-block">Continuar Comprando</button>
-            </div>
-        </div>
-
-        <div id="freteDiv" style="display: none;">
-            <h2>Opções de frete</h2>
-            <div class="form-check">
-                <input class="form-check-input" type="radio" name="frete" id="frete-expresso" value="frete-expresso" data-frete="15.00">
-                <label class="form-check-label" for="frete-expresso" id="frete-expresso-label">
-                    Frete Expresso - R$ <span id="frete-expresso-preco">15.00</span>
-                </label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" type="radio" name="frete" id="frete-normal" value="frete-normal" data-frete="10.00">
-                <label class="form-check-label" for="frete-normal" id="frete-normal-label">
-                    Frete Normal - R$ <span id="frete-normal-preco">10.00</span>
-                </label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" type="radio" name="frete" id="frete-gratis" value="frete-gratis" data-frete="0.00">
-                <label class="form-check-label" for="frete-gratis" id="frete-gratis-label">
-                    Frete Grátis - R$ <span id="frete-gratis-preco">0.00</span>
-                </label>
-            </div>
-            </div>
-        </div>
-</div>
+    </div>
 
 <script src="JS/carrinho.js"></script>
 
