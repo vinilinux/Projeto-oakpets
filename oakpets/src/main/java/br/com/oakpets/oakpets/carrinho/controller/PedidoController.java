@@ -173,10 +173,6 @@ public class PedidoController {
     }
 
 
-
-
-
-
     @GetMapping("/detalhePedido/{id}")
     public ResponseEntity findById(@PathVariable long id) {
         try {
