@@ -12,13 +12,10 @@ import br.com.oakpets.oakpets.customer.services.CustomerService;
 import br.com.oakpets.oakpets.produto.entities.Product;
 import br.com.oakpets.oakpets.produto.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.*;
 
 
@@ -176,7 +173,12 @@ public class PedidoController {
     }
 
 
-
-
-
+    @GetMapping("/detalhePedido/{id}")
+    public ResponseEntity findById(@PathVariable long id) {
+        try {
+            return ResponseEntity.ok(service.findById(id));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().build();
+        }
+    }
 }

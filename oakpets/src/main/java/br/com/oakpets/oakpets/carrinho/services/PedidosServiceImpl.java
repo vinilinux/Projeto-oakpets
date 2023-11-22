@@ -1,5 +1,6 @@
 package br.com.oakpets.oakpets.carrinho.services;
 
+import br.com.oakpets.oakpets.carrinho.DTO.ItemPedidoDTO;
 import br.com.oakpets.oakpets.carrinho.DTO.RespDTO;
 import br.com.oakpets.oakpets.carrinho.entities.ItemPedidos;
 import br.com.oakpets.oakpets.carrinho.entities.Pedidos;
@@ -60,6 +61,12 @@ public class PedidosServiceImpl implements PedidosService{
 
         return RespDTO;
 
+    }
+
+    @Override
+    public Pedidos findById (long id) {
+        Optional<Pedidos> pedidos = pedidosRepository.findById(id);
+        return pedidos.get();
     }
 
 
