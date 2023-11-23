@@ -12,13 +12,10 @@ import br.com.oakpets.oakpets.customer.services.CustomerService;
 import br.com.oakpets.oakpets.produto.entities.Product;
 import br.com.oakpets.oakpets.produto.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.*;
 
 
@@ -96,6 +93,90 @@ public class PedidoController {
     public ResponseEntity findAll(@PathVariable Integer id) {
         try {
             return ResponseEntity.ok(service.findAll(id));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
+    @GetMapping("/todos")
+    public ResponseEntity<List<Map<String, Object>>> obterTodosOsPedidos() {
+        try {
+            List<Pedidos> pedidos = service.obterTodosOsPedidosOrdenados();
+            List<Map<String, Object>> pedidosFormatados = new ArrayList<>();
+
+            for (Pedidos pedido : pedidos) {
+                Map<String, Object> pedidoFormatado = new HashMap<>();
+                pedidoFormatado.put("numeroPedido", pedido.getId());
+                pedidoFormatado.put("dataPedido", pedido.getData());
+                pedidoFormatado.put("valorTotal", pedido.getValorTotal());
+                pedidoFormatado.put("status", pedido.getStatus());
+
+                pedidosFormatados.add(pedidoFormatado);
+            }
+
+            return ResponseEntity.ok(pedidosFormatados);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
+
+    @GetMapping("/obteridpedido/{id}")
+    public ResponseEntity<?> obterDetalhesPedidoPorId(@PathVariable Long id) {
+        try {
+            Optional<Pedidos> pedidoOptional = service.findById(id);
+            if (pedidoOptional.isPresent()) {
+                Pedidos pedido = pedidoOptional.get();
+
+
+                Map<String, Object> response = new HashMap<>();
+                response.put("numeroDoPedido", pedido.getId());
+                response.put("dataPedido", pedido.getData());
+                response.put("valorTotal", pedido.getValorTotal());
+                response.put("status", pedido.getStatus());
+
+                return ResponseEntity.ok(response);
+            } else {
+                return ResponseEntity.notFound().build();
+            }
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Erro ao obter detalhes do pedido por ID");
+        }
+    }
+
+
+
+    @PutMapping("/{id}/status")
+    public ResponseEntity<?> atualizarStatus(
+            @PathVariable Long id,
+            @RequestBody Map<String, String> requestBody) {
+
+        try {
+            Optional<Pedidos> pedidoOptional = service.findById(id);
+            if (pedidoOptional.isPresent()) {
+                Pedidos pedido = pedidoOptional.get();
+                String novoStatus = requestBody.get("novoStatus");
+
+
+                pedido.setStatus(novoStatus);
+
+
+                service.atualizarPedido(pedido);
+
+                return ResponseEntity.ok("Status atualizado com sucesso");
+            } else {
+                return ResponseEntity.notFound().build();
+            }
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Erro ao atualizar status");
+        }
+    }
+
+
+    @GetMapping("/detalhePedido/{id}")
+    public ResponseEntity findById(@PathVariable long id) {
+        try {
+            return ResponseEntity.ok(service.findById(id));
         } catch (Exception e) {
             return ResponseEntity.badRequest().build();
         }

@@ -54,7 +54,7 @@ if (!clientId) {
                                 <p class="contentCard">${pedido.status}</p>
                             </div>
                             <div class="col-2">
-                                <button class="btn btn-primary">Mais detalhes</button>    
+                                <a href="visualizar-detalhe-pedido.html?pedido=${pedido.id}"><button class="btn btn-primary" ">Mais Detalhes</button></a>
                             </div>
                         </div>
                     </div>
@@ -71,4 +71,5 @@ if (!clientId) {
 
     // Chame a função carregarPedidos imediatamente
     carregarPedidos();
+
 }

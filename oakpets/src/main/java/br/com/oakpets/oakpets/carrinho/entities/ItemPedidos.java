@@ -1,6 +1,7 @@
 package br.com.oakpets.oakpets.carrinho.entities;
 
 import br.com.oakpets.oakpets.produto.entities.Product;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -26,6 +27,7 @@ public class ItemPedidos {
     @Column(name = "VALOR")
     private Double valor;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "ID_PEDIDOS")
     private Pedidos pedidos;
