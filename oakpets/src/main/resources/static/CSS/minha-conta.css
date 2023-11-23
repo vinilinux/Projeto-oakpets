@@ -1,0 +1,33 @@
+.container {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    max-width: 1200px;
+}
+
+.titlePage {
+    font-size: 24px;
+    text-align: center;
+    color: #003384;
+    margin-top: 30px;
+}
+
+.card .card-title {
+    color: #003384;
+}
+
+.card {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.linksCards {
+    margin-bottom: 30px;
+}
+
+.centered-icon {
+    display: block;
+    margin: 0 auto 10px;
+    width: 32px;
+    height: 32px;
+    color: #003384;
+}

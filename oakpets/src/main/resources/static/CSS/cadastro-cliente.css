@@ -12,27 +12,9 @@ body {
     max-width: 1200px;
 }
 
-.cadastroEndereco {
+.cadastroCliente {
     width: 800px;
     color: #727272;
-}
-
-.btnSalvar {
-    background-color: #003384;
-    border: none;
-    margin-top: 20px;
-    margin-bottom: 20px;
-}
-
-.btnBuscar {
-    background-color: #fff;
-    color: #003384;
-    border-color: #003384;
-}
-
-.form-check-label {
-    color: #003384;
-    font-weight: 400;
 }
 
 .titlePage {
@@ -41,4 +23,14 @@ body {
     font-size: 1.5rem;
     color: #003384;
     font-weight: bolder;
+}
+
+.btnSalvar {
+    background-color: #003384;
+    border: none;
+    margin-bottom: 20px;
+}
+
+.form-group {
+    margin-bottom: 20px;
 }

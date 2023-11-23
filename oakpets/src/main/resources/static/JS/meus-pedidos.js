@@ -38,20 +38,20 @@ if (!clientId) {
                     <div class="card-body">
                         <div class="row justify-content-center">
                             <div class="col-2">
-                                <p>Número do Pedido:</p>
-                                <p>${pedido.id}</p>
+                                <p class="titlesCard">Número do Pedido:</p>
+                                <p class="contentCard">${pedido.id}</p>
                             </div>
                             <div class="col-2">
-                                <p>Data:</p>
-                                <p>${formatarDataBrasileira(pedido.data)}</p>  
+                                <p class="titlesCard" >Data:</p>
+                                <p class="contentCard">${formatarDataBrasileira(pedido.data)}</p>  
                             </div>
                             <div class="col-2">
-                                <p>Valor:</p>
-                                <p>R$ ${pedido.valorTotal}</p>
+                                <p class="titlesCard">Valor:</p>
+                                <p class="contentCard">R$ ${pedido.valorTotal}</p>
                             </div>
                             <div class="col-2">
-                                <p>Status:</p>
-                                <p>${pedido.status}</p>
+                                <p class="titlesCard">Status:</p>
+                                <p class="contentCard">${pedido.status}</p>
                             </div>
                             <div class="col-2">
                                 <a href="visualizar-detalhe-pedido.html?pedido=${pedido.id}"><button class="btn btn-primary" ">Mais Detalhes</button></a>
