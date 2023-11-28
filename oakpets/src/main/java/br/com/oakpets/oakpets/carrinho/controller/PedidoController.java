@@ -120,14 +120,12 @@ public class PedidoController {
         }
     }
 
-
     @GetMapping("/obteridpedido/{id}")
     public ResponseEntity<?> obterDetalhesPedidoPorId(@PathVariable Long id) {
         try {
             Optional<Pedidos> pedidoOptional = service.findById(id);
             if (pedidoOptional.isPresent()) {
                 Pedidos pedido = pedidoOptional.get();
-
 
                 Map<String, Object> response = new HashMap<>();
                 response.put("numeroDoPedido", pedido.getId());
@@ -143,8 +141,6 @@ public class PedidoController {
             return ResponseEntity.badRequest().body("Erro ao obter detalhes do pedido por ID");
         }
     }
-
-
 
     @PutMapping("/{id}/status")
     public ResponseEntity<?> atualizarStatus(

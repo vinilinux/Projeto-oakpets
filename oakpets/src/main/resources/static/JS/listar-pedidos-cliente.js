@@ -1,10 +1,47 @@
+token = localStorage.getItem('token');
 
 //-------------------------------- Lista -------------------------------- //
 
+document.addEventListener('DOMContentLoaded', validartoken);
+async function validartoken() {
+
+    if (token === null) {
+        window.location.href = 'login.html'
+    }
+
+    try {
+        const response = await fetch('http://localhost:8080/auth/validate', {
+            method: 'GET',
+            headers: {
+                Authorization: 'Bearer ' + token
+            }
+        });
+        if (response.status === 401) {
+            window.location.href = 'login.html'
+        }
+
+        const role = await response.json();
+
+        if (role === "ESTOQUE") {
+            const ul = document.querySelector('ul');
+            const li = ul.querySelector('li:nth-child(3)');
+            li.style.display = 'none';
+        }
+
+    } catch (error) {
+        console.log(error);
+        window.location.href = 'erro.html'
+    }
+}
 
 function carregarPedidos() {
 
-    fetch('/pedidos/todos')
+    fetch('/pedidos/todos', {
+        method: 'GET',
+        headers: {
+            Authorization: 'Bearer ' + token
+        }
+    })
         .then(response => {
             if (!response.ok) {
                 throw new Error('Erro ao carregar pedidos');
@@ -62,7 +99,12 @@ function formatarMoeda(valor) {
 function obterDetalhesPedidoPorId(pedidoId) {
     console.log('Obtendo detalhes do pedido para o ID:', pedidoId);
 
-    fetch('/pedidos/obteridpedido/' + pedidoId)
+    fetch(`/pedidos/obteridpedido/${pedidoId}/`, {
+        method: 'GET',
+        headers: {
+            Authorization: 'Bearer ' + token
+        }
+    } )
         .then(response => {
             if (!response.ok) {
                 throw new Error('Erro ao obter detalhes do pedido');
@@ -91,9 +133,6 @@ function abrirPopup(botaoEditar) {
     popup.style.display = "block";
 }
 
-
-
-
 function enviarDadosParaServidor() {
     var pedidoId = document.getElementById("btnEnviar").getAttribute("data-pedido-id");
 
@@ -101,10 +140,11 @@ function enviarDadosParaServidor() {
 
     if (pedidoId) {
 
-        fetch('/pedidos/' + pedidoId + '/status', {
+        fetch(`/pedidos/${pedidoId}/status`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
+                Authorization: 'Bearer ' + token
             },
             body: JSON.stringify({
                 novoStatus: novoStatus,
@@ -175,7 +215,12 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function carregarPedidos() {
-        fetch('/pedidos/todos')
+        fetch('/pedidos/todos', {
+            method: 'GET',
+            headers: {
+                Authorization: 'Bearer ' + token
+            }
+        })
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Erro ao carregar pedidos');
@@ -204,11 +249,16 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function carregarPedidosPorCodigo(codigoPedido) {
-        var apiUrl = '/pedidos/obteridpedido/' + codigoPedido;
+        var apiUrl = `/pedidos/obteridpedido/${codigoPedido}`;
 
         console.log('Chamando API:', apiUrl);
 
-        fetch(apiUrl)
+        fetch(apiUrl, {
+            method: 'GET',
+            headers: {
+                Authorization: 'Bearer ' + token
+            }
+        })
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Erro ao carregar pedido por código');
