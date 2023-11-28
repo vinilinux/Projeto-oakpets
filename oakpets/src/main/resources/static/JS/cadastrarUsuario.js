@@ -1,9 +1,41 @@
 const urlParams = new URLSearchParams(window.location.search);
 const id = parseInt(urlParams.get('id'), 10);
+token = localStorage.getItem('token');
 
 if(urlParams != 0) {
     window.addEventListener('load', editarUser);
+}
 
+document.addEventListener('DOMContentLoaded', validartoken);
+
+async function validartoken() {
+
+    if (token === null) {
+        window.location.href = 'login.html'
+    }
+
+    try {
+        const response = await fetch('http://localhost:8080/auth/validate', {
+            method: 'GET',
+            headers: {
+                Authorization: 'Bearer ' + localStorage.getItem('token')
+            }
+        });
+
+        if (response.status === 401) {
+            window.location.href = 'login.html'
+        }
+
+        const role = await response.json();
+
+        if (role === "ESTOQUE") {
+            window.location.href = 'permission.html'
+        }
+
+    } catch (error) {
+        console.log(error);
+        window.location.href = 'erro.html'
+    }
 }
 
 async function editarUser() {
@@ -13,7 +45,13 @@ async function editarUser() {
 
         const id = parseInt(urlParams.get('id'), 10)
 
-        const response = await fetch(`http://localhost:8080/api/usuarios/${id}/details`);
+        const response = await fetch(`http://localhost:8080/api/usuarios/${id}/details`, {
+            method: 'GET',
+                headers: {
+                'Content-Type': 'application/json',
+                    Authorization: 'Bearer ' + token
+            }
+        });
         const user_details = await response.json();
 
         console.log(user_details)
@@ -63,7 +101,7 @@ function salvar() {
             body: JSON.stringify(data),
             headers: {
                 'Content-Type': 'application/json',
-                Authorization: 'Bearer ' + localStorage.getItem('token')
+                Authorization: 'Bearer ' + token
             }
         }).then(function (response) {
             if (response.status === 200) {
@@ -86,7 +124,7 @@ function salvar() {
             body: JSON.stringify(data),
             headers: {
                 'Content-Type': 'application/json',
-                Authorization: 'Bearer ' + localStorage.getItem('token')
+                Authorization: 'Bearer ' + token
 
             }
         }).then(function (response) {

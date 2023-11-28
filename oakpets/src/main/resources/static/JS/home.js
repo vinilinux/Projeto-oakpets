@@ -1,12 +1,36 @@
-import jwt_decode from 'jsonwebtoken';
+document.addEventListener('DOMContentLoaded', validartoken);
+token = localStorage.getItem('token')
+async function validartoken() {
 
-const tokenPayload = jwt_decode(token); // Use a biblioteca jwt-decode ou outra equivalente
-const role = tokenPayload.role; // Substitua "role" pelo nome do campo que contém a role
+    if (token === null) {
+        window.location.href = 'login.html'
+    }
 
-// Suponha que você tenha definido as roles em uma variável, como "role" no exemplo anterior
-if (role === 'ESTOQUE') {
-    // Oculte os elementos
-    document.querySelector('.nav-item').style.display = 'none'; // Elemento com a classe "nav-item"
-    document.querySelector('.btn-danger').style.display = 'none'; // Elemento com a classe "btn-danger"
-    document.querySelector('.btn-primary').style.display = 'none'; // Elemento com a classe "btn-primary"
+    try {
+        const response = await fetch('http://localhost:8080/auth/validate', {
+            method: 'GET',
+            headers: {
+                Authorization: 'Bearer ' + token
+            }
+        });
+
+        if (response.status === 401) {
+            window.location.href = 'login.html'
+        }
+
+        const role = await response.json();
+        console.log(role)
+
+        if (role === "ESTOQUE") {
+            const ul = document.querySelector('ul');
+            const li = ul.querySelector('li:nth-child(3)');
+            li.style.display = 'none';
+            const button = document.querySelector('p.botoes');
+            button.style.display = 'none';
+        }
+
+    } catch (error) {
+        console.log(error);
+        window.location.href = 'erro.html'
+    }
 }

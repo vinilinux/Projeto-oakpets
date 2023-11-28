@@ -1,24 +1,15 @@
 package br.com.oakpets.oakpets.produto.services;
 
 import br.com.oakpets.oakpets.produto.DTO.ProductDTO;
-import br.com.oakpets.oakpets.produto.entities.Image;
 import br.com.oakpets.oakpets.produto.entities.Product;
 import br.com.oakpets.oakpets.produto.repositories.ProductRepository;
-import br.com.oakpets.oakpets.usuario.DTO.UserDTO;
-import br.com.oakpets.oakpets.usuario.entities.User;
 import jakarta.transaction.Transactional;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.StandardCopyOption;
 import java.util.*;
 
 @Service
-public class ProductserviceImpl implements ProductService {
+public  class ProductserviceImpl implements ProductService {
 
     private final ProductRepository repository;
 
@@ -63,4 +54,19 @@ public class ProductserviceImpl implements ProductService {
     public List<Product> allProducts() {
         return repository.findAllWithMainImages();
     }
+
+
+    @Override
+    public void qtd(ProductDTO data) {
+        Optional<Product> productOptional = repository.findById(data.idProduct());
+
+        if (productOptional.isEmpty()) {
+            throw new RuntimeException("Usuario não encontrado");
+        }
+
+        productOptional.get().setAmount(data.amount());
+        repository.save(productOptional.get());
+    }
+
+
 }

@@ -50,10 +50,9 @@ public class ProductController {
         }
     }
 
-    @CrossOrigin(origins = "*")
     @PostMapping("/create")
-    public ResponseEntity createProduct(@RequestParam String data,
-                                        @RequestParam(value = "files") List<MultipartFile> files,
+    public ResponseEntity createProduct(@RequestParam("data") String data,
+                                        @RequestParam(value = "files", required = false) List<MultipartFile> files,
                                         @RequestParam(required = false) String imageDefault) throws JsonProcessingException {
 
         var converte = mapper.readValue(data, ProductDTO.class);
@@ -76,7 +75,7 @@ public class ProductController {
     }
     @PutMapping("/update")
     public ResponseEntity updateProduct(@RequestParam String data,
-                                        @RequestParam(value = "files", required = false) List<MultipartFile> files,
+                                        @RequestParam(value = "files") List<MultipartFile> files,
                                         @RequestParam(required = false) String imageDefault,
                                         @RequestParam(required = false) List<Long> idImage) throws JsonProcessingException {
 
@@ -129,7 +128,16 @@ public class ProductController {
             return ResponseEntity.badRequest().body("Erro na listagem dos produtos " + e.getMessage());
         }
 
+    }
 
+    @PatchMapping("/updateQTD")
+    public ResponseEntity atualizarQTDProduct(@RequestBody ProductDTO data) {
+        try {
+            service.qtd(data);
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 
 }

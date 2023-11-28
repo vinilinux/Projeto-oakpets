@@ -1,6 +1,8 @@
 package br.com.oakpets.oakpets.infra.security;
 
 import br.com.oakpets.oakpets.usuario.repository.UserRepository;
+import com.auth0.jwt.exceptions.JWTVerificationException;
+import com.auth0.jwt.exceptions.TokenExpiredException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -26,19 +28,20 @@ public class SecurityFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         var token = this.recoverToken(request);
-        if (token != null) {
+        try {
             var email = tokenService.validateToken(token);
-            System.out.println("Token" + email);
+
             UserDetails user = userRepository.findByEmail(email);
-            System.out.println("User" + user);
 
             var authentication = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
 
             System.out.println(user.getAuthorities());
 
             SecurityContextHolder.getContext().setAuthentication(authentication);
-
+        } catch (JWTVerificationException e) {
+            System.out.println(e.getMessage());
         }
+
         filterChain.doFilter(request, response);
     }
 

@@ -19,5 +19,5 @@ public interface UserService {
     void alterarUser(Long id, User user);
 
 
-    void status(Long id, UserDTO data);
+    void status(Long id, boolean data);
 }

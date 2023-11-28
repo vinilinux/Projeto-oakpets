@@ -13,6 +13,15 @@
 </head>
 
 <body class="" style="">
+<script src="JS/cadastrarUsuario.js"></script>
+<!--
+<script>
+  $(document).ready(function() {
+    validateToken();
+  });
+</script>
+-->
+
   <div class="navbar navbar-expand-lg fixed-top navbar-dark bg-primary" style="">
     <div class="container">
       <a href="home.html" class="navbar-brand">Oak Pets</a>
@@ -42,7 +51,7 @@
 
     <!-- Forms
       ================================================== -->
-    <div]>
+    <div>
 
       <div class="card mb-3">
         <h3 class="card-header">Cadastro de Usuário</h3>
@@ -65,23 +74,23 @@
                       <small id="emailHelp" class="form-text text-muted">Não divulgamos o seu email.</small>
                     </div>
                     <div class="form-group">
-                      <label for="exampleInputPassword1">Senha: *</label>
+                      <label for="password">Senha: *</label>
                       <input type="password" class="form-control" id="password" placeholder="Password" required>
                     </div>
 
                     <div class="form-group">
-                      <label for="exampleInputPassword1">Repita a Senha: *</label>
+                      <label for="password2">Repita a Senha: *</label>
                       <input type="password" class="form-control" id="password2" placeholder="Password" required>
                     </div>
 
                     <div class="form-group">
-                      <label for="exampleInputPassword1">CPF: *</label>
+                      <label for="userCPF">CPF: *</label>
                       <input type="text" class="form-control" id="userCPF"
                         placeholder="Digite seu CPF" required>
                     </div>
 
                     <div class="form-group">
-                      <label for="exampleSelect1" class="form-label mt-4">Grupo</label>
+                      <label for="userGrupo" class="form-label mt-4">Grupo</label>
                       <select class="form-select" id="userGrupo">
                         <option>ADMIN</option>
                         <option>ESTOQUE</option>
@@ -100,7 +109,7 @@
           </div>
         </div>
       </div>
-      <script src="JS/cadastrarUsuario.js"></script>
+
 </body>
 
 </html>

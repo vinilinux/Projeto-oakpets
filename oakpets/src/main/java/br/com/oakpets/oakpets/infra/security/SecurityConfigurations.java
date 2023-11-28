@@ -26,11 +26,16 @@ public class SecurityConfigurations {
                 .sessionManagement(sesion -> sesion.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(HttpMethod.GET, "/*.html", "Bootswatch_ Flatly_files/*", "/JS/*",
-                                "/Images/*", "/CSS/*").permitAll()
+                                "/Images/*", "/CSS/*", "/JS/login.js").permitAll()
                         .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/auth/validate").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/products/allProducts").permitAll()
+                        .requestMatchers(HttpMethod.PUT, "/products/update").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.POST, "/products/create").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.POST, "/api/usuarios/*").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.GET, "/api/usuarios").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.PUT, "/api/usuarios/*").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.PATCH, "/api/usuarios/*").hasRole("ADMIN")
                         .anyRequest().authenticated())
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();

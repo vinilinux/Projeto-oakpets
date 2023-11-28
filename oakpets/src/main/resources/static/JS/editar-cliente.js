@@ -3,7 +3,7 @@ function getCustomerIdFromURL() {
     const customerId = parseInt(urlParams.get("id"));
     return customerId;
 }
-
+const customerData = null;
 const customerId = getCustomerIdFromURL();
 fetch(`/customers/address/${customerId}`)
     .then(response => response.json())
@@ -13,8 +13,6 @@ fetch(`/customers/address/${customerId}`)
         document.getElementById('bday').value = customerData.bday;
         document.getElementById('cpf').value = customerData.cpf;
         document.getElementById('email').value = customerData.email;
-        document.getElementById('password').value = customerData.password;
-        document.getElementById('ConfirmPassword').value = customerData.password;
         document.getElementById('gender').value = customerData.gender;
     })
     .catch(error => {
@@ -31,8 +29,8 @@ function salvarPerfil(event) {
     const data = {
         name: formData.get("name"),
         bDay: formData.get("bday"),
-        cpf: formData.get("cpf"),
-        email: formData.get("email"),
+        cpf: document.getElementById('cpf').value,
+        email: document.getElementById('email').value,
         password: formData.get("password"),
         gender: formData.get("gender"),
     };

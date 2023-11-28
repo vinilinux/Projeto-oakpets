@@ -1,15 +1,48 @@
-window.addEventListener('load', fetchUsers);
+token = localStorage.getItem('token');
 
 function redirecionarParaCadastro() {
     window.location.href = 'cadastrarUsuario.html';
 }
+
+document.addEventListener('DOMContentLoaded', validartoken);
+async function validartoken() {
+
+    if (token === null) {
+        window.location.href = 'login.html'
+    }
+
+    try {
+        const response = await fetch('http://localhost:8080/auth/validate', {
+            method: 'GET',
+            headers: {
+                Authorization: 'Bearer ' + token
+            }
+        });
+
+        if (response.status === 401) {
+            window.location.href = 'login.html'
+        }
+
+        const role = await response.json();
+
+        if (role === "ESTOQUE") {
+            window.location.href = 'permission.html'
+        }
+
+    } catch (error) {
+        console.log(error);
+        window.location.href = 'erro.html'
+    }
+}
+
+window.addEventListener('load', fetchUsers);
 
 async function fetchUsers() {
     try {
         const response = await fetch('http://localhost:8080/api/usuarios', {
             method: 'GET',
                 headers: {
-                Authorization: 'Bearer ' + localStorage.getItem('token')
+                Authorization: 'Bearer ' + token
             }
         });
         const users = await response.json();
@@ -51,6 +84,7 @@ async function fetchUsers() {
         });
     } catch (error) {
         console.error('Erro ao buscar usuários', error);
+        window.location.href = 'erro.html'
     }
 }
 
@@ -102,16 +136,21 @@ function createSelectAndHandleChange(user) {
     });
 
     select.addEventListener('change', function () {
-        const valorSelecionado = select.value;
+        const status = select.value;
+
+        const data = {
+            status: select.value
+        }
 
         const confirmarMudanca = window.confirm('Deseja confirmar a mudança?');
 
         if (confirmarMudanca) {
             fetch(`http://localhost:8080/api/usuarios/${user.idUser}/status`, {
-                method: 'PUT',
-                body: JSON.stringify({ ativo: valorSelecionado }),
+                method: 'PATCH',
+                body: JSON.stringify(data),
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    Authorization: 'Bearer ' + token
                 }
             })
                 .then(response => response.json())
@@ -126,5 +165,5 @@ function createSelectAndHandleChange(user) {
         }
     });
 
-    return statusCell.appendChild(select); // Retorna o td com o select
+    return statusCell.appendChild(select);
 }

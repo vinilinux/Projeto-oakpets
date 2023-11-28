@@ -49,14 +49,23 @@ public class UserController {
 
         String encryptedPassword = new BCryptPasswordEncoder().encode(data.password());
         User newUser = new User(data.name(), data.email(), encryptedPassword, data.cpf(), true, data.role());
-        userService.createUser(newUser);
 
-        return ResponseEntity.ok().build();
+        try {
+            userService.createUser(newUser);
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Erro ao criar usuário" + e);
+
+        }
     }
 
     @GetMapping
     public ResponseEntity listarTodos() {
-        return ResponseEntity.ok(userService.findAll());
+        try {
+            return ResponseEntity.ok(userService.findAll());
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e);
+        }
     }
 
     @GetMapping("/{id}/details")
@@ -71,7 +80,7 @@ public class UserController {
         }
     }
 
-    @PatchMapping("{id}/alterar")
+    @PutMapping("{id}/alterar")
     public ResponseEntity alterarUser(@PathVariable Long id, @RequestBody UserDTO data) {
 
         User newuser = User.builder()
@@ -80,12 +89,13 @@ public class UserController {
                 .email(data.email())
                 .role(data.role())
                 .build();
-
+        System.out.println(data.password());
         if (data.password() != null) {
             if (data.password2().equals(data.password())) {
                 newuser.setPassword(new BCryptPasswordEncoder().encode(data.password()));
             }
         }
+        System.out.println(newuser.getPassword());
 
         try {
             userService.alterarUser(id, newuser);
@@ -95,15 +105,15 @@ public class UserController {
         }
     }
 
-    @PutMapping("{id}/status")
+    @PatchMapping("{id}/status")
     public ResponseEntity status(@PathVariable Long id, @RequestBody UserDTO data) {
         try {
-            userService.status(id, data);
+            System.out.println(id + " " + data.status());
+            userService.status(id, data.status());
             return ResponseEntity.ok().build();
 
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
-
     }
 }
