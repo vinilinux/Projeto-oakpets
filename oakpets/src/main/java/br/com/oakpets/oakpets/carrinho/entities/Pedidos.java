@@ -4,14 +4,19 @@ import br.com.oakpets.oakpets.customer.entities.Address;
 import br.com.oakpets.oakpets.customer.entities.Customer;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+
 @Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 @Table(name = "pedidos")
 public class Pedidos {
     @Id
@@ -20,11 +25,12 @@ public class Pedidos {
     private Long id;
 
     @ManyToOne
+    @JoinColumn(name = "ID_Address")
+    private Address address;
+
+    @ManyToOne
     @JoinColumn(name = "ID_Customer")
     private Customer customer;
-
-    @Column(name = "COD_PEDIDO")
-    private String codPedido;
 
     @Column(name = "VALOR_TOTAL")
     private Double valorTotal;
@@ -35,14 +41,13 @@ public class Pedidos {
     @Column(name = "TIPO_PAGAMENTO")
     private String tipoPagamento;
 
-    @OneToOne
-    @JoinColumn(name = "ID_Address")
-    private Address address;
-
     @Column(name = "STATUS")
     private String status;
 
     @Column(name = "DATA")
     private Date data;
+
+    @OneToMany(mappedBy = "pedidos", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<ItemPedidos> Itempedidos = new ArrayList<>();
 
 }

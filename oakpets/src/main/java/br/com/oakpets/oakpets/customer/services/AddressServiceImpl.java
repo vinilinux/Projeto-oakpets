@@ -48,8 +48,19 @@ public class AddressServiceImpl implements AddressService {
     }
 
     @Override
+    public List<Address> findDeliveryAddressesByCustomerId(Integer id) {
+        return addressRepository.findActiveDeliveryAddressesByCustomerId(id);
+    }
+
+
+    @Override
     public Boolean doesDeliveryAddressExist(Integer id) {
         return addressRepository.existsActiveDeliveryAddressByClientId(id);
+    }
+
+    @Override
+    public Address getDefaultAddressByCustomerId(Integer customerId) {
+        return addressRepository.findByCustomerIdAndAddressDefaultTrue(customerId);
     }
 
     @Override

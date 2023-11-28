@@ -1,0 +1,98 @@
+/* Estilos para o footer */
+.forma-azul-footer {
+    width: 100%;
+    background-color: #022E74;
+    flex-shrink: 0;
+}
+
+.icones-redes-sociais {
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+}
+
+
+.icones-redes-sociais div {
+    width: 40px;
+    height: 40px;
+    background: #022E74;
+    margin: 10px;
+    border-radius: 50%;
+}
+
+.oak-pets-logo {
+    width: 80px;
+    height: 80px;
+    background: #022E74;
+    margin: 10px auto;
+}
+
+.titulo-redes-sociais > h2{
+    font-size: 25px;
+    font-family: Noto Sans;
+    margin: 15px;
+    margin-left: 7px;
+    color: #fffFFF;
+}
+
+.primeira-parte-footer > img{
+
+    width: 100px;
+    height: 100px;
+    background: #022E74;
+    margin: 10px;
+    text-align: right;   /* Adicione esta linha */
+    /* OU você pode usar: */
+    /* float: right; */
+}
+.oak-pets-logo{
+    margin-top: 40px;
+}
+
+.white-line {
+    border: 0;
+    margin-top: -5px;
+    height: 1px;
+    background-color: #fffFFF;
+    width: 100%;
+}
+
+
+
+.colunas-links {
+    display: flex;
+    justify-content: space-between;
+    margin-left: 20px;
+    margin-right: 5px;
+}
+
+.linhas-links > a {
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    font-family: Noto Sans;
+    color: #FFFFFF;
+    font-size: 1rem;
+    margin-top: 10px;
+    margin-bottom: 25px;
+}
+
+.linhas-links > a:hover {
+    color: #FECB8A;
+}
+
+.primeira-linha-branca2{
+    margin-top: 20px;
+}
+
+.container > p{
+    color: #FFFFFF;
+    font-size: 10px;
+    font-family: Noto Sans;
+    text-align: center;
+}
+
+.icon:hover svg {
+    fill: #FECB8A;
+    transition: fill 0.3s;
+}

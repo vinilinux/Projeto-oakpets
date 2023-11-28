@@ -30,4 +30,6 @@ public interface CustomerService {
     Customer findCustomerWithActiveAddressesById(Integer id);
 
     Address updateAddress(Integer customerId, Integer addressId, Address updatedAddress);
+
+    Customer findCustomerWithDefaultAddressById(Integer id);
 }

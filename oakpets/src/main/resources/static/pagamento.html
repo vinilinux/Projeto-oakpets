@@ -83,13 +83,15 @@
                     <div class="card-body">
                         <h5 class="card-title">Forma de Pagamento</h5>
                         <div class="form-check" id="boleto">
-                            <input class="form-check-input" type="radio" name="payment" id="boleto-option" value="boleto">
+                            <input class="form-check-input" type="radio" name="payment" id="boleto-option"
+                                   value="boleto" data-target="continua">
                             <label class="form-check-label" for="boleto">
                                 Boleto
                             </label>
                         </div>
                         <div class="form-check cartao" id="cartao">
-                            <input class="form-check-input" type="radio" name="payment" id="cartao-option" value="cartao">
+                            <input class="form-check-input" type="radio" name="payment" id="cartao-option"
+                                   value="cartao" data-target="continua">
                             <label class="form-check-label" for="cartao" id="formaCartao">
                                 Cartão
                             </label>
@@ -118,10 +120,17 @@
                     <div class="card-body">
                         <h5 class="card-title">Valor da compra</h5>
                         <div class="column-layout">
-                            <p>Total: </p>
-                            <p>Frete: </p>
-                            <button type="button" class="btn btn-primary small-button continua">Continuar</button>
-                            <button type="button" class="btn btn-secondary small-button">Voltar</button>
+                            <div class="column-group">
+                                <h6>Total:</h6>
+                                <p id="totalValue">Valor Total</p>
+                            </div>
+                            <div class="column-group">
+                                <h6>Frete:</h6>
+                                <p id="freteValue">Valor do Frete</p>
+                            </div>
+                            <button type="button" class="btn btn-primary small-button continua" id="continuar-button"
+                                    disabled>Continuar</button>
+                            <button type="button" class="btn btn-secondary small-button" id="voltar-button">Voltar</button>
                         </div>
 
                     </div>

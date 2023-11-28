@@ -1,11 +1,16 @@
 package br.com.oakpets.oakpets.customer.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +19,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 @Table(name = "tbl_client")
 public class Customer {
 
@@ -41,11 +47,11 @@ public class Customer {
     @Column(name = "GENDER")
     private String gender;
 
-    @OneToMany(mappedBy = "idCustomer", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Address> addresses = new ArrayList<>();
+   @OneToMany(mappedBy = "idCustomer", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+   private List<Address> addresses = new ArrayList<>();
 
-    public void addAddress(Address address) {
-        addresses.add(address);
+   public void addAddress(Address address) {
+       addresses.add(address);
         address.setIdCustomer(this);
-    }
+   }
 }

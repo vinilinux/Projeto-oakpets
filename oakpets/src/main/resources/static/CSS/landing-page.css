@@ -1,0 +1,311 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: #F3EEE8
+}
+
+.content {
+    flex: 1;
+}
+
+.carousel-over-image-container {
+    position: relative;
+    width: 100%;
+    height: 40vh;
+    overflow: hidden;
+}
+
+.carousel {
+    position: absolute;
+    top: 18%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 33vw;
+    z-index: 2;
+}
+
+.carousel-control-prev .bi,
+.carousel-control-next .bi {
+    font-size: 2rem;
+    color: #FFFFFF;
+}
+
+.carousel-inner img {
+    width: 75%;
+    height: 80%;
+    object-fit: cover;
+}
+
+.container-onda-03 {
+    position: relative;
+    margin-top: -18vh;
+}
+
+.texto-onda {
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #022E74;
+    text-align: center;
+    font-family: Noto Sans;
+    z-index: 10;
+}
+
+.texto-onda h3{
+    font-size: 30px;
+    margin-top: -10vh;
+}
+
+.marcas{
+    display: flex;
+    flex-direction: row;
+}
+
+.marcas > img{
+    width: 150px;
+    height: 150px;
+}
+
+.marcas {
+    display: flex;
+    flex-direction: row;
+    position: absolute;
+    bottom: -23vh;  /* Ajuste conforme necessário. Esse valor coloca a seção .marcas um pouco abaixo da imagem onda-03. */
+    left: 50%;
+    transform: translateX(-50%); /* Centraliza horizontalmente */
+    width: 80%; /* Ajuste a largura conforme necessário */
+    justify-content: center;
+    justify-content: space-between;
+    z-index: 11;
+}
+
+.onda-03 {
+    width: 100%; /* Faz com que a imagem ocupe toda a largura do container */
+    height: 35vh;
+    display: block;
+}
+
+.texto-galeria{
+    display: flex;          /* Ativa o flexbox */
+    justify-content: center;/* Alinha horizontalmente no centro */
+    align-items: center;    /* Alinha verticalmente no centro */
+}
+
+.texto-galeria h1{
+    font-family: Noto Sans;
+    font-size: 30px;
+    color: #022E74;
+    margin-bottom: 10vh;
+    top: 50vh;
+}
+
+.fotos-linha {
+    display: flex;       /* Configuração do flexbox para alinhar as imagens em linha */
+    margin-bottom: 35px; /* Espaço abaixo de cada linha de fotos. Ajuste conforme necessário. */
+}
+
+.fotos-linha img {
+    width: 33.30%;
+    margin-left: 40px; /* Espaço à direita de cada imagem */
+}
+
+.fotos-linha img:last-child {
+    margin-right: 0; /* Remove a margem da última imagem na linha para evitar espaço extra à direita */
+}
+
+.fotos-linha > img{
+    width: 383px;
+    height: 650px;
+    transition: transform 0.3s; /* Transição suave do efeito de zoom */
+}
+
+.fotos-linha img:hover {
+    transform: scale(1.1); /* Zoom de 10% */
+    box-shadow: 0 64px 128px rgba(0, 0, 0, 0.1);
+}
+
+.galeria-fotos{
+    margin-bottom: 25px;
+}
+
+.fotos-linha img {
+    border: 1px solid #cccccc;
+    padding: 5px;
+}
+
+.container-esfera {
+    position: relative;
+}
+
+.container-esfera {
+    position: relative;
+}
+
+.esfera {
+    transform: rotate(180deg);
+    height: 150px;
+    width: 100%;
+    z-index: 1;
+}
+
+@media (max-width: 1920px) {
+    .carousel {
+        position: absolute;
+        top: 35%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 55vw;
+        z-index: 2;
+    }
+
+    .carousel-inner img {
+        width: 75%;
+        height: 80%;
+        object-fit: cover;
+    }
+
+    .icones-redes-sociais div {
+        width: 35px;
+        height: 35px;
+        margin-bottom: 15px;
+    }
+
+    .icones-redes-sociais svg {
+        width:  20px;
+        height: 20px;
+        margin: 8px;
+    }
+
+    .oak-pets-logo{
+        width: 30px;
+        height: 30px;
+    }
+
+    .titulo-redes-sociais h2{
+        font-size: 20px;
+        font-family: Noto Sans;
+    }
+
+    .linhas-links > a {
+        display: flex;
+        flex-direction: column;
+        text-decoration: none;
+        font-family: Noto Sans;
+        color: #FFFFFF;
+        font-size: 12px;
+        margin-top: 10px;
+        margin-bottom: 25px;
+    }
+
+    .container-onda-03 {
+        position: relative;
+        margin-top: 2vh;
+    }
+
+    .onda-03 {
+        width: 100%;
+        height: 60vh;
+        transform: translateY(10%);
+        margin-bottom: 15vh;
+    }
+
+    .texto-onda {
+        position: absolute;
+        top: 60%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: #022E74;
+        text-align: center;
+        font-family: Noto Sans;
+        z-index: 10;
+        font-size: 5px;
+    }
+
+    .texto-onda h3{
+        font-size: 20px;
+        margin-top: 20vh;
+    }
+
+    .marcas {
+        display: flex;
+        flex-direction: row;
+        position: absolute;
+        bottom: -47vh;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80%;
+        justify-content: center;
+        justify-content: space-between;
+        z-index: 11;
+
+    }
+
+    .texto-galeria{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+    }
+
+    .texto-galeria h1{
+        font-family: Noto Sans;
+        font-size: 22px;
+        color: #022E74;
+    }
+
+    .fotos-linha > img{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 300px;
+        height: 450px;
+        transition: transform 0.3s; /* Transição suave do efeito de zoom */
+    }
+
+    .galeria-fotos{
+        margin-bottom: 25px;
+        display: flex;
+        justify-content: center;
+    }
+
+    .fotos-linha img {
+        border: 1px solid #cccccc;
+        padding: 5px;
+    }
+
+    .container-esfera {
+        position: relative;
+    }
+
+    .esfera {
+        transform: rotate(180deg);
+        height: 100px;
+        margin-top: 25px;
+        position: relative;
+        z-index: 1;
+    }
+}
+
+.primeira-linha-branca2 .white-line {
+    margin-top: 40px;
+}
+
+.container > p{
+    color: #FFFFFF;
+    font-size: 10px;
+    font-family: Noto Sans;
+    text-align: center;
+}
+
+.icon:hover svg {
+    fill: #FECB8A;
+    transition: fill 0.3s;
+}

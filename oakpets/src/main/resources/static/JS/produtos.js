@@ -98,7 +98,7 @@ async function fetchProducts() {
 
             const visualizarCell = document.createElement('td');
             const buttonVisualizar = document.createElement('a');
-            buttonVisualizar.href = `cadastrarProduto.html?id=${product.idProduct}`;
+            buttonVisualizar.href = `visualizar-produto.html?id=${product.idProduct}`;
             buttonVisualizar.textContent = "Vizualizar";
             buttonVisualizar.classList.add('btn', 'btn-danger');
             buttonVisualizar.style.marginLeft = '10px';

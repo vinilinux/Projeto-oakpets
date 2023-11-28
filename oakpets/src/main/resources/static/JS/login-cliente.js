@@ -12,8 +12,10 @@ document.querySelector(".login-card form").addEventListener("submit", function (
         .then(function (response) {
             if (response.status === 200) {
                 const userName = response.data.userName;
+                const clientId = response.data.clientId;
 
                 localStorage.setItem("userName", userName);
+                localStorage.setItem("clientId", clientId);
 
                 const checkBillingAddressUrl = `/address/checkBillingAddress/${response.data.clientId}`;
 
