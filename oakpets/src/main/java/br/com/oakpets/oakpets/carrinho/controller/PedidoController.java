@@ -87,8 +87,6 @@ public class PedidoController {
         }
     }
 
-
-
     @GetMapping("/{id}")
     public ResponseEntity findAll(@PathVariable Integer id) {
         try {
@@ -153,10 +151,7 @@ public class PedidoController {
                 Pedidos pedido = pedidoOptional.get();
                 String novoStatus = requestBody.get("novoStatus");
 
-
                 pedido.setStatus(novoStatus);
-
-
                 service.atualizarPedido(pedido);
 
                 return ResponseEntity.ok("Status atualizado com sucesso");
