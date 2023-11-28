@@ -75,7 +75,7 @@ public class ProductController {
     }
     @PutMapping("/update")
     public ResponseEntity updateProduct(@RequestParam String data,
-                                        @RequestParam(value = "files") List<MultipartFile> files,
+                                        @RequestParam(value = "files", required = false) List<MultipartFile> files,
                                         @RequestParam(required = false) String imageDefault,
                                         @RequestParam(required = false) List<Long> idImage) throws JsonProcessingException {
 
@@ -131,9 +131,9 @@ public class ProductController {
     }
 
     @PatchMapping("/updateQTD")
-    public ResponseEntity atualizarQTDProduct(@RequestBody ProductDTO data) {
+    public ResponseEntity atualizarQTDProduct(@RequestBody ProductDTO Productdata) {
         try {
-            service.qtd(data);
+            service.qtd(Productdata);
             return ResponseEntity.ok().build();
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());

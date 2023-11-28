@@ -10,17 +10,12 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="stylesheet" href="./Bootswatch_ Flatly_files/bootstrap.css" media="screen">
   <link rel="stylesheet" href="./Bootswatch_ Flatly_files/custom.min.css">
+  <script src="JS/logout.js"></script>
+
 </head>
 
 <body class="" style="">
 <script src="JS/cadastrarUsuario.js"></script>
-<!--
-<script>
-  $(document).ready(function() {
-    validateToken();
-  });
-</script>
--->
 
   <div class="navbar navbar-expand-lg fixed-top navbar-dark bg-primary" style="">
     <div class="container">
@@ -41,6 +36,9 @@
             <a class="nav-link" href="usuarios.html">Usuários</a>
           </li>
         </ul>
+      </div>
+      <div>
+        <button type="button" class="btn btn-danger" onclick="logout()">Sair</button>
       </div>
     </div>
   </div>

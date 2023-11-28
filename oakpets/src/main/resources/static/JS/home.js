@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', validartoken);
-token = localStorage.getItem('token')
 async function validartoken() {
+    token = localStorage.getItem('token')
+    console.log(token);
 
     if (token === null) {
         window.location.href = 'login.html'

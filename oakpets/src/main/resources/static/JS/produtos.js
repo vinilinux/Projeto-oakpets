@@ -232,7 +232,8 @@ function createSelectAndHandleChange(product) {
                 method: 'PUT',
                 body: JSON.stringify({ status: valorSelecionado }),
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    Authorization: 'Bearer ' + token
                 }
             })
                 .then(response => response.json())

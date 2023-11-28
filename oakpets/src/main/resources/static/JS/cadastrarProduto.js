@@ -18,6 +18,8 @@ async function validartoken() {
             }
         });
 
+        role = await response.json();
+
         if (response.status === 401) {
             window.location.href = 'login.html'
         }
@@ -95,38 +97,30 @@ const formData = new FormData();
 
 function salvar() {
 
-    const productData = {
+    const Productdata = {
         idProduct: idProduct,
         name: document.querySelector("#productName").value,
         rate: document.querySelector("#productRate").value,
         description: document.querySelector("#productDescription").value,
-        price: document.querySelector("#productPrice").value,
+        price : document.querySelector("#productPrice").value,
         amount: document.querySelector("#productQTD").value,
-    };
+    }
 
-    const images = [];
+    var inputImages = document.getElementById("formFile");
 
-    const inputImages = document.querySelectorAll("input[type='file']");
-
-    for (const inputImage of inputImages) {
-        if (inputImage.files.length > 0) {
-            images.push(inputImage.files[0]);
+    if (inputImages.files.length > 0) {
+        for (var i = 0; i < inputImages.files.length; i++) {
+            formData.append("files", inputImages.files[i]);
         }
     }
 
-    formData.append("data", JSON.stringify(productData));
-
-
-    for (const image of images) {
-        formData.append("files", image);
-    }
+    formData.append("data", JSON.stringify(Productdata));
 
     if(isNaN(idProduct)) {
         fetch(`http://localhost:8080/products/create`, {
             method: 'POST',
             body: formData,
             headers: {
-                'Content-Type': 'application/json',
                 Authorization: 'Bearer ' + token
             }
         }).then(function (response) {
@@ -143,9 +137,10 @@ function salvar() {
             });
     } else {
         if (role === "ESTOQUE") {
+            console.log("Quantidade " + Productdata.amount)
             fetch(`http://localhost:8080/products/updateQTD`, {
                 method: 'PATCH',
-                body: formData,
+                body: JSON.stringify(Productdata),
                 headers: {
                     'Content-Type': 'application/json',
                     Authorization: 'Bearer ' + token
@@ -167,7 +162,6 @@ function salvar() {
                 method: 'PUT',
                 body: formData,
                 headers: {
-                    'Content-Type': 'application/json',
                     Authorization: 'Bearer ' + token
                 }
             }).then(function (response) {
@@ -187,6 +181,71 @@ function salvar() {
     }
 
 }
+
+/*
+function salvar() {
+
+    const data = {
+        idProduct : idProduct,
+        name: document.querySelector("#productName").value,
+        rate: document.querySelector("#productRate").value,
+        description: document.querySelector("#productDescription").value,
+        price : document.querySelector("#productPrice").value,
+        amount: document.querySelector("#productQTD").value,
+    }
+
+    formData.append("data", JSON.stringify(data));
+
+    var inputImages = document.getElementById("formFile");
+
+    if (inputImages.files.length > 0) {
+        for (var i = 0; i < inputImages.files.length; i++) {
+            formData.append("files", inputImages.files[i]);
+        }
+    }
+
+
+    console.log(urlParams)
+
+    if(urlParams != 0) {
+
+        fetch(`http://localhost:8080/products/update`, {
+            method: 'PUT',
+            body: formData
+        }).then(function (response) {
+            if (response.status === 200) {
+                alert("Produto alterado com sucesso!")
+                window.location.href = "produtos.html";
+            }
+
+            if(response.status === 400) {
+                alert("Falha ao alterar produto")
+            }
+        })
+            .catch(error => {
+                console.error("Erro ao cadastrar: ", error);
+            });
+
+    } else {
+        fetch("http://localhost:8080/products/create", {
+            method: 'POST',
+            body: formData
+        }).then(function (response) {
+            if (response.status === 201) {
+                window.location.href = "produtos.html";
+            }
+
+            if(response.status === 400) {
+                alert("Produto já cadastrado")
+            }
+        })
+            .catch(error => {
+                console.error("Erro ao cadastrar: ", error);
+            });
+    }
+}
+
+ */
 
 function handleFiles(files) {
     const thumbnailsDiv = document.getElementById("thumbnails");
