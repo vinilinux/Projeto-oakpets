@@ -56,26 +56,109 @@
 }
 
 .between {
-    margin-top: 30px;
+
 }
 
-/* Adicione estilos básicos */
 #contador-carrinho {
-    font-size: 14px;
-    font-weight: bold;
+
+    display: inline-block;
+    padding: 0.25em 0.4em;
+    font-size: 50%; /* Altere o valor conforme necessário */
+    font-weight: 700;
+    line-height: 1;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: 50%; /* Deixa o contador redondo */
+    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
     color: #fff;
-    background-color: #dc3545; /* Vermelho, ou a cor desejada para o fundo do contador */
-    padding: 4px 8px;
-    border-radius: 50%;
+    background-color: #dc3545;
+
 }
 
-/* Adicione estilos específicos para quando há itens no carrinho */
 #contador-carrinho.contador-ativo {
-    /* Estilos adicionais quando há itens no carrinho */
 }
 
-/* Adicione estilos específicos para quando não há itens no carrinho */
 #contador-carrinho.contador-vazio {
-    /* Estilos adicionais quando não há itens no carrinho */
 }
 
+#icone-carrinho {
+    position: relative;
+}
+
+#contador-carrinho {
+    position: absolute;
+    top: -3px; /* Ajuste conforme necessário para o espaçamento vertical */
+    right: -8px; /* Ajuste conforme necessário para o espaçamento horizontal */
+    display: inline-block;
+    padding: 0.25em 0.4em;
+    font-size: 50%;
+    font-weight: 700;
+    line-height: 1;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: 50%;
+    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+    color: #fff;
+    background-color: #dc3545;
+}
+.bi{
+    margin-right: 10px;
+}
+
+.forma-azul-footer {
+    margin-top: 5vh;
+    overflow: auto;
+
+}
+
+#carousel-inner img {
+    width: 100%;
+    height: auto;
+}
+
+#contador-carrinho {
+
+    display: inline-block;
+    padding: 0.25em 0.4em;
+    font-size: 50%; /* Altere o valor conforme necessário */
+    font-weight: 700;
+    line-height: 1;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: 50%; /* Deixa o contador redondo */
+    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+    color: #fff;
+    background-color: #dc3545;
+
+}
+
+#contador-carrinho.contador-ativo {
+}
+
+#contador-carrinho.contador-vazio {
+}
+
+#icone-carrinho {
+    position: relative;
+}
+
+#contador-carrinho {
+    position: absolute;
+    top: -3x; /* Ajuste conforme necessário para o espaçamento vertical */
+    right: -8px; /* Ajuste conforme necessário para o espaçamento horizontal */
+    display: inline-block;
+    padding: 0.25em 0.4em;
+    font-size: 50%;
+    font-weight: 700;
+    line-height: 1;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: 50%;
+    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+    color: #fff;
+    background-color: #dc3545;
+}

@@ -20,7 +20,8 @@
     margin-right: 30px;
 }
 .continua {
-    margin-bottom: 10px;
+    margin-top: 8px;
+    margin-bottom: 8px
 }
 
 .boleto {
@@ -59,3 +60,74 @@
     margin: 0;
 }
 
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+}
+
+.container {
+    flex-grow: 1;
+}
+
+.forma-azul-footer {
+    margin-top: auto;
+    overflow: auto;
+}
+
+#contador-carrinho {
+
+    display: inline-block;
+    padding: 0.25em 0.4em;
+    font-size: 50%; /* Altere o valor conforme necessário */
+    font-weight: 700;
+    line-height: 1;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: 50%; /* Deixa o contador redondo */
+    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+    color: #fff;
+    background-color: #dc3545;
+
+}
+.card-body h5{
+    color: #003384;
+}
+
+#contador-carrinho.contador-ativo {
+}
+
+#contador-carrinho.contador-vazio {
+}
+
+#icone-carrinho {
+    position: relative;
+}
+
+#contador-carrinho {
+    position: absolute;
+    top: -px; /* Ajuste conforme necessário para o espaçamento vertical */
+    right: -8px; /* Ajuste conforme necessário para o espaçamento horizontal */
+    display: inline-block;
+    padding: 0.25em 0.4em;
+    font-size: 50%;
+    font-weight: 700;
+    line-height: 1;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: 50%;
+    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+    color: #fff;
+    background-color: #dc3545;
+}
+.bi {
+
+    font-size: 30px;
+    margin: 15px;
+}
+.bi bi-box-arrow-left{
+    margin: 10vw;
+}

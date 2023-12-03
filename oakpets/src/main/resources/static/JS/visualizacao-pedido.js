@@ -1,3 +1,38 @@
+document.addEventListener("DOMContentLoaded", function() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const produtoId = urlParams.get("id");
+
+    function recuperarInformacoesDoCarrinho() {
+        const carrinho = JSON.parse(localStorage.getItem("carrinho")) || [];
+        return carrinho;
+    }
+
+    function atualizarIconeCarrinho() {
+        const carrinho = recuperarInformacoesDoCarrinho();
+        const quantidadeItens = carrinho.length;
+        const contadorCarrinho = document.getElementById("contador-carrinho");
+
+        console.log("Iniciando atualizarIconeCarrinhoGlobal");
+
+        if (contadorCarrinho) {
+            contadorCarrinho.textContent = quantidadeItens;
+            contadorCarrinho.style.display = quantidadeItens > 0 ? 'inline' : 'none';
+        }
+
+        console.log("AtualizarIconeCarrinhoGlobal concluído com sucesso");
+    }
+
+
+
+    atualizarIconeCarrinho();
+
+});
+
+
+
+
+
+
 $(document).ready(function () {
 
 var opcaoPagamento = sessionStorage.getItem('tipoPagamento');
@@ -28,19 +63,19 @@ if (pedidoCompleto) {
         console.log('ID do endereço não encontrado');
     }
 
-    //Tratando dados pessoais
+
     var dadosPessoaisPedido = document.getElementById('dadosPessoais');
     dadosPessoaisPedido.textContent = userName;
 
-    //Tratando o tipo do frete
+
     var tipoFretePedido = document.getElementById('tipoFrete')
     tipoFretePedido.textContent = tipoFrete;
 
-    //Tratando o valor do frete
+
     var freteValorPedido = document.getElementById('freteValor');
     freteValorPedido.textContent = freteValor;
 
-    //Tratando o valor total
+
     var valorTotal = visualizacaoPedido.totalValue;
     var valorTotalPedido = document.getElementById('valorTotal');
     valorTotalPedido.textContent = 'R$ ' + valorTotal;
@@ -71,9 +106,7 @@ if (carrinho) {
     console.log('Item "carrinho" não encontrado');
 }
 
-//Enviando para o backend
 
-// Adicione um ouvinte de evento de clique ao botão
 
     var enviarPedidoButton = document.getElementById('enviarPedido');
     enviarPedidoButton.addEventListener('click', function () {
@@ -99,26 +132,39 @@ if (carrinho) {
 
             console.log(dadosParaEnviar);
 
-            // Envie os dados para o backend
+
             axios.post('http://localhost:8080/pedidos', dadosParaEnviar)
                 .then(function (response) {
                     console.log('Dados enviados com sucesso.');
 
-                    // Exibir um alerta com as informações do pedido e se foi gravado no banco
+
                     var pedidoInfo = `Gravado com sucesso no banco de Dados!\n Número do Pedido: ${response.data.numeroDoPedido}\nValor do Pedido: R$ ${visualizacaoPedido.totalValue}`;
                     alert(pedidoInfo);
 
                     window.location.href = 'minha-conta.html';
+                    limparLocalStorage();
                 })
                 .catch(function (error) {
                     console.error('Erro ao enviar os dados:', error);
-                    // Exibir um alerta indicando que ocorreu um erro
+
                     alert('Erro ao enviar os dados: ' + error.message);
                 });
         } else {
             console.log('Dados incompletos no localStorage');
-            // Exibir um alerta indicando que os dados estão incompletos
+
             alert('Dados incompletos. Por favor, preencha todos os campos necessários.');
         }
     });
 });
+
+
+
+    function limparLocalStorage() {
+        localStorage.removeItem('carrinho');
+        localStorage.removeItem('selectedFrete');
+        localStorage.removeItem('pedido');
+        localStorage.removeItem('selectedFreteValue');
+        localStorage.removeItem('enderecoId');
+        localStorage.removeItem('products');
+
+    }

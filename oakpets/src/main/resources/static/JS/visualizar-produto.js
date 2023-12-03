@@ -10,16 +10,24 @@ document.addEventListener("DOMContentLoaded", function () {
     function atualizarIconeCarrinho() {
         const carrinho = recuperarInformacoesDoCarrinho();
         const quantidadeItens = carrinho.length;
-        const iconeCarrinho = document.getElementById("icone-carrinho");
-        if (iconeCarrinho) {
-            if (quantidadeItens > 0) {
-                iconeCarrinho.innerHTML = `<i class="bi bi-cart4"></i><span class="badge badge-danger">${quantidadeItens}</span>`;
-            } else {
-                iconeCarrinho.innerHTML = `<i class="bi bi-cart4"></i>`;
-            }
+        const contadorCarrinho = document.getElementById("contador-carrinho");
+
+        console.log("Iniciando atualizarIconeCarrinhoGlobal");
+
+        if (contadorCarrinho) {
+            contadorCarrinho.textContent = quantidadeItens;
+            contadorCarrinho.style.display = quantidadeItens > 0 ? 'inline' : 'none';
         }
+
+        console.log("AtualizarIconeCarrinhoGlobal concluído com sucesso");
     }
+
+
+
     atualizarIconeCarrinho();
+
+
+
 
     fetch(`/products/${produtoId}/details`)
         .then(response => response.json())
@@ -69,3 +77,5 @@ document.addEventListener("DOMContentLoaded", function () {
             console.log(error);
         });
 });
+
+
