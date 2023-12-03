@@ -49,6 +49,7 @@
 
 a.nav-link span {
     text-decoration: none !important;
+    text-decoration: none;
 }
 
 
@@ -61,6 +62,7 @@ a.nav-link span {
 .btnEntrar i {
     margin-right: 15px;
     color: #fff;
+    text-decoration: none;
 }
 
 .navbar-nav .nav-item {

@@ -8,12 +8,13 @@
     justify-content: space-between;
     align-items: center;
     background-color: #ffffff;
-    width: 55%;
+    width: 47%;
     height: 450px;
-    margin: 25vh auto;
+    margin: 20vh auto;
+
     padding: 20px;
-    border: 2px solid #022E74;
     border-radius: 5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .conteudo-superior {
@@ -56,11 +57,12 @@
 .total-compra {
     font-family: 'Noto Sans', sans-serif;
     color: #022E74;
-    font-size: 25px;
+    font-size: 22px;
     align-items: center;
     white-space: nowrap;
-    margin-left: 40vw;
-    margin-top: -9vw;
+    margin-left: 27.5vw;
+    margin-top: -12vw;
+    font-weight: bold;
 
 }
 .botoes button {
@@ -73,7 +75,7 @@
     border-radius: 5px;
     height: 75px;
     font-size: 20px;
-    width: 25vw;
+    width: 20vw;
 }
 
 .botoes button:hover {
@@ -83,7 +85,7 @@
 #botao1 {
     background-color: #ffffff;
     color: #022E74;
-    border: 2px solid #022E74;
+    border: 1px solid #022E74;
 }
 
 
@@ -96,4 +98,13 @@
 }
 #product-price{
     font-size: 20px;
+}
+
+.content {
+    flex: 1;
+}
+.forma-azul-footer {
+    margin-top: -5vh;
+    overflow: auto;
+
 }

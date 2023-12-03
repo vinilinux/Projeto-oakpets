@@ -1,3 +1,34 @@
+document.addEventListener("DOMContentLoaded", function() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const produtoId = urlParams.get("id");
+
+    function recuperarInformacoesDoCarrinho() {
+        const carrinho = JSON.parse(localStorage.getItem("carrinho")) || [];
+        return carrinho;
+    }
+
+    function atualizarIconeCarrinho() {
+        const carrinho = recuperarInformacoesDoCarrinho();
+        const quantidadeItens = carrinho.length;
+        const contadorCarrinho = document.getElementById("contador-carrinho");
+
+        console.log("Iniciando atualizarIconeCarrinhoGlobal");
+
+        if (contadorCarrinho) {
+            contadorCarrinho.textContent = quantidadeItens;
+            contadorCarrinho.style.display = quantidadeItens > 0 ? 'inline' : 'none';
+        }
+
+        console.log("AtualizarIconeCarrinhoGlobal concluído com sucesso");
+    }
+
+
+
+    atualizarIconeCarrinho();
+
+});
+
+
 function fetchCEPInfo(cep) {
     fetch(`https://viacep.com.br/ws/${cep}/json/`)
         .then(response => response.json())
@@ -146,13 +177,13 @@ function openAddressPopup(clientId) {
     const addressPopup = document.getElementById('addressPopup');
     const addressList = document.getElementById('addressList');
 
-    // Limpe a lista de endereços, caso já tenha sido preenchida anteriormente
+
     addressList.innerHTML = '';
 
-    // Exiba o popup
+
     addressPopup.style.display = 'block';
 
-    // Faça uma requisição para obter os endereços do cliente
+
     fetch(`/address/delivery/${clientId}`)
         .then(response => response.json())
         .then(data => {
@@ -166,7 +197,7 @@ function openAddressPopup(clientId) {
                 addressList.appendChild(addressItem);
             });
 
-            // Adicione um evento de clique a cada item da lista de endereços
+
             const selectAddressLinks = document.querySelectorAll('.selectAddress');
             selectAddressLinks.forEach(link => {
                 link.addEventListener('click', (event) => {
@@ -192,14 +223,14 @@ const cart = {
     address: {}
 };
 function updateCartWithSelectedAddress(selectedAddressId, clientId) {
-    // Faça uma requisição para obter os detalhes do endereço selecionado
+
     fetch(`/address/${selectedAddressId}`)
         .then(response => response.json())
         .then(selectedAddress => {
-            // Atualize o endereço no objeto cart
+
             cart.address = selectedAddress;
             localStorage.setItem('enderecoId', selectedAddress.id);
-            // Atualize o elemento HTML que exibe o endereço de entrega no carrinho.
+
             const enderecoInfo = document.getElementById('enderecoInfo');
             enderecoInfo.innerHTML = `
                 <h4>Endereço</h4>
@@ -210,23 +241,23 @@ function updateCartWithSelectedAddress(selectedAddressId, clientId) {
                 <a href="cadastro-endereco-cliente.html?id=${clientId}">Adicionar Novo Endereço</a>
             `;
 
-            // Adicione novamente os eventos de clique às tags 'Selecionar outro endereço' e 'Adicionar Novo Endereço'
+
             const selectAddressLink = document.getElementById('selectAddress');
             selectAddressLink.addEventListener('click', (event) => {
                 event.preventDefault();
                 openAddressPopup(clientId);
             });
 
-            // Feche o popup de seleção de endereço
+
             const addressPopup = document.getElementById('addressPopup');
             addressPopup.style.display = 'none';
 
-            // Realize outras ações conforme necessário, como calcular o frete com o novo endereço, etc.
+
         })
         .catch(error => console.error(error));
 }
 
-// Restante do seu código aqui
+
 
 
 
@@ -395,6 +426,9 @@ document.addEventListener("DOMContentLoaded", function() {
         }
         updateSubtotalAndTotal();
     }
+
+
+
 });
 
 const paymentButton = document.getElementById('paymentButton');
@@ -432,5 +466,7 @@ paymentButton.addEventListener('click', function () {
         window.location.href = 'login-cliente.html';
     }
 });
-
 updateAddressInfo();
+
+
+

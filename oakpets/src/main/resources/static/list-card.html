@@ -18,6 +18,20 @@
 
     <script src="JS/header.js" defer></script>
 
+
+
+    <script>
+        // Verificar se o localStorage da tela de Pagamentos.html está vazio
+        const dadosPagamentos = localStorage.getItem("pedido");
+
+        if (!dadosPagamentos) {
+
+            localStorage.removeItem("pedido");
+        }
+    </script>
+
+
+
     <title>Produtos</title>
 </head>
 
@@ -200,5 +214,9 @@
 
 </body>
 <script src="JS/list-card.js" defer></script>
+<script src="JS/visualizacao-pedido.js"></script>
+
+
+
 
 </html>
