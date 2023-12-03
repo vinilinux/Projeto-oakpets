@@ -162,3 +162,19 @@
     color: #fff;
     background-color: #dc3545;
 }
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+}
+
+.container {
+    flex-grow: 1;
+}
+
+.forma-azul-footer {
+    margin-top: auto;
+    overflow: auto;
+}
