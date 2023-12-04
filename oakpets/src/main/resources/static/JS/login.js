@@ -6,7 +6,7 @@ function acesso() {
         password: document.querySelector("#password").value
     }
 
-    fetch("api/usuarios/login",{
+    fetch("auth/login",{
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -16,11 +16,11 @@ function acesso() {
     }).then(async function (response) {
         if (response.status === 200) {
             clearForm()
-            const data = await response.json()
-            const { user, token } = data
-            console.log('user', user)
-            localStorage.setItem('user', JSON.stringify(user))
+            const databack = await response.json()
+            const {token} = databack
+            localStorage.setItem('user', data.login)
             localStorage.setItem('token', token)
+            localStorage.setItem('backoffice', 'true')
             window.location.href = '/home.html'
         }
     })

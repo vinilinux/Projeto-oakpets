@@ -24,7 +24,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
 
     @Override
-    @Transactional
     public User createUser(User user) {
         return repository.save(user);
     }
@@ -71,21 +70,21 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         }
 
         if (user.getPassword() != null) {
-            userOptional.get().setPassword(encoder.encode(user.getPassword()));
+            userOptional.get().setPassword(user.getPassword());
         }
 
         repository.save(userOptional.get());
     }
 
     @Override
-    public void status(Long id, UserDTO data) {
+    public void status(Long id, boolean data) {
         Optional<User> userOptional = repository.findById(id);
 
         if (userOptional.isEmpty()) {
             throw new RuntimeException("Usuario não encontrado");
         }
 
-        userOptional.get().setStatus(data.status());
+        userOptional.get().setStatus(data);
         repository.save(userOptional.get());
     }
 
@@ -97,9 +96,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-        UserDetails userDetails = repository.findByEmail(username);
-
-        return userDetails;
+        return repository.findByEmail(username);
 
     }
 

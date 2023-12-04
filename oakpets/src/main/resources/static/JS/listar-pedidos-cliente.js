@@ -1,10 +1,10 @@
-
 //-------------------------------- Lista -------------------------------- //
-
-
+token = localStorage.getItem('token');
 function carregarPedidos() {
 
-    fetch('/pedidos/todos')
+    fetch('/pedidos/todos', {
+        method: 'GET'
+    })
         .then(response => {
             if (!response.ok) {
                 throw new Error('Erro ao carregar pedidos');
@@ -62,7 +62,7 @@ function formatarMoeda(valor) {
 function obterDetalhesPedidoPorId(pedidoId) {
     console.log('Obtendo detalhes do pedido para o ID:', pedidoId);
 
-    fetch('/pedidos/obteridpedido/' + pedidoId)
+    fetch(`/pedidos/obteridpedido/${pedidoId}`)
         .then(response => {
             if (!response.ok) {
                 throw new Error('Erro ao obter detalhes do pedido');
@@ -91,24 +91,22 @@ function abrirPopup(botaoEditar) {
     popup.style.display = "block";
 }
 
-
-
-
 function enviarDadosParaServidor() {
     var pedidoId = document.getElementById("btnEnviar").getAttribute("data-pedido-id");
 
-    var novoStatus = document.getElementById("statusSelect").value;
+    const data = {
+        novoStatus: document.getElementById("statusSelect").value
+    }
 
     if (pedidoId) {
 
-        fetch('/pedidos/' + pedidoId + '/status', {
+        fetch(`/pedidos/${pedidoId}/status`, {
             method: 'PUT',
             headers: {
-                'Content-Type': 'application/json',
+                Authorization: 'Bearer ' + token,
+                'Content-Type': 'application/json'
             },
-            body: JSON.stringify({
-                novoStatus: novoStatus,
-            }),
+            body: JSON.stringify(data),
         })
             .then(response => {
                 if (!response.ok) {
@@ -204,7 +202,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function carregarPedidosPorCodigo(codigoPedido) {
-        var apiUrl = '/pedidos/obteridpedido/' + codigoPedido;
+        var apiUrl = `/pedidos/obteridpedido/${codigoPedido}`;
 
         console.log('Chamando API:', apiUrl);
 

@@ -1,4 +1,10 @@
 async function fetchProducts() {
+    if (localStorage.getItem("backoffice") === "true") {
+        const links = document.querySelectorAll("a");
+        for (const link of links) {
+            link.disabled = true;
+        }
+    }
     try {
         const urlParams = new URLSearchParams(window.location.search);
         const id = parseInt(urlParams.get('id'), 10)
@@ -55,26 +61,6 @@ async function fetchProducts() {
     }
 }
 
+
+
 fetchProducts();
-
-/*
-<script>
-    var rateDouble = ${product.rate};
-    var rateInt = Math.floor(rateDouble);
-    var decimalPart = rateDouble - rateInt;
-    var estrelasContainer = document.getElementById('estrelas-container');
-    for (var i = 0; i < rateInt; i++) {
-    var img = document.createElement('img');
-    img.src = 'Images/icons8-estrela-50.png';
-    estrelasContainer.appendChild(img);
-}
-
-    if (decimalPart > 0) {
-    var img = document.createElement('img');
-    img.src = 'Images/icons8-estrela-meio-vazia-50.png';
-    estrelasContainer.appendChild(img);
-}
-
-</script>
-
- */

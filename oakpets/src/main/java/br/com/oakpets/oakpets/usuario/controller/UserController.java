@@ -5,7 +5,6 @@ import br.com.oakpets.oakpets.usuario.DTO.AuthenticationDTO;
 import br.com.oakpets.oakpets.usuario.DTO.LoginResponseDTO;
 import br.com.oakpets.oakpets.usuario.DTO.UserDTO;
 import br.com.oakpets.oakpets.usuario.entities.User;
-import br.com.oakpets.oakpets.usuario.entities.UserRole;
 import br.com.oakpets.oakpets.usuario.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -29,44 +28,16 @@ import java.util.Optional;
 public class UserController {
 
     private UserService userService;
-
-    private AuthenticationManager authenticationManager;
-
     private TokenService tokenService;
 
     @Autowired
-    public UserController(UserService userService, AuthenticationManager authenticationManager, TokenService tokenService) {
+    public UserController(UserService userService, TokenService tokenService) {
         this.userService = userService;
-        this.authenticationManager = authenticationManager;
         this.tokenService = tokenService;
     }
 
-    @PostMapping("/login")
-    public ResponseEntity login(@RequestBody @Valid AuthenticationDTO data) {
-        if (!userService.validateEmail(data.login())) {
-            return ResponseEntity.badRequest().body("Usuário não existe");
-        }
-
-        var usernamePassword = new UsernamePasswordAuthenticationToken(data.login(), data.password());
-
-        var auth = this.authenticationManager.authenticate(usernamePassword);
-
-        var token = tokenService.generateToken((User) auth.getPrincipal());
-
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-
-        List<GrantedAuthority> authorities = (List<GrantedAuthority>) authentication.getAuthorities();
-
-        boolean hasEstoqueRole = authorities.stream().anyMatch(authority -> authority.getAuthority().equals("ROLE_ESTOQUE"));
-
-        System.out.println(hasEstoqueRole);
-
-
-        return ResponseEntity.ok(new LoginResponseDTO(token, data.login()));
-    }
-
     @PostMapping("/create")
-    public ResponseEntity createUser(@RequestBody  UserDTO data) {
+    public ResponseEntity createUser(@RequestBody @Valid UserDTO data) {
 
         if (!data.password2().equals(data.password())) {
             return ResponseEntity.badRequest().body("Senhas não conferem");
@@ -78,14 +49,23 @@ public class UserController {
 
         String encryptedPassword = new BCryptPasswordEncoder().encode(data.password());
         User newUser = new User(data.name(), data.email(), encryptedPassword, data.cpf(), true, data.role());
-        userService.createUser(newUser);
 
-        return ResponseEntity.ok().build();
+        try {
+            userService.createUser(newUser);
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Erro ao criar usuário" + e);
+
+        }
     }
 
     @GetMapping
     public ResponseEntity listarTodos() {
-        return ResponseEntity.ok(userService.findAll());
+        try {
+            return ResponseEntity.ok(userService.findAll());
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e);
+        }
     }
 
     @GetMapping("/{id}/details")
@@ -109,12 +89,13 @@ public class UserController {
                 .email(data.email())
                 .role(data.role())
                 .build();
-
+        System.out.println(data.password());
         if (data.password() != null) {
             if (data.password2().equals(data.password())) {
                 newuser.setPassword(new BCryptPasswordEncoder().encode(data.password()));
             }
         }
+        System.out.println(newuser.getPassword());
 
         try {
             userService.alterarUser(id, newuser);
@@ -124,15 +105,15 @@ public class UserController {
         }
     }
 
-    @PutMapping("{id}/status")
+    @PatchMapping("{id}/status")
     public ResponseEntity status(@PathVariable Long id, @RequestBody UserDTO data) {
         try {
-            userService.status(id, data);
+            System.out.println(id + " " + data.status());
+            userService.status(id, data.status());
             return ResponseEntity.ok().build();
 
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
-
     }
 }

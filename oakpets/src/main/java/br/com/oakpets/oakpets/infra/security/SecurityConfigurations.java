@@ -10,7 +10,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
@@ -26,12 +25,15 @@ public class SecurityConfigurations {
                 .csrf(csrf -> csrf.disable())
                 .sessionManagement(sesion -> sesion.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers(HttpMethod.POST, "/api/usuarios/login").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/api/usuarios/listaTodos").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/api/usuarios/{id}/details").permitAll()
-                        .requestMatchers(HttpMethod.PUT, "/api/usuarios/alterar").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/api/usuarios/create").permitAll()
-                        .requestMatchers(HttpMethod.PUT, "/product/update").permitAll()
+                        .requestMatchers(HttpMethod.PATCH, "/products/updateQTD").authenticated()
+                        .requestMatchers(HttpMethod.GET, "/products/allProducts").authenticated()
+                        .requestMatchers(HttpMethod.PUT, "/pedidos/{id}/status").authenticated()
+                        .requestMatchers(HttpMethod.PUT, "/products/update").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.POST, "/products/create").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.POST, "/api/usuarios/*").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/api/usuarios").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.PUT, "/api/usuarios/*").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.PATCH, "/api/usuarios/*").hasRole("ADMIN")
                         .anyRequest().permitAll())
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();

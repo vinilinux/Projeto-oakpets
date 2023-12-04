@@ -21,5 +21,5 @@ public interface ProductService {
     void update(Product product);
 
     List<Product> allProducts();
-
+    void qtd(ProductDTO data);
 }

@@ -1,15 +1,55 @@
-window.addEventListener('load', fetchProducts);
+token = localStorage.getItem('token');
 
 function redirecionarParaCadastro() {
     window.location.href = 'cadastrarProduto.html';
 }
 
+document.addEventListener('DOMContentLoaded', validartoken);
+async function validartoken() {
+
+    if (token === null) {
+        window.location.href = 'login.html'
+    }
+
+    try {
+        const response = await fetch('http://localhost:8080/auth/validate', {
+            method: 'GET',
+            headers: {
+                Authorization: 'Bearer ' + token
+            }
+        });
+        if (response.status === 401) {
+            window.location.href = 'login.html'
+        }
+
+        const role = await response.json();
+
+        if (role === "ESTOQUE") {
+            const ul = document.querySelector('ul');
+            const li = ul.querySelector('li:nth-child(3)');
+            li.style.display = 'none';
+            const button = document.querySelector('#buttonCadastrar')
+            button.style.display = 'none';
+        }
+
+    } catch (error) {
+        console.log(error);
+        window.location.href = 'erro.html'
+    }
+}
+
 let currentPage = 1;
 const productsPerPage = 10;
 
+window.addEventListener('load', fetchProducts);
 async function fetchProducts() {
     try {
-        const response = await fetch('http://localhost:8080/products/all');
+        const response = await fetch('/products/allProducts', {
+            method: 'GET',
+            headers: {
+                Authorization: 'Bearer ' + token
+            }
+        });
         const products = await response.json();
 
         // Divida a lista de produtos em páginas
@@ -192,7 +232,8 @@ function createSelectAndHandleChange(product) {
                 method: 'PUT',
                 body: JSON.stringify({ status: valorSelecionado }),
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    Authorization: 'Bearer ' + token
                 }
             })
                 .then(response => response.json())

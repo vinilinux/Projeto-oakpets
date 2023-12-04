@@ -87,8 +87,6 @@ public class PedidoController {
         }
     }
 
-
-
     @GetMapping("/{id}")
     public ResponseEntity findAll(@PathVariable Integer id) {
         try {
@@ -120,14 +118,12 @@ public class PedidoController {
         }
     }
 
-
     @GetMapping("/obteridpedido/{id}")
     public ResponseEntity<?> obterDetalhesPedidoPorId(@PathVariable Long id) {
         try {
             Optional<Pedidos> pedidoOptional = service.findById(id);
             if (pedidoOptional.isPresent()) {
                 Pedidos pedido = pedidoOptional.get();
-
 
                 Map<String, Object> response = new HashMap<>();
                 response.put("numeroDoPedido", pedido.getId());
@@ -144,8 +140,6 @@ public class PedidoController {
         }
     }
 
-
-
     @PutMapping("/{id}/status")
     public ResponseEntity<?> atualizarStatus(
             @PathVariable Long id,
@@ -157,10 +151,7 @@ public class PedidoController {
                 Pedidos pedido = pedidoOptional.get();
                 String novoStatus = requestBody.get("novoStatus");
 
-
                 pedido.setStatus(novoStatus);
-
-
                 service.atualizarPedido(pedido);
 
                 return ResponseEntity.ok("Status atualizado com sucesso");

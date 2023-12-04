@@ -1,9 +1,61 @@
 const urlParams = new URLSearchParams(window.location.search);
 const idProduct = parseInt(urlParams.get('id'), 10);
+token = localStorage.getItem('token');
+let role;
+let status;
+document.addEventListener('DOMContentLoaded', validartoken);
+async function validartoken() {
 
-if(urlParams != 0) {
+    if (token === null) {
+        window.location.href = 'login.html'
+    }
+
+    try {
+        const response = await fetch('http://localhost:8080/auth/validate', {
+            method: 'GET',
+            headers: {
+                Authorization: 'Bearer ' + token
+            }
+        });
+
+        role = await response.json();
+
+        if (response.status === 401) {
+            window.location.href = 'login.html'
+        }
+
+        if (isNaN(idProduct) && role === "ESTOQUE") {
+            window.location.href = "permission.html"
+        }
+
+        if (role === "ESTOQUE") {
+            const ul = document.querySelector('ul');
+            const li = ul.querySelector('li:nth-child(3)');
+            li.style.display = 'none';
+        }
+
+        const campos = document.querySelectorAll('input, textarea');
+        const qtd = document.querySelector("#productQTD");
+
+        campos.forEach((campo) => {
+            if (role === 'ESTOQUE') {
+                campo.setAttribute('disabled', true);
+                qtd.removeAttribute('disabled');
+            }
+        });
+
+        return role;
+
+    } catch (error) {
+        console.log(error);
+        window.location.href = 'erro.html'
+    }
+}
+
+
+
+if(!isNaN(idProduct)) {
     window.addEventListener('load', editarProduct);
-
 }
 
 async function editarProduct() {
@@ -11,7 +63,13 @@ async function editarProduct() {
         const urlParams = new URLSearchParams(window.location.search);
         console.log(urlParams)
 
-        const response = await fetch(`http://localhost:8080/products/${idProduct}/details`);
+        const response = await fetch(`http://localhost:8080/products/${idProduct}/details`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: 'Bearer ' + token
+            }
+        });
         const product_details = await response.json();
 
         console.log(product_details)
@@ -24,11 +82,14 @@ async function editarProduct() {
 
         displayImages(product_details.images);
 
+        status = product_details.status;
+        return status;
 
     } catch (error) {
         console.error('Erro ao buscar usuário:', error);
     }
 }
+
 
 function redirecionarParaListar() {
     window.location.href = 'produtos.html';
@@ -38,16 +99,15 @@ const formData = new FormData();
 
 function salvar() {
 
-    const data = {
-        idProduct : idProduct,
+    const Productdata = {
+        idProduct: idProduct,
         name: document.querySelector("#productName").value,
         rate: document.querySelector("#productRate").value,
         description: document.querySelector("#productDescription").value,
         price : document.querySelector("#productPrice").value,
         amount: document.querySelector("#productQTD").value,
+        status: status
     }
-
-    formData.append("data", JSON.stringify(data));
 
     var inputImages = document.getElementById("formFile");
 
@@ -57,44 +117,70 @@ function salvar() {
         }
     }
 
+    formData.append("data", JSON.stringify(Productdata));
 
-    console.log(urlParams)
-
-    if(urlParams != 0) {
-        
-        fetch(`http://localhost:8080/products/update`, {
-            method: 'PUT',
-            body: formData
-        }).then(function (response) {
-            if (response.status === 200) {
-                alert("Produto alterado com sucesso!")
-                window.location.href = "produtos.html";
-            }
-    
-            if(response.status === 400) {
-                alert("Falha ao alterar produto")
-            }
-        })
-        .catch(error => {
-            console.error("Erro ao cadastrar: ", error);
-        });          
-    
-    } else {
-        fetch("http://localhost:8080/products/create", {
+    if(isNaN(idProduct)) {
+        fetch(`http://localhost:8080/products/create`, {
             method: 'POST',
-            body: formData
+            body: formData,
+            headers: {
+                Authorization: 'Bearer ' + token
+            }
         }).then(function (response) {
             if (response.status === 201) {
                 window.location.href = "produtos.html";
             }
-    
+
             if(response.status === 400) {
                 alert("Produto já cadastrado")
             }
         })
-        .catch(error => {
-            console.error("Erro ao cadastrar: ", error);
-        });
+            .catch(error => {
+                console.error("Erro ao cadastrar: ", error);
+            });
+    } else {
+        if (role === "ESTOQUE") {
+            console.log("Quantidade " + Productdata.amount)
+            fetch(`http://localhost:8080/products/updateQTD`, {
+                method: 'PATCH',
+                body: JSON.stringify(Productdata),
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: 'Bearer ' + token
+                }
+            }).then(function (response) {
+                if (response.status === 200) {
+                    alert("Produto alterado com sucesso!")
+                    window.location.href = "produtos.html";
+                }
+
+                if(response.status === 400) {
+                    alert("Falha ao alterar produto")
+                }
+            }).catch(error => {
+                console.error("Erro ao alterar o produto: ", error);
+            });
+        } else {
+            fetch(`http://localhost:8080/products/update`, {
+                method: 'PUT',
+                body: formData,
+                headers: {
+                    Authorization: 'Bearer ' + token
+                }
+            }).then(function (response) {
+                if (response.status === 200) {
+                    alert("Produto alterado com sucesso!")
+                    window.location.href = "produtos.html";
+                }
+
+                if (response.status === 400) {
+                    alert("Falha ao alterar produto")
+                }
+            })
+                .catch(error => {
+                    console.error("Erro ao alterar o produto: ", error);
+                });
+        }
     }
 
 }

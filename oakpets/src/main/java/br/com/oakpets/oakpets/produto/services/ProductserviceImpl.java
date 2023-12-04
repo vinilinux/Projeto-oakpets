@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import java.util.*;
 
 @Service
-public class ProductserviceImpl implements ProductService {
+public  class ProductserviceImpl implements ProductService {
 
     private final ProductRepository repository;
 
@@ -28,6 +28,7 @@ public class ProductserviceImpl implements ProductService {
     }
 
     @Override
+    @Transactional
     public Optional<Product> searchProduct(Long id) {
         return repository.findById(id);
     }
@@ -53,5 +54,19 @@ public class ProductserviceImpl implements ProductService {
     public List<Product> allProducts() {
         return repository.findAllWithMainImages();
     }
+
+
+    @Override
+    public void qtd(ProductDTO data) {
+        Optional<Product> productOptional = repository.findById(data.idProduct());
+
+        if (productOptional.isEmpty()) {
+            throw new RuntimeException("Usuario não encontrado");
+        }
+
+        productOptional.get().setAmount(data.amount());
+        repository.save(productOptional.get());
+    }
+
 
 }

@@ -31,11 +31,8 @@ public class ProductController {
     }
 
     @GetMapping("/all")
-    @JsonIgnoreProperties(value = "images")
     public List<Product> findAll() {
-        List<Product> products = service.findALL();
-        Collections.reverse(products);
-        return products;
+        return service.allProducts();
     }
 
     @GetMapping("/{id}/details")
@@ -50,10 +47,9 @@ public class ProductController {
         }
     }
 
-    @CrossOrigin(origins = "*")
     @PostMapping("/create")
-    public ResponseEntity createProduct(@RequestParam String data,
-                                        @RequestParam(value = "files") List<MultipartFile> files,
+    public ResponseEntity createProduct(@RequestParam("data") String data,
+                                        @RequestParam(value = "files", required = false) List<MultipartFile> files,
                                         @RequestParam(required = false) String imageDefault) throws JsonProcessingException {
 
         var converte = mapper.readValue(data, ProductDTO.class);
@@ -87,9 +83,10 @@ public class ProductController {
                 .amount(converte.amount())
                 .price(converte.price())
                 .description(converte.description())
+                .status(converte.status())
                 .rate(converte.rate())
                 .build();
-
+        System.out.println(converte.status());
         try {
             service.update(product);
             if (files != null) {
@@ -123,13 +120,23 @@ public class ProductController {
     public ResponseEntity allProduct() {
 
         try {
-           List<Product> products = service.allProducts();
+           List<Product> products = service.findALL();
+            Collections.reverse(products);
             return ResponseEntity.ok(products);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Erro na listagem dos produtos " + e.getMessage());
         }
 
+    }
 
+    @PatchMapping("/updateQTD")
+    public ResponseEntity atualizarQTDProduct(@RequestBody ProductDTO Productdata) {
+        try {
+            service.qtd(Productdata);
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 
 }

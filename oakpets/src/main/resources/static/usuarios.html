@@ -15,7 +15,8 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;500&family=Poppins:wght@400;500;700&display=swap"
     rel="stylesheet">
-
+  <script src="JS/usuarios.js"></script>
+  <script src="JS/logout.js"></script>
 </head>
 
 <body>
@@ -41,10 +42,9 @@
             <a class="nav-link" href="listar-pedidos-cliente.html">Pedidos</a>
           </li>
         </ul>
-        <div>
-          <button type="button" class="btn btn-danger">Sair</button>
-        </div>
-
+      </div>
+      <div>
+        <button type="button" class="btn btn-danger" onclick="logout()">Sair</button>
       </div>
     </div>
   </div>
@@ -103,7 +103,6 @@
               </table>
             </div>
 
-            <script src="JS/usuarios.js"></script>
 </body>
 
 </html>
