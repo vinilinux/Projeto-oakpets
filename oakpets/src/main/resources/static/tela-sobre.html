@@ -1,25 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.4/font/bootstrap-icons.css">
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&display=swap" rel="stylesheet">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-
-
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
-
-    <title>Início</title>
-    <link rel="stylesheet" type="text/css" href="./CSS/header.css">
-    <link rel="stylesheet" type="text/css" href="./CSS/landing-page.css">
-    <link rel="stylesheet" type="text/css" href="./CSS/footer.css">
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.4/font/bootstrap-icons.css">
@@ -34,14 +18,14 @@
 
     <script src="JS/header.js" defer></script>
 
-
+    <link rel="stylesheet" href="./CSS/tela-sobre.css">
+    <title>Sobre</title>
 </head>
-
 <body>
 
 <nav class="navbar navbar-expand-lg navbar-light">
     <div class="container">
-        <a class="navbar-brand" href="./landing-page.html">
+        <a class="navbar-brand" href="./index.html">
             <img class="imgHeader" src="./Images/LogoSemFundo.png" alt="logo">
         </a>
 
@@ -52,14 +36,14 @@
 
         <div class="collapse navbar-collapse justify-content-center" id="headerItens">
             <ul class="navbar-nav">
-                <li class="nav-item active">
-                    <a class="nav-link active" aria-current="page" href="./landing-page.html">Início</a>
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="./landing-page.html">Início</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="./list-card.html">Produtos</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="./tela-sobre.html">Sobre</a>
+                    <a class="nav-link active" href="./contato.html">Sobre</a>
                 </li>
             </ul>
         </div>
@@ -78,7 +62,7 @@
         <div class="navbar-nav ml-auto">
                 <span id="userStatus">
                     <li class="nav-item">
-                        <a class="nav-link" href="/login-cliente.html">
+                        <a class="nav-link" href="/login-customer.html">
                             <button class="btn btnEntrar text-left" type="submit">
                                 <i class="bi bi-person-fill"></i> <span>Entre ou <br> cadastre-se</span>
                             </button>
@@ -86,104 +70,45 @@
                     </li>
                 </span>
         </div>
-
         <a href="#" id="logoutLink" onclick="handleLogout();" style="display: none;"><i class="bi bi-box-arrow-left"></i></a>
-
     </div>
 </nav>
 
-<div class="content">
 
-    <div class="carousel-over-image-container">
-        <div class="semicirculo">
+<div class="container">
+    <div class="row">
+        <div class="card card-with-background card shadow">
+            <div class="card-body ">
+                <div class="row">
+                    <div class="col-md-6 line-container">
+                        <hr class="line-above-text">
 
-        </div>
-
-    </div>
-
-    <div id="carouselExample" class="carousel slide" data-ride="carousel">
-
-        <ol class="carousel-indicators">
-            <li data-target="#carouselExample" data-slide-to="0" class="active"></li>
-            <li data-target="#carouselExample" data-slide-to="1"></li>
-            <li data-target="#carouselExample" data-slide-to="2"></li>
-        </ol>
-
-        <div class="carousel-inner">
-            <div class="carousel-item active">
-                <img class="d-block w-100" src="./Images/CAMP-2524_Banner_Home__desktop_.webp" alt="banner-1">
-            </div>
-            <div class="carousel-item">
-                <img class="d-block w-100" src="./Images/CAMP-2518_Banner-Home_Desktop.webp" alt="banner-2">
-            </div>
-            <div class="carousel-item">
-                <img class="d-block w-100" src="./Images/CAMP-2946Banner-Home_Desktop.webp" alt="banner-3">
-            </div>
-        </div>
-
-        <a class="carousel-control-prev" href="#carouselExample" role="button" data-slide="prev">
-            <i class="bi bi-arrow-left-circle-fill"></i>
-
-        </a>
-        <a class="carousel-control-next" href="#carouselExample" role="button" data-slide="next">
-            <i class="bi bi-arrow-right-circle-fill"></i>
-        </a>
-    </div>
-
-
-    <div class="container">
-
-
-        <div class="texto-onda">
-            <h3><b>Principais marcas</b></h3>
-        </div>
-
-        <div class="container-onda-03">
-            <div class="marcas">
-                <img class="marca-zedog" src="./Images/zeedog-removebg-preview.png" alt="zedog">
-                <img class="marca-pedigree" src="./Images/imagem-marca-pedigree-pedigree-removebg-preview.png" alt="pedigree">
-                <img class="marca-petsociety" src="./Images/imagem-marca-pet-society-pet_society-removebg-preview.png" alt="pet-society">
-                <img class="marca-elanco" src="./Images/logo-elanco.png" alt="elanco">
-            </div>
-        </div>
-
-
-    </div>
-    <div class="container-onda-03">
-        <img class="onda-03" src="./Images/onda-6.png" alt="onda">
-    </div>
-
-    <div class="container">
-        <div class="texto-galeria">
-            <h1><b>Galeria</b></h1>
-        </div>
-
-        <div class="galeria-fotos">
-            <div class="fotos">
-                <div class="fotos-linha">
-                    <img class="pitbull" src="./Images/pitbull.jpg" alt="pitbull">
-                    <img class="dog1" src="./Images/dog1.jpg" alt="dog1">
-                    <img class="beagle" src="./Images/beagle.jpg" alt="beagle">
+                        <p class="card-text">A Oak Pets é uma empresa apaixonada por pets que se destaca no mercado de produtos para animais de estimação. A empresa nasceu acreditando que nossos amigos peludos merecem o melhor em termos de cuidados e produtos de qualidade.
+                            Com uma visão de criar uma parceria mais saudável e feliz entre animais de estimação e seus donos, a Oak Pets se dedica a oferecer uma ampla gama de produtos inovadores e úteis para atender a todas as necessidades dos animais e de seus tutotres.</p>
+                    </div>
+                    <div class="col-md-6" style= "margin-top: 30px">
+                        <img src="./Images/pet1.png" alt="Imagem" class="img-custom img-right">
+                    </div>
                 </div>
 
 
-                <div class="fotos-linha">
-                    <img class="sphinx" src="./Images/sphinx%20cat.jpg" alt="sphinx">
-                    <img class="savannah" src="./Images/savannah%20cat.jpg" alt="savannah">
-                    <img class="angora" src="./Images/Angorá%20cat.jpg" alt="angora">
+
+
+                <div class="row">
+                    <div class="col-md-6" style= "margin-top: 160px">
+                        <img src="./Images/dog1.png" alt="Imagem" class="img-custom1">
+                    </div>
+                    <div class="col-md-6 line-container1">
+                        <hr class="line-above-text">
+
+                        <p class="card-text">A Oak Pets é uma empresa apaixonada por pets que se destaca no mercado de produtos para animais de estimação. A empresa nasceu acreditando que nossos amigos peludos merecem o melhor em termos de cuidados e produtos de qualidade.</p>
+                        <p>Com uma visão de criar uma parceria mais saudável e feliz entre animais de estimação e seus donos, a Oak Pets se dedica a oferecer uma ampla gama de produtos inovadores e úteis para atender a todas as necessidades dos animais e de seus tutores.</p>
+                    </div>
                 </div>
             </div>
         </div>
-
-
-
     </div>
-
-    <div class="container-esfera">
-        <img class="esfera" src="./Images/semicirculo.png" alt="esfera">
-    </div>
-
-</div>
+   </div>
 
 <div class="forma-azul-footer">
     <div class="container">
@@ -291,6 +216,8 @@
     </div>
 
 </div>
+
+<script src="JS/tela-sobre.js"></script>
+
 </body>
-<script src="./JS/landing-page.js"></script>
 </html>
