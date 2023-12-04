@@ -22,70 +22,6 @@ body {
 }
 
 
-/*  LIST CARDS */
-.product-card {
-    width: 300px;
-    border: 1px solid rgba(0, 51, 132, 0.5);
-    background-color: #ffffff;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s;
-    margin: 10px;
-}
-
-.product-list {
-    margin-bottom: 30px;
-    margin-left: 100px;
-}
-
-.product-card img.img-fluid {
-    width: 50%;
-    display: block;
-    margin: 0 auto;
-}
-
-.product-card:hover {
-    transform: scale(1.05);
-}
-
-.product-content {
-    padding: 15px;
-}
-
-.product-title {
-    font-size: 14px;
-    margin-bottom: 10px;
-    color: #727272;
-}
-
-.product-price {
-    font-size: 16px;
-    margin-bottom: 15px;
-    color: #003384;
-    font-weight: bold;
-}
-
-.details-button {
-    display: block;
-    width: 100%;
-    padding: 10px 0.5px;
-    text-align: center;
-    background-color: #003384;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    text-decoration: none;
-    transition: background-color 0.2s;
-}
-
-
-/*  LIST CARDS */
-
-
-
-
-
 
 .carousel {
     position: absolute;
@@ -430,6 +366,34 @@ body {
 .container cards{
     display: flex;
 justify-content: center;
+}
+
+
+@media (max-width: 1920px){
+
+    .carousel {
+    position: absolute;
+    top: -4% !important;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 55vw;
+    z-index: 2;
+}
+
+
+    .marcas {
+        display: flex;
+        flex-direction: row;
+        position: absolute;
+        top: -38vh;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80%;
+        justify-content: center;
+        justify-content: space-between;
+        z-index: 11;
+    }
+
 }
 
 

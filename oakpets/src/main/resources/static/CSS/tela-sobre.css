@@ -1,0 +1,509 @@
+.navbar {
+
+
+    padding: 10px;
+    background-color: #fafae9;
+    color: #fff;
+
+}
+
+.logo {
+    width: 70px;
+}
+
+.card {
+    margin-top: 40px;
+}
+
+.card.card-with-background {
+    background-color: #FECB8A;
+
+
+}
+
+.img-custom {
+    max-width: 50%;
+    height: auto;
+}
+
+.img-right {
+    float: right;
+}
+
+.img-custom1 {
+    max-width: 70%;
+    height: auto;
+    float: left;
+}
+
+
+.text-right {
+    float: right;
+}
+
+.card-text {
+    margin-top: 70px;
+
+}
+
+.line-container {
+    margin-top: 40px;
+}
+
+.line-container1 {
+    margin-top: 180px;
+}
+
+
+.line-above-text {
+    border-top: 2px solid #000;
+    width: 15%;
+
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0px;
+    margin: 0px;
+    background-color: #ffffff;
+    color: #fff;
+    height: 80px;
+}
+
+.nav-link {
+    color: #003384 !important;
+    text-decoration: none !important;
+}
+
+.bi {
+    font-size: 30px;
+    gap: 10px;
+    color: #003384;
+}
+.navbar {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Esta linha adiciona uma sombra */
+}
+
+.imgHeader {
+    width: 80px;
+}
+
+
+.nav-item{
+    margin-left: 50px;
+}
+
+.btnEntrar {
+    background-color: #003384;
+    text-decoration: none !important;  /* Esta linha já está presente no seu código */
+    color: #fff;
+    border-radius: 2px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80px;
+    margin: -10px -10px;
+    width: 250px;
+    text-align: left;
+}
+
+.btnEntrar > a {
+    color: #fff;
+    text-decoration: none !important;
+}
+
+
+.btnEntrar:hover {
+    opacity: 70%;
+    color: #fff;
+    transition: 0.5s;
+}
+
+.btnEntrar i {
+    margin-right: 15px;
+    color: #fff;
+}
+
+.navbar-nav .nav-item {
+    margin-right: 100px;
+}
+
+.navbar-nav .nav-item:last-child {
+    margin-right: 0;
+}
+
+.nav-item a.active {
+    border-bottom: 2px solid #003384;
+    color: #003384 !important;
+    font-weight: bold;
+}
+
+.forma-azul-footer {
+    margin-top: 5vh;
+}
+
+.user-logged-in {
+    background-color: #003384;
+    opacity: 70%;
+    color: #fff;
+    border-radius: 2px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80px;
+    margin: -10px -10px;
+    padding: 0px;
+    padding: 0;
+    width: 250px;
+    text-align: left;
+}
+
+.user-logged-in .bi-person-fill {
+    font-size: 30px;
+    gap: 10px;
+    color: #fff;
+}
+
+.forma-azul-footer {
+    width: 100%;
+    background-color: #022E74;
+    flex-shrink: 0;
+}
+
+.icones-redes-sociais {
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+}
+
+
+.icones-redes-sociais div {
+    width: 40px;
+    height: 40px;
+    background: #022E74;
+    margin: 10px;
+    border-radius: 50%;  // Isso faz com que eles sejam círculos
+}
+
+.oak-pets-logo {
+    width: 80px;
+    height: 80px;
+    background: #022E74;
+    margin: 10px auto;
+}
+.titulo-redes-sociais > h2{
+    font-size: 25px;
+    font-family: Noto Sans;
+    margin: 15px;
+    margin-left: 7px;
+    color: #fffFFF;
+}
+
+.primeira-parte-footer > img{
+
+    width: 100px;
+    height: 100px;
+    background: #022E74;
+    margin: 10px;
+    text-align: right;   /* Adicione esta linha */
+    /* OU você pode usar: */
+    /* float: right; */
+}
+.oak-pets-logo{
+    margin-top: 40px;
+}
+
+.white-line {
+    border: 0;
+    margin-top: -5px;
+    height: 1px;
+    background-color: #fffFFF;
+    width: 100%;
+}
+
+
+
+.colunas-links {
+    display: flex;
+    justify-content: space-between;
+    margin-left: 20px;
+    margin-right: 5px;
+}
+
+.linhas-links > a {
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    font-family: Noto Sans;
+    color: #FFFFFF;
+    font-size: 18px;
+    margin-top: 10px;
+    margin-bottom: 25px;
+}
+
+.linhas-links > a:hover {
+    color: #FECB8A;
+}
+.primeira-linha-branca2{
+    margin-top: 20px;
+}
+
+
+
+.patinha1 > img,
+.patinha2 > img,
+.patinha3 > img,
+.patinha4 > img,
+.patinha5 > img
+.patinha6 > img
+.patinha7 > img{
+    width: 40px;
+    height: 30px;
+}
+
+.patinha1, .patinha2, .patinha3, .patinha4, .patinha5, .patinha6, .patinha7{
+    position: absolute;
+    bottom: 10px;
+}
+
+.patinha1 {
+    left: 76vw;
+    bottom: 80px;
+    transform: rotate(15deg);
+}
+
+.patinha2 {
+    left: 80vw;
+    transform: rotate(15deg);
+    bottom: 330px;
+}
+
+.patinha3 {
+    left: 87vw;
+    bottom: 390px;
+    transform: rotate(15deg);
+}
+
+.patinha4 {
+    left: 80vw;
+    bottom: 190px;
+    transform: rotate(15deg);
+}
+
+.patinha5 {
+    transform: rotate(15deg);
+}
+
+.patinha6 {
+    transform: rotate(15deg);
+    bottom: 500px;
+    left: 5vw;
+}
+.patinha7 {
+    transform: rotate(15deg);
+    bottom: 250px;
+    left: 6vw;
+}
+
+
+
+@media (max-width: 1920px) {
+    .patinha1, .patinha2, .patinha3, .patinha4, .patinha5 {
+        left: auto;
+        right: 5vw;
+    }
+
+
+    .patinha1 {
+        bottom: 80px;
+    }
+
+    .patinha2 {
+        bottom: 110px;
+    }
+
+    .patinha3 {
+        bottom: 140px;
+    }
+
+    .patinha4 {
+        bottom: 170px;
+    }
+
+    .patinha5 {
+        bottom: 200px;
+    }
+}
+
+@media (max-width: 1920px) {
+    .carousel {
+        position: absolute;
+        top: 35%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 55vw;
+        z-index: 2;
+    }
+
+    .carousel-inner img {
+        width: 75%;
+        height: 80%;
+        object-fit: cover;
+    }
+
+
+    .icones-redes-sociais div {
+        width: 35px;
+        height: 35px;
+        margin-bottom: 15px;
+    }
+
+    .icones-redes-sociais svg {
+        width: 20px;
+        height: 20px;
+        margin: 8px;
+    }
+
+    .oak-pets-logo {
+        width: 30px;
+        height: 30px;
+    }
+
+    .titulo-redes-sociais h2 {
+        font-size: 20px;
+        font-family: Noto Sans;
+    }
+
+    .linhas-links > a {
+        display: flex;
+        flex-direction: column;
+        text-decoration: none;
+        font-family: Noto Sans;
+        color: #FFFFFF;
+        font-size: 12px;
+        margin-top: 10px;
+        margin-bottom: 25px;
+    }
+
+    .container-onda-03 {
+        position: relative;
+        margin-top: 2vh;
+    }
+
+    .onda-03 {
+        width: 100%;
+        height: 60vh;
+        transform: translateY(10%);
+        margin-bottom: 15vh;
+    }
+
+    .texto-onda {
+        position: absolute;
+        top: 60%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: #022E74;
+        text-align: center;
+        font-family: Noto Sans;
+        z-index: 10;
+        font-size: 5px;
+    }
+
+    .texto-onda h3 {
+        font-size: 20px;
+        margin-top: 20vh;
+    }
+
+    .marcas {
+        display: flex;
+        flex-direction: row;
+        position: absolute;
+        bottom: -47vh;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80%;
+        justify-content: center;
+        justify-content: space-between;
+        z-index: 11;
+
+    }
+
+    .texto-galeria {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+    }
+
+    .texto-galeria h1 {
+        font-family: Noto Sans;
+        font-size: 22px;
+        color: #022E74;
+
+    }
+
+    .fotos-linha > img {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 300px;
+        height: 450px;
+        transition: transform 0.3s; /* Transição suave do efeito de zoom */
+    }
+
+    .galeria-fotos {
+        margin-bottom: 25px;
+        display: flex;
+        justify-content: center;
+    }
+
+    .fotos-linha img {
+        border: 1px solid #cccccc;
+        padding: 5px;
+    }
+
+    .container-esfera {
+        position: relative;
+    }
+
+    .texto-rodape {
+        position: absolute;
+        top: 295%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        z-index: 2;
+    }
+
+    .texto-rodape h1 {
+        display: flex;
+        justify-content: center;
+        color: #003384;
+        font-size: 20px;
+    }
+
+    .texto-rodape p {
+        display: flex;
+        margin-top: 10px;
+        justify-content: center;
+        color: #003384;
+        font-size: 11px;
+        flex-direction: row;
+
+    }
+
+    .esfera {
+        transform: rotate(180deg);
+        height: 100px;
+        margin-top: 25px;
+        position: relative;
+        z-index: 1;
+    }
+
+
+
+}
