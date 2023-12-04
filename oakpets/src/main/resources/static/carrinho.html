@@ -100,16 +100,39 @@
                 </div>
 
                 <div class="produtos">
-                    <h4 class="text-left titles">Produtos</h4>
+                    <h4 class="text-left titles"><i class="bi bi-bag"></i> Produtos</h4>
                     <div id="product-list">
                         <!-- Lista de produtos será gerada aqui -->
+                    </div>
+                </div>
+
+                <div id="freteDiv" class="divFrete2">
+
+                    <h4 class="opcoes-frete"><i class="bi bi-truck"></i> Opções de frete</h4>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="frete" id="frete-expresso" value="frete-expresso" data-frete="15.00">
+                        <label class="form-check-label" for="frete-expresso" id="frete-expresso-label">
+                            Frete Expresso - R$ <span id="frete-expresso-preco">15.00</span>
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="frete" id="frete-normal" value="frete-normal" data-frete="10.00">
+                        <label class="form-check-label" for="frete-normal" id="frete-normal-label">
+                            Frete Normal - R$ <span id="frete-normal-preco">10.00</span>
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="frete" id="frete-gratis" value="frete-gratis" data-frete="0.00">
+                        <label class="form-check-label" for="frete-gratis" id="frete-gratis-label">
+                            Frete Grátis - R$ <span id="frete-gratis-preco">0.00</span>
+                        </label>
                     </div>
                 </div>
             </div>
 
             <div class="col-md-3">
                 <div class="resumo">
-                    <h4 class="mb-4 titles">Resumo</h4>
+                    <h4 class="mb-4 titles"><i class="bi bi-clipboard-data"></i> Resumo</h4>
                     <div class="d-flex justify-content-between mb-2">
                         <p>Subtotal:</p>
                         <p class="valorCart" id="subtotal">R$ 0.00</p>
@@ -128,27 +151,7 @@
                 </div>
             </div>
 
-            <div id="freteDiv" style="display: none;">
-                <h4 class="opcoes-frete">Opções de frete</h4>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="frete" id="frete-expresso" value="frete-expresso" data-frete="15.00">
-                    <label class="form-check-label" for="frete-expresso" id="frete-expresso-label">
-                        Frete Expresso - R$ <span id="frete-expresso-preco">15.00</span>
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="frete" id="frete-normal" value="frete-normal" data-frete="10.00">
-                    <label class="form-check-label" for="frete-normal" id="frete-normal-label">
-                        Frete Normal - R$ <span id="frete-normal-preco">10.00</span>
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="frete" id="frete-gratis" value="frete-gratis" data-frete="0.00">
-                    <label class="form-check-label" for="frete-gratis" id="frete-gratis-label">
-                        Frete Grátis - R$ <span id="frete-gratis-preco">0.00</span>
-                    </label>
-                </div>
-            </div>
+
         </div>
     </div>
 
