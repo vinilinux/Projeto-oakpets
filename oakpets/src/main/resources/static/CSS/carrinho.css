@@ -121,6 +121,13 @@
 
 .divFrete {
     border-bottom: 1px solid #ccc;
+
+}
+
+.divFrete2 {
+    padding: 25px;
+    border: 0.5px solid rgba(64, 102, 163, 0.30);
+    border-radius: 10px;
 }
 
 .btn-block {
@@ -220,6 +227,11 @@ body {
 
 .container {
     flex-grow: 1;
+}
+
+.bi {
+    color: #003384;
+    font-size: 24px;
 }
 
 .forma-azul-footer {

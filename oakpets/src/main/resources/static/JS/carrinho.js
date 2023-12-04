@@ -39,7 +39,7 @@ function fetchCEPInfo(cep) {
 
                 document.getElementById('enderecoInfo').innerHTML = `
                     
-                    <h4>Endereço</h4>
+                    <h4><i class="bi bi-geo-alt"></i> Endereço</h4>
                     <p>Entrega</p>
                     <p>${data.logradouro}, ${data.bairro}</p>
                     <p>CEP: ${data.cep} - ${data.localidade}, ${data.uf}</p>
@@ -66,7 +66,7 @@ function updateAddressInfoLoggedIn(clientId, newCep) {
                 localStorage.setItem('enderecoId', data.id);
                 document.getElementById('enderecoInfo').innerHTML = `
                     
-                    <h4>Endereço</h4>
+                    <h4><i class="bi bi-geo-alt"></i> Endereço</h4>
                     <p>Entrega</p>
                     <p>${data.street}, ${data.number} - ${data.neighborhood}</p>
                     <p>CEP: ${data.zipCode} - ${data.city}, ${data.state}</p>
@@ -144,7 +144,7 @@ function updateAddressInfo() {
                 localStorage.setItem('enderecoId', data.id);
                 enderecoInfo.innerHTML = `
 
-                    <h4>Endereço</h4>
+                    <h4><i class="bi bi-geo-alt"></i> Endereço</h4>
                     <p>Entrega</p>
                     <p>${data.street}, ${data.number} - ${data.neighborhood}</p>
                     <p>CEP: ${data.zipCode} - ${data.city}, ${data.state}</p>
@@ -233,7 +233,7 @@ function updateCartWithSelectedAddress(selectedAddressId, clientId) {
 
             const enderecoInfo = document.getElementById('enderecoInfo');
             enderecoInfo.innerHTML = `
-                <h4>Endereço</h4>
+                <h4><i class="bi bi-geo-alt"></i> Endereço</h4>
                 <p>Entrega</p>
                 <p>${selectedAddress.street}, ${selectedAddress.number} - ${selectedAddress.neighborhood}</p>
                 <p>CEP: ${selectedAddress.zipCode} - ${selectedAddress.city}, ${selectedAddress.state}</p>
