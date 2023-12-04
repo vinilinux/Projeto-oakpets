@@ -31,11 +31,8 @@ public class ProductController {
     }
 
     @GetMapping("/all")
-    @JsonIgnoreProperties(value = "images")
     public List<Product> findAll() {
-        List<Product> products = service.findALL();
-        Collections.reverse(products);
-        return products;
+        return service.allProducts();
     }
 
     @GetMapping("/{id}/details")
@@ -86,9 +83,10 @@ public class ProductController {
                 .amount(converte.amount())
                 .price(converte.price())
                 .description(converte.description())
+                .status(converte.status())
                 .rate(converte.rate())
                 .build();
-
+        System.out.println(converte.status());
         try {
             service.update(product);
             if (files != null) {
@@ -122,7 +120,8 @@ public class ProductController {
     public ResponseEntity allProduct() {
 
         try {
-           List<Product> products = service.allProducts();
+           List<Product> products = service.findALL();
+            Collections.reverse(products);
             return ResponseEntity.ok(products);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Erro na listagem dos produtos " + e.getMessage());

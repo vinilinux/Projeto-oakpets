@@ -44,7 +44,7 @@ const productsPerPage = 10;
 window.addEventListener('load', fetchProducts);
 async function fetchProducts() {
     try {
-        const response = await fetch('/products/all', {
+        const response = await fetch('/products/allProducts', {
             method: 'GET',
             headers: {
                 Authorization: 'Bearer ' + token

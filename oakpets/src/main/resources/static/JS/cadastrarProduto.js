@@ -2,7 +2,7 @@ const urlParams = new URLSearchParams(window.location.search);
 const idProduct = parseInt(urlParams.get('id'), 10);
 token = localStorage.getItem('token');
 let role;
-
+let status;
 document.addEventListener('DOMContentLoaded', validartoken);
 async function validartoken() {
 
@@ -82,6 +82,8 @@ async function editarProduct() {
 
         displayImages(product_details.images);
 
+        status = product_details.status;
+        return status;
 
     } catch (error) {
         console.error('Erro ao buscar usuário:', error);
@@ -104,6 +106,7 @@ function salvar() {
         description: document.querySelector("#productDescription").value,
         price : document.querySelector("#productPrice").value,
         amount: document.querySelector("#productQTD").value,
+        status: status
     }
 
     var inputImages = document.getElementById("formFile");
