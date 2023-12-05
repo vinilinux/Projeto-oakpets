@@ -91,3 +91,7 @@
     margin-top: 50px;
     overflow: auto;
 }
+
+li {
+    list-style-type: none;
+}
