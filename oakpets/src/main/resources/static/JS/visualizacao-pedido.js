@@ -43,7 +43,10 @@ if (pedidoCompleto) {
 
     //Tratando o endereço
     var endereco = visualizacaoPedido.endereco;
-    endereco = endereco.replace("Endereço Entrega", "").trim();
+    endereco = endereco.replace("Endereço", "").trim();
+    endereco = endereco.replace("Entrega", "").trim();
+    endereco = endereco.replace("Selecionar outro endereço", "").trim();
+    endereco = endereco.replace("Adicionar Novo Endereço", "").trim();
     console.log(endereco)
     var enderecoPedido = document.getElementById('endereco');
     enderecoPedido.textContent = endereco;
@@ -97,7 +100,7 @@ if (carrinho) {
             var listItemValor = document.createElement(('li'));
             listItem.textContent = nomeProduto;
             listItemQuant.textContent = quantidadeProduto;
-            listItemValor.textContent = valorProduto;
+            listItemValor.textContent = 'R$ ' + valorProduto;
             listaProdutosValor.appendChild(listItemValor);
             listaProdutosQuant.appendChild((listItemQuant));
             listaProdutos.appendChild(listItem);

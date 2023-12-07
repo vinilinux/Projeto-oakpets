@@ -42,6 +42,10 @@
     margin-left: 20px;
 }
 
+.ajuste-margin-top {
+    margin-top: 20px;
+}
+
 #contador-carrinho {
 
     display: inline-block;
@@ -94,4 +98,8 @@
 
 li {
     list-style-type: none;
+}
+
+.margin-padding-zero {
+    padding: 0;
 }
