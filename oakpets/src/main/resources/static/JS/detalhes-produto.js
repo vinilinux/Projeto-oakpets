@@ -7,7 +7,7 @@ async function fetchProducts() {
     }
     try {
         const urlParams = new URLSearchParams(window.location.search);
-        const id = parseInt(urlParams.get('id'), 10)
+        const id = parseInt(urlParams.get('id'), 10 )
 
         const response = await fetch(`/products/${id}/details`);
         const products_details = await response.json();
