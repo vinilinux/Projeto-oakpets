@@ -22,16 +22,9 @@ document.addEventListener("DOMContentLoaded", function() {
         console.log("AtualizarIconeCarrinhoGlobal concluído com sucesso");
     }
 
-
-
     atualizarIconeCarrinho();
 
 });
-
-
-
-
-
 
 $(document).ready(function () {
 
@@ -50,6 +43,11 @@ if (pedidoCompleto) {
 
     //Tratando o endereço
     var endereco = visualizacaoPedido.endereco;
+    endereco = endereco.replace("Endereço", "").trim();
+    endereco = endereco.replace("Entrega", "").trim();
+    endereco = endereco.replace("Selecionar outro endereço", "").trim();
+    endereco = endereco.replace("Adicionar Novo Endereço", "").trim();
+    console.log(endereco)
     var enderecoPedido = document.getElementById('endereco');
     enderecoPedido.textContent = endereco;
     var idEndereco = endereco.match(/\d+/);
@@ -90,13 +88,21 @@ if (carrinho) {
 
     if (produtosCarrinho.length > 0) {
         var listaProdutos = document.getElementById('listaProdutos');
+        var listaProdutosQuant = document.getElementById('ListaProdutosQuant');
+        var listaProdutosValor = document.getElementById(('ListaProdutosValor'));
 
         produtosCarrinho.forEach(function (produto) {
             var nomeProduto = produto.produto.name;
             var quantidadeProduto = produto.quantidade;
             var valorProduto = produto.total;
             var listItem = document.createElement('li');
-            listItem.textContent = nomeProduto + ' (Quantidade: ' + quantidadeProduto + ', Valor: R$ ' + valorProduto + ')';
+            var listItemQuant = document.createElement('li');
+            var listItemValor = document.createElement(('li'));
+            listItem.textContent = nomeProduto;
+            listItemQuant.textContent = quantidadeProduto;
+            listItemValor.textContent = 'R$ ' + valorProduto;
+            listaProdutosValor.appendChild(listItemValor);
+            listaProdutosQuant.appendChild((listItemQuant));
             listaProdutos.appendChild(listItem);
         });
     } else {

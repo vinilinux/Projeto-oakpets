@@ -39,12 +39,6 @@
     <link rel="stylesheet" href="./CSS/footer.css">
 
 
-
-
-
-
-
-
     <title>Visualização Pedido</title>
 
 </head>
@@ -70,7 +64,7 @@
                     <a class="nav-link active" href="./list-card.html">Produtos</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="./sobre.html">Sobre</a>
+                    <a class="nav-link" href="./tela-sobre.html">Sobre</a>
                 </li>
             </ul>
         </div>
@@ -102,86 +96,122 @@
 
     </div>
 </nav>
-    <div class="container">
-        <div class="row justify-content-md-center">
-            <div class="col border border-color ">
-                <h1 class="titulo-fonte ajuste-margin-bottom">Informações do pedido</h1>
-                <div class="row justify-content-md-center">
-                    <div class="col">
-                        <h2 class="subtitulo-fonte ajuste-margin-bottom">Dados pessoais</h2>
-                        <div class="col back-color">
-                            <p id="dadosPessoais"></p>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <h2 class="subtitulo-fonte ajuste-margin-bottom">Endereço de entrega</h2>
-                        <div class="col back-color">
-                            <p id="endereco"></p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col border border-color ajuste-margin-left-right">
-                <h1 class="titulo-fonte ajuste-margin-bottom">Resumo</h1>
-                <div class="col ">
-                    <div class="row justify-content-md-center ajuste-margin-bottom">
-                        <div class="col">
-                            Total + Frete
-                        </div>
-                        <div class="col" id="valorTotal">
-                        </div>
-                    </div>
-                    <div class="d-grid gap-2 col-6 mx-auto">
-                        <button id="enviarPedido" class="btn btn-primary bnt-color-primary">Finalizar</button>
-                        <button class="btn btn-outline-primary bnt-color-secundary" type="button">Voltar</button></a>
-                    </div>
+    <div class="container ajuste-margin-top">
+        <div class="row justify-content-md-center border border-color ajuste-margin-top">
+            <div class="col">
+                <div class="row justify-content-between">
+                    <div class="col-7">
+                        <div class="row justify-content-md-center border border-color">
+                            <div class="col">
+                                <h1 class="titulo-fonte ajuste-margin-bottom">Informações do pedido</h1>
+                                <h2 class="subtitulo-fonte ajuste-margin-bottom">Dados da entrega</h2>
+                                <div class="col">
+                                    <div class="row justify-content-md-center">
+                                        <div class="col-2 subtitulo-fonte">
+                                            <p>Cliente: </p>
+                                        </div>
+                                        <div class="col-10">
+                                            <p id="dadosPessoais"></p>
+                                        </div>
+                                    </div>
 
+                                </div>
+                                <div class="col">
+                                    <div class="row justify-content-md-center">
+                                        <div class="col-2 subtitulo-fonte">
+                                            <p>Endereço: </p>
+                                        </div>
+                                        <div class="col-10">
+                                            <p id="endereco"></p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <h1 class="titulo-fonte ajuste-margin-bottom">Resumo</h1>
+                        <div class="col ">
+                            <div class="row justify-content-center ajuste-margin-bottom">
+                                <div class="col-1"></div>
+                                <div class="col-4">
+                                    <p>Total + Frete: </p>
+                                </div>
+                                <div class="col-3" id="valorTotal">
+                                </div>
+                            </div>
+                            <div class="d-grid gap-2 col-6 mx-auto">
+                                <button id="enviarPedido" class="btn btn-primary bnt-color-primary">Finalizar</button>
+                                <button class="btn btn-outline-primary bnt-color-secundary" type="button">Voltar</button></a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="row justify-content-md-center">
-            <div class="col-6 border border-color ">
-                <h1 class="titulo-fonte">Forma de pagamento selecionado</h1>
-
-                <div class="row justify-content-md-center border border-color">
+    </div>
+    <div class="container ajuste-margin-top">
+        <div class="row justify-content-between border border-color">
+            <div class="col-6">
+                <h1 class="titulo-fonte ajuste-margin-bottom">Forma de pagamento</h1>
+                <div class="row border border-color">
                     <div class="col">
                         <h2 class="subtitulo-fonte" id="forma-pagamento"> </h2>
                     </div>
-                    <div class="col ">
-                        icone
+                </div>
+            </div>
+            <div class="col-5">
+            <h1 class="titulo-fonte ajuste-margin-bottom">Frete</h1>
+            <div class="row justify-content-md-center border border-color">
+                <div class="col">
+                    <h2 class="subtitulo-fonte" id="tipoFrete"></h2>
+                </div>
+                <div class="col">
+                    <div class="row" style="margin-bottom: -20px">
+                        <div class="col-4"></div>
+                        <div class="col-2">
+                            <p>R$ </p>
+                        </div>
+                        <div class="col-2">
+                            <p id="freteValor"></p>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="col-6 border border-color">
-
             </div>
         </div>
+    </div>
+    <div class="container ajuste-margin-top">
         <div class="row justify-content-md-center">
-            <div class="col border border-color">
-                <div class="row justify-content-md-center border border-color">
-
-                    <ul id="listaProdutos"></ul>
-
-                </div>
-            </div>
             <div class="col">
-            </div>
-        </div>
-        <div class="row justify-content-md-center">
-            <div class="col-6 border border-color">
-                <h1 class="titulo-fonte">Frete</h1>
-
-                <div class="row justify-content-md-center border border-color">
-                    <div class="col">
-                        <h2 class="subtitulo-fonte" id="tipoFrete"></h2>
-                    </div>
-                    <div class="col" style="display: flex;">
-                        <p>R$ </p><p id="freteValor"></p>
+                <div class="row justify-content-md-center">
+                    <h1 class="titulo-fonte ajuste-margin-top" id="numeroPedido"></h1>
+                    <div class="col border border-color ">
+                        <h1 class="subtitulo-fonte ajuste-margin-bottom"></h1>
+                        <div class="row justify-content-md-center">
+                            <div class="col-1"></div>
+                            <div class="col-5">
+                                <h2 class="subtitulo-fonte ajuste-margin-bottom">Produto(s)</h2>
+                                <div class="row justify-content-md-center">
+                                    <ul id="listaProdutos"></ul>
+                                </div>
+                            </div>
+                            <div class="col-3">
+                                <h2 class="subtitulo-fonte ajuste-margin-bottom">Qtde.</h2>
+                                <div class="row justify-content-md-center" style="margin-left: 4px">
+                                    <ul id="ListaProdutosQuant"></ul>
+                                </div>
+                            </div>
+                            <div class="col-3">
+                                <h2 class="subtitulo-fonte ajuste-margin-bottom">Valor</h2>
+                                <div class="titulo-fonte row justify-content-md-center">
+                                    <ul id="ListaProdutosValor"></ul>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-6">
-
             </div>
         </div>
     </div>
